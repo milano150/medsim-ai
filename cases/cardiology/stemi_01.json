@@ -1,0 +1,95 @@
+{
+  "case_id": "cardio-001",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Cardiology",
+    "difficulty": "intermediate",
+    "tags": [
+      "chest pain",
+      "stemi",
+      "myocardial infarction"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "James Walker",
+    "age": 58,
+    "sex": "male",
+    "occupation": "bus driver"
+  },
+
+  "presenting_complaint": "Crushing chest pain for 2 hours radiating to the left arm",
+
+  "hidden_diagnosis": "Acute STEMI (LAD occlusion)",
+
+  "history_data": {
+    "hpi": "Chest pain started suddenly 2 hours ago while driving. Pain is central, crushing in nature, radiates to the left arm, associated with sweating and nausea.",
+
+    "pmh": [
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+
+    "medications": [
+      "Amlodipine 5mg daily",
+      "Atorvastatin 20mg daily"
+    ],
+
+    "social": {
+      "smoking": "1 pack per day for 30 years",
+      "alcohol": "Occasional",
+      "exercise": "Minimal"
+    }
+  },
+
+  "vitals": {
+    "bp": "94/60",
+    "hr": 112,
+    "rr": 22,
+    "spo2": 94,
+    "temp": 37.1
+  },
+
+  "investigations": {
+    "ECG": "ST elevation V1-V4",
+    "Troponin": "0.8 ng/mL (elevated)",
+    "CBC": "Normal",
+    "Chest X-Ray": "No acute abnormality"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "pain location",
+      "pain radiation",
+      "pain duration",
+      "pain severity",
+      "shortness of breath",
+      "nausea",
+      "sweating",
+      "cardiac risk factors"
+    ],
+
+    "red_flags": [
+      "hypotension",
+      "persistent chest pain",
+      "tachycardia"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "stemi",
+      "acute myocardial infarction",
+      "heart attack",
+      "anterior wall myocardial infarction"
+    ],
+
+    "patient_response_rules": {
+        "never_reveal_diagnosis": true,
+        "only_answer_if_asked": true,
+        "emotional_state": "anxious",
+        "pain_score": 8
+    }
+
+    
+  }
+}

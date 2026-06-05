@@ -1,0 +1,89 @@
+{
+  "case_id": "pulm-001",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Pulmonology",
+    "difficulty": "easy",
+    "tags": [
+      "asthma",
+      "wheezing",
+      "shortness of breath"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Emily Carter",
+    "age": 21,
+    "sex": "female",
+    "occupation": "college student"
+  },
+
+  "presenting_complaint": "Shortness of breath and wheezing for 2 days",
+
+  "hidden_diagnosis": "Acute Asthma Exacerbation",
+
+  "history_data": {
+    "hpi": "Patient reports worsening shortness of breath over the last 2 days. Symptoms began after cleaning a dusty room. She has wheezing, chest tightness, and a dry cough. Symptoms are worse at night.",
+
+    "pmh": [
+      "Childhood asthma",
+      "Seasonal allergies"
+    ],
+
+    "medications": [
+      "Salbutamol inhaler as needed"
+    ],
+
+    "social": {
+      "smoking": "None",
+      "alcohol": "Occasional",
+      "exercise": "Moderate"
+    }
+  },
+
+  "vitals": {
+    "bp": "122/78",
+    "hr": 102,
+    "rr": 24,
+    "spo2": 95,
+    "temp": 36.9
+  },
+
+  "investigations": {
+    "Peak Flow": "60% of predicted",
+    "Chest X-Ray": "Normal",
+    "CBC": "Normal"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "wheezing",
+      "cough",
+      "trigger exposure",
+      "night symptoms",
+      "previous asthma history",
+      "inhaler use",
+      "allergies"
+    ],
+
+    "red_flags": [
+      "oxygen saturation below 92%",
+      "inability to complete sentences",
+      "silent chest"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "asthma",
+      "acute asthma exacerbation",
+      "bronchial asthma"
+    ]
+  },
+
+  "patient_response_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "anxious",
+    "pain_score": 0
+  }
+}

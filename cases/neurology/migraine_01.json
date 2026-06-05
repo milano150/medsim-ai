@@ -1,0 +1,89 @@
+{
+  "case_id": "neuro-001",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Neurology",
+    "difficulty": "easy",
+    "tags": [
+      "headache",
+      "migraine",
+      "photophobia",
+      "aura"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Sophia Green",
+    "age": 26,
+    "sex": "female",
+    "occupation": "graphic designer"
+  },
+
+  "presenting_complaint": "Severe headache on the right side of the head for 8 hours",
+
+  "hidden_diagnosis": "Migraine with Aura",
+
+  "history_data": {
+    "hpi": "Patient reports a throbbing headache affecting the right side of the head. Symptoms began 8 hours ago and were preceded by flashing lights in her vision. Associated with nausea and sensitivity to light.",
+
+    "pmh": [
+      "Previous migraine episodes"
+    ],
+
+    "medications": [
+      "Occasional ibuprofen"
+    ],
+
+    "social": {
+      "smoking": "None",
+      "alcohol": "Rarely",
+      "exercise": "Regular"
+    }
+  },
+
+  "vitals": {
+    "bp": "118/74",
+    "hr": 78,
+    "rr": 16,
+    "spo2": 99,
+    "temp": 36.8
+  },
+
+  "investigations": {
+    "CT Brain": "Normal",
+    "CBC": "Normal",
+    "Electrolytes": "Normal"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "headache location",
+      "headache duration",
+      "aura",
+      "light sensitivity",
+      "nausea",
+      "previous episodes",
+      "neurological symptoms"
+    ],
+
+    "red_flags": [
+      "sudden onset",
+      "loss of consciousness",
+      "focal neurological deficits"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "migraine",
+      "migraine with aura",
+      "classic migraine"
+    ]
+  },
+
+  "patient_response_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "uncomfortable",
+    "pain_score": 7
+  }
+}
