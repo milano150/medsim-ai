@@ -1,0 +1,15 @@
+{
+  "name": "James",
+  "age": 58,
+  "complaint": "Chest pain",
+  "diagnosis": "STEMI",
+  "history": {
+    "radiation": "Left arm",
+    "duration": "2 hours",
+    "severity": "8/10"
+  },
+  "tests": {
+    "ECG": "ST elevation V1-V4",
+    "Troponin": "Elevated"
+  }
+}
