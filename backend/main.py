@@ -52,8 +52,12 @@ def get_random_case(specialty: str):
 
     return {
         "case_id": case["case_id"],
-        "name": case["name"],
-        "age": case["age"],
-        "complaint": case["complaint"],
-        "specialty": case["specialty"]
+        "specialty": case["metadata"]["specialty"],
+
+        "name": case["patient_persona"]["name"],
+        "age": case["patient_persona"]["age"],
+        "sex": case["patient_persona"]["sex"],
+        "occupation": case["patient_persona"]["occupation"],
+
+        "complaint": case["presenting_complaint"]
     }
