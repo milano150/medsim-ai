@@ -1,0 +1,79 @@
+{
+  "case_id": "pulm-003",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Pulmonology",
+    "difficulty": "beginner",
+    "tags": [
+      "pneumonia",
+      "fever",
+      "cough"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Sarah Mitchell",
+    "age": 45,
+    "sex": "female",
+    "occupation": "School Teacher"
+  },
+
+  "presenting_complaint": "Fever and productive cough for 5 days",
+
+  "hidden_diagnosis": "Community Acquired Pneumonia",
+
+  "history_data": {
+    "hpi": "The patient developed fever, chills, productive cough with yellow sputum, and right-sided chest discomfort. Symptoms have progressively worsened over 5 days.",
+
+    "pmh": [],
+    "medications": [],
+    "social": {
+      "smoking": "Never",
+      "alcohol": "Rare"
+    }
+  },
+
+  "vitals": {
+    "bp": "118/74",
+    "hr": 108,
+    "rr": 24,
+    "spo2": 93,
+    "temp": 39.1
+  },
+
+  "investigations": {
+    "Chest X-Ray": "Right lower lobe consolidation",
+    "CBC": "Elevated WBC count",
+    "Sputum Culture": "Pending"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "cough",
+      "sputum",
+      "fever",
+      "chills",
+      "chest pain",
+      "shortness of breath",
+      "recent illness",
+      "smoking history"
+    ],
+    "red_flags": [
+      "hypoxia",
+      "high fever",
+      "tachypnea"
+    ],
+    "correct_diagnosis_keywords": [
+      "community acquired pneumonia",
+      "pneumonia",
+      "lung infection"
+    ],
+    "patient_response_rules": {
+      "never_reveal_diagnosis": true,
+      "only_answer_if_asked": true,
+      "emotional_state": "ill",
+      "pain_score": 6
+    }
+  }
+}

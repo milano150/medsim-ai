@@ -1,0 +1,89 @@
+{
+  "case_id": "neuro-003",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Neurology",
+    "difficulty": "intermediate",
+    "tags": [
+      "seizure",
+      "loss of consciousness",
+      "epilepsy"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Emily Carter",
+    "age": 24,
+    "sex": "female",
+    "occupation": "University Student"
+  },
+
+  "presenting_complaint": "I blacked out and woke up confused."
+
+  ,
+
+  "hidden_diagnosis": "Generalized Tonic-Clonic Seizure",
+
+  "history_data": {
+    "hpi": "Witnesses report the patient suddenly lost consciousness, became stiff, and developed rhythmic jerking movements lasting approximately two minutes. She was confused afterward and bit her tongue.",
+
+    "pmh": [
+      "No major illnesses"
+    ],
+
+    "medications": [],
+
+    "social": {
+      "smoking": "Never",
+      "alcohol": "Occasional",
+      "sleep": "Poor over the last week"
+    }
+  },
+
+  "vitals": {
+    "bp": "128/78",
+    "hr": 102,
+    "rr": 18,
+    "spo2": 98,
+    "temp": 36.7
+  },
+
+  "investigations": {
+    "CT Brain": "Normal",
+    "CBC": "Normal",
+    "Electrolytes": "Normal"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "loss of consciousness",
+      "jerking movements",
+      "tongue biting",
+      "incontinence",
+      "confusion afterward",
+      "previous seizures",
+      "sleep deprivation",
+      "drug use"
+    ],
+
+    "red_flags": [
+      "status epilepticus",
+      "recurrent seizures",
+      "head trauma"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "generalized tonic clonic seizure",
+      "seizure",
+      "epileptic seizure"
+    ],
+
+    "patient_response_rules": {
+      "never_reveal_diagnosis": true,
+      "only_answer_if_asked": true,
+      "emotional_state": "confused",
+      "symptom_score": 7
+    }
+  }
+}

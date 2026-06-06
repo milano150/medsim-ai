@@ -1,0 +1,82 @@
+{
+  "case_id": "pulm-004",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Pulmonology",
+    "difficulty": "advanced",
+    "tags": [
+      "pulmonary embolism",
+      "chest pain",
+      "dyspnea"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Jennifer Cole",
+    "age": 34,
+    "sex": "female",
+    "occupation": "Office Manager"
+  },
+
+  "presenting_complaint": "Sudden shortness of breath and chest pain",
+
+  "hidden_diagnosis": "Acute Pulmonary Embolism",
+
+  "history_data": {
+    "hpi": "The patient developed sudden shortness of breath and sharp chest pain while at work. Pain worsens when taking deep breaths. She recently returned from a 12-hour international flight.",
+
+    "pmh": [],
+    "medications": [
+      "Combined Oral Contraceptive Pill"
+    ],
+
+    "social": {
+      "smoking": "Never",
+      "alcohol": "Occasional"
+    }
+  },
+
+  "vitals": {
+    "bp": "108/68",
+    "hr": 126,
+    "rr": 30,
+    "spo2": 89,
+    "temp": 37.0
+  },
+
+  "investigations": {
+    "ECG": "Sinus tachycardia",
+    "D-Dimer": "Elevated",
+    "CT Pulmonary Angiography": "Segmental pulmonary embolus"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "onset",
+      "pleuritic chest pain",
+      "recent travel",
+      "leg swelling",
+      "oral contraceptive use",
+      "shortness of breath",
+      "previous clots",
+      "hemoptysis"
+    ],
+    "red_flags": [
+      "hypoxia",
+      "tachycardia",
+      "sudden onset dyspnea"
+    ],
+    "correct_diagnosis_keywords": [
+      "pulmonary embolism",
+      "pe",
+      "acute pulmonary embolus"
+    ],
+    "patient_response_rules": {
+      "never_reveal_diagnosis": true,
+      "only_answer_if_asked": true,
+      "emotional_state": "anxious",
+      "breathlessness_score": 9
+    }
+  }
+}

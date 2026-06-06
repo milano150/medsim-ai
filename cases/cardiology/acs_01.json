@@ -1,0 +1,95 @@
+{
+  "case_id": "cardio-003",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Cardiology",
+    "difficulty": "intermediate",
+    "tags": [
+      "chest pain",
+      "unstable angina",
+      "acute coronary syndrome"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Robert Hayes",
+    "age": 64,
+    "sex": "male",
+    "occupation": "Accountant"
+  },
+
+  "presenting_complaint": "Chest tightness occurring at rest since this morning",
+
+  "hidden_diagnosis": "Unstable Angina",
+
+  "history_data": {
+    "hpi": "The patient reports intermittent episodes of central chest tightness over the past week. Today, the pain occurred while resting and lasted approximately 20 minutes. The discomfort is described as pressure-like and occasionally radiates to the jaw. Associated symptoms include mild shortness of breath and sweating. Symptoms have become more frequent over the last few days.",
+
+    "pmh": [
+      "Coronary Artery Disease",
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+
+    "medications": [
+      "Aspirin 81mg daily",
+      "Metoprolol 50mg daily",
+      "Atorvastatin 40mg daily"
+    ],
+
+    "social": {
+      "smoking": "Former smoker, 25 pack-years",
+      "alcohol": "Occasional",
+      "exercise": "Sedentary lifestyle"
+    }
+  },
+
+  "vitals": {
+    "bp": "148/88",
+    "hr": 96,
+    "rr": 18,
+    "spo2": 97,
+    "temp": 36.9
+  },
+
+  "investigations": {
+    "ECG": "ST-segment depression in leads V4-V6",
+    "Troponin": "Negative",
+    "CBC": "Normal",
+    "Chest X-Ray": "No acute abnormality"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "pain location",
+      "pain radiation",
+      "pain duration",
+      "pain frequency",
+      "pain triggers",
+      "shortness of breath",
+      "sweating",
+      "cardiac risk factors"
+    ],
+
+    "red_flags": [
+      "chest pain at rest",
+      "increasing frequency of symptoms",
+      "ecg ischemic changes"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "unstable angina",
+      "acute coronary syndrome",
+      "acs",
+      "cardiac ischemia"
+    ],
+
+    "patient_response_rules": {
+      "never_reveal_diagnosis": true,
+      "only_answer_if_asked": true,
+      "emotional_state": "concerned",
+      "pain_score": 6
+    }
+  }
+}

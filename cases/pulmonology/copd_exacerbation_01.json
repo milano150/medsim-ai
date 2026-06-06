@@ -1,0 +1,87 @@
+{
+  "case_id": "pulm-002",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Pulmonology",
+    "difficulty": "intermediate",
+    "tags": [
+      "copd",
+      "shortness of breath",
+      "smoker"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Thomas Reed",
+    "age": 67,
+    "sex": "male",
+    "occupation": "Retired Factory Worker"
+  },
+
+  "presenting_complaint": "Worsening shortness of breath and cough for 4 days",
+
+  "hidden_diagnosis": "Acute COPD Exacerbation",
+
+  "history_data": {
+    "hpi": "The patient has increasing breathlessness over the last 4 days with productive cough producing yellow sputum. He is using his inhalers more frequently than usual and becomes breathless after walking short distances.",
+
+    "pmh": [
+      "COPD",
+      "Hypertension"
+    ],
+
+    "medications": [
+      "Tiotropium",
+      "Albuterol inhaler"
+    ],
+
+    "social": {
+      "smoking": "2 packs per day for 40 years",
+      "alcohol": "Occasional"
+    }
+  },
+
+  "vitals": {
+    "bp": "138/84",
+    "hr": 112,
+    "rr": 28,
+    "spo2": 89,
+    "temp": 37.8
+  },
+
+  "investigations": {
+    "Chest X-Ray": "Hyperinflated lungs",
+    "CBC": "Mild leukocytosis",
+    "ABG": "Mild respiratory acidosis"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "smoking history",
+      "sputum production",
+      "wheeze",
+      "exercise tolerance",
+      "inhaler use",
+      "fever",
+      "previous exacerbations",
+      "oxygen use"
+    ],
+    "red_flags": [
+      "hypoxia",
+      "respiratory distress",
+      "confusion"
+    ],
+    "correct_diagnosis_keywords": [
+      "copd exacerbation",
+      "acute copd",
+      "chronic obstructive pulmonary disease exacerbation"
+    ],
+    "patient_response_rules": {
+      "never_reveal_diagnosis": true,
+      "only_answer_if_asked": true,
+      "emotional_state": "worried",
+      "breathlessness_score": 8
+    }
+  }
+}

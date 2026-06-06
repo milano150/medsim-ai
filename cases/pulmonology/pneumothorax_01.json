@@ -1,0 +1,77 @@
+{
+  "case_id": "pulm-005",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Pulmonology",
+    "difficulty": "intermediate",
+    "tags": [
+      "pneumothorax",
+      "chest pain",
+      "dyspnea"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Ryan Brooks",
+    "age": 22,
+    "sex": "male",
+    "occupation": "College Student"
+  },
+
+  "presenting_complaint": "Sudden chest pain while playing basketball",
+
+  "hidden_diagnosis": "Primary Spontaneous Pneumothorax",
+
+  "history_data": {
+    "hpi": "The patient developed sudden left-sided chest pain and shortness of breath during a basketball game. Symptoms started abruptly and have persisted.",
+
+    "pmh": [],
+    "medications": [],
+    "social": {
+      "smoking": "Occasional",
+      "alcohol": "Socially"
+    }
+  },
+
+  "vitals": {
+    "bp": "122/76",
+    "hr": 118,
+    "rr": 26,
+    "spo2": 91,
+    "temp": 36.8
+  },
+
+  "investigations": {
+    "Chest X-Ray": "Large left-sided pneumothorax"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "sudden onset",
+      "chest pain",
+      "shortness of breath",
+      "trauma",
+      "smoking",
+      "exercise",
+      "previous episodes",
+      "pain location"
+    ],
+    "red_flags": [
+      "hypoxia",
+      "respiratory distress",
+      "tension pneumothorax signs"
+    ],
+    "correct_diagnosis_keywords": [
+      "pneumothorax",
+      "collapsed lung",
+      "spontaneous pneumothorax"
+    ],
+    "patient_response_rules": {
+      "never_reveal_diagnosis": true,
+      "only_answer_if_asked": true,
+      "emotional_state": "frightened",
+      "pain_score": 8
+    }
+  }
+}

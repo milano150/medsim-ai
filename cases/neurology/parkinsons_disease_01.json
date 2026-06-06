@@ -1,0 +1,89 @@
+{
+  "case_id": "neuro-005",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Neurology",
+    "difficulty": "beginner",
+    "tags": [
+      "tremor",
+      "movement disorder",
+      "parkinsons"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Walter Greene",
+    "age": 68,
+    "sex": "male",
+    "occupation": "Retired Accountant"
+  },
+
+  "presenting_complaint": "My hands have been shaking for months."
+
+  ,
+
+  "hidden_diagnosis": "Parkinson's Disease",
+
+  "history_data": {
+    "hpi": "The patient reports a slowly progressive resting tremor of the right hand over the past year. Family members have noticed slower movements and a shuffling gait.",
+
+    "pmh": [
+      "Hypertension"
+    ],
+
+    "medications": [
+      "Amlodipine"
+    ],
+
+    "social": {
+      "smoking": "Never",
+      "alcohol": "Rare"
+    }
+  },
+
+  "vitals": {
+    "bp": "132/80",
+    "hr": 74,
+    "rr": 16,
+    "spo2": 99,
+    "temp": 36.8
+  },
+
+  "investigations": {
+    "MRI Brain": "No acute abnormality",
+    "Neurological Exam": "Resting tremor, rigidity, bradykinesia"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "tremor",
+      "resting vs action",
+      "gait changes",
+      "rigidity",
+      "bradykinesia",
+      "speech changes",
+      "family history",
+      "duration"
+    ],
+
+    "red_flags": [
+      "frequent falls",
+      "rapid progression",
+      "swallowing difficulty"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "parkinsons disease",
+      "parkinsonism",
+      "idiopathic parkinsons"
+    ],
+
+    "patient_response_rules": {
+      "never_reveal_diagnosis": true,
+      "only_answer_if_asked": true,
+      "emotional_state": "concerned",
+      "symptom_score": 5
+    }
+  }
+}

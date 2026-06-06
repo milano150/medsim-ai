@@ -1,0 +1,98 @@
+{
+  "case_id": "cardio-002",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Cardiology",
+    "difficulty": "intermediate",
+    "tags": [
+      "shortness of breath",
+      "heart failure",
+      "pulmonary edema"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Margaret Collins",
+    "age": 72,
+    "sex": "female",
+    "occupation": "Retired teacher"
+  },
+
+  "presenting_complaint": "Increasing shortness of breath for 3 days"
+
+  ,
+
+  "hidden_diagnosis": "Acute Decompensated Heart Failure with Pulmonary Edema",
+
+  "history_data": {
+    "hpi": "Shortness of breath began gradually 3 days ago and has worsened. The patient becomes breathless when walking short distances and needs multiple pillows to sleep at night. She reports swelling in both legs and waking up suddenly at night gasping for air.",
+
+    "pmh": [
+      "Congestive Heart Failure",
+      "Hypertension",
+      "Type 2 Diabetes"
+    ],
+
+    "medications": [
+      "Furosemide 40mg daily",
+      "Lisinopril 10mg daily",
+      "Metformin 500mg twice daily"
+    ],
+
+    "social": {
+      "smoking": "Never smoked",
+      "alcohol": "Rare",
+      "exercise": "Limited due to breathlessness"
+    }
+  },
+
+  "vitals": {
+    "bp": "168/98",
+    "hr": 118,
+    "rr": 28,
+    "spo2": 88,
+    "temp": 36.8
+  },
+
+  "investigations": {
+    "ECG": "Sinus tachycardia",
+    "BNP": "1800 pg/mL (elevated)",
+    "Troponin": "Negative",
+    "CBC": "Normal",
+    "Chest X-Ray": "Bilateral pulmonary edema with cardiomegaly"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "shortness of breath duration",
+      "orthopnea",
+      "paroxysmal nocturnal dyspnea",
+      "leg swelling",
+      "exercise tolerance",
+      "chest pain",
+      "cough",
+      "heart failure history"
+    ],
+
+    "red_flags": [
+      "hypoxia",
+      "tachypnea",
+      "worsening respiratory distress"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "acute heart failure",
+      "acute decompensated heart failure",
+      "pulmonary edema",
+      "congestive heart failure exacerbation"
+    ],
+
+    "patient_response_rules": {
+      "never_reveal_diagnosis": true,
+      "only_answer_if_asked": true,
+      "emotional_state": "worried",
+      "breathlessness_score": 8
+    }
+  }
+}

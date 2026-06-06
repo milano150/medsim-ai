@@ -1,0 +1,95 @@
+{
+  "case_id": "afib-rvr-001",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Cardiology",
+    "difficulty": "intermediate",
+    "tags": [
+      "palpitations",
+      "atrial fibrillation",
+      "tachycardia",
+      "arrhythmia"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Linda Thompson",
+    "age": 69,
+    "sex": "female",
+    "occupation": "Retired Nurse"
+  },
+
+  "presenting_complaint": "My heart has been racing since this morning."
+  ,
+
+  "hidden_diagnosis": "Atrial Fibrillation with Rapid Ventricular Response",
+
+  "history_data": {
+    "hpi": "The patient noticed a sudden onset of rapid, irregular heartbeats approximately 8 hours ago while watching television. She feels dizzy and mildly short of breath. She denies severe chest pain but reports fatigue and anxiety.",
+
+    "pmh": [
+      "Hypertension",
+      "Hyperthyroidism"
+    ],
+
+    "medications": [
+      "Amlodipine 5mg daily",
+      "Methimazole 10mg daily"
+    ],
+
+    "social": {
+      "smoking": "Never",
+      "alcohol": "Occasional",
+      "exercise": "Walks twice weekly"
+    }
+  },
+
+  "vitals": {
+    "bp": "108/72",
+    "hr": 156,
+    "rr": 22,
+    "spo2": 97,
+    "temp": 36.8
+  },
+
+  "investigations": {
+    "ECG": "Irregularly irregular rhythm, absent P waves, ventricular rate 156 bpm",
+    "Troponin": "Negative",
+    "CBC": "Normal",
+    "TSH": "Low"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "palpitations",
+      "onset",
+      "dizziness",
+      "shortness of breath",
+      "chest pain",
+      "previous episodes",
+      "thyroid history",
+      "medications"
+    ],
+
+    "red_flags": [
+      "heart rate >150",
+      "hypotension",
+      "syncope"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "atrial fibrillation",
+      "afib",
+      "atrial fibrillation with rvr",
+      "af with rvr"
+    ],
+
+    "patient_response_rules": {
+      "never_reveal_diagnosis": true,
+      "only_answer_if_asked": true,
+      "emotional_state": "anxious",
+      "symptom_score": 7
+    }
+  }
+}

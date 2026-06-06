@@ -1,0 +1,86 @@
+{
+  "case_id": "neuro-004",
+  "version": "1.0",
+
+  "metadata": {
+    "specialty": "Neurology",
+    "difficulty": "intermediate",
+    "tags": [
+      "fever",
+      "headache",
+      "neck stiffness"
+    ]
+  },
+
+  "patient_persona": {
+    "name": "Daniel Ross",
+    "age": 22,
+    "sex": "male",
+    "occupation": "College Student"
+  },
+
+  "presenting_complaint": "Severe headache and fever."
+
+  ,
+
+  "hidden_diagnosis": "Acute Bacterial Meningitis",
+
+  "history_data": {
+    "hpi": "The patient developed fever and headache two days ago. Symptoms have worsened with neck stiffness, sensitivity to light, nausea, and vomiting.",
+
+    "pmh": [],
+
+    "medications": [],
+
+    "social": {
+      "smoking": "Never",
+      "alcohol": "Socially"
+    }
+  },
+
+  "vitals": {
+    "bp": "110/70",
+    "hr": 118,
+    "rr": 22,
+    "spo2": 97,
+    "temp": 39.4
+  },
+
+  "investigations": {
+    "CBC": "Elevated WBC",
+    "Lumbar Puncture": "High neutrophils, low glucose, elevated protein",
+    "CT Brain": "Normal"
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "headache",
+      "fever",
+      "neck stiffness",
+      "photophobia",
+      "vomiting",
+      "rash",
+      "confusion",
+      "recent infections"
+    ],
+
+    "red_flags": [
+      "high fever",
+      "altered mental status",
+      "neck stiffness"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "bacterial meningitis",
+      "meningitis",
+      "cns infection"
+    ],
+
+    "patient_response_rules": {
+      "never_reveal_diagnosis": true,
+      "only_answer_if_asked": true,
+      "emotional_state": "miserable",
+      "pain_score": 9
+    }
+  }
+}
