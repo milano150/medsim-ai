@@ -1,0 +1,12 @@
+{
+  "case_id": "neuro-003",
+  "version": "1.0",
+  "metadata": { "specialty": "Neurology", "difficulty": "intermediate", "tags": ["seizure","loss of consciousness","postictal"] },
+  "patient_persona": { "name": "Aisha Khan", "age": 34, "sex": "female", "occupation": "teacher" },
+  "presenting_complaint": "Witnessed generalized tonic-clonic seizure with postictal confusion",
+  "hidden_diagnosis": "New onset unprovoked seizure", 
+  "history_data": { "hpi": "No prior seizure history; alcohol and drug screen negative.", "pmh": [], "medications": [], "social": {} },
+  "vitals": { "bp": "120/78", "hr": 96, "rr": 18, "spo2": 96, "temp": 36.8 },
+  "investigations": { "CT Brain": "Normal", "EEG": "Pending" },
+  "scoring_rubric": { "essential_questions": ["duration","postictal recovery","provoking factors"], "red_flags": ["status epilepticus","focal deficits"], "correct_diagnosis_keywords": ["seizure","epilepsy"] }
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "pulm-003",
+  "version": "1.0",
+  "metadata": { "specialty": "Pulmonology", "difficulty": "intermediate", "tags": ["copd","exacerbation","smoking"] },
+  "patient_persona": { "name": "James Reed", "age": 69, "sex": "male", "occupation": "retired" },
+  "presenting_complaint": "Worsening breathlessness and productive cough over 4 days",
+  "hidden_diagnosis": "COPD exacerbation likely triggered by infection",
+  "history_data": { "hpi": "Chronic dyspnea with recent increase in sputum volume and purulence.", "pmh": ["COPD"], "medications": ["Tiotropium","Salbutamol"], "social": {"smoking":"Current"} },
+  "vitals": { "bp": "130/78", "hr": 96, "rr": 24, "spo2": 90, "temp": 37.8 },
+  "investigations": { "CXR": "Hyperinflation, no focal consolidation", "ABG": "Type 2 respiratory failure (on some patients)" },
+  "scoring_rubric": { "essential_questions": ["baseline exercise tolerance","sputum change","oxygen requirement"], "red_flags": ["respiratory failure","severe hypoxia"], "correct_diagnosis_keywords": ["COPD exacerbation"] }
+}
