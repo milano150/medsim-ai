@@ -3,9 +3,13 @@ import json
 import random
 from pathlib import Path
 
-import httpx
+from dotenv import load_dotenv
+from google import genai
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = FastAPI()
 
@@ -24,7 +28,7 @@ if not GEMINI_API_KEY:
     raise RuntimeError("GEMINI_API_KEY must be set")
 
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.1-flash-lite")
-GEMINI_ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta2/models/{GEMINI_MODEL}:generateMessage"
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 def load_random_case(specialty: str):
     specialty_folder = BASE_CASES_PATH / specialty.lower()
@@ -68,37 +72,20 @@ Laboratory findings:
 
 
 def call_gemini(prompt: str) -> str:
-    params = {"key": GEMINI_API_KEY}
-    payload = {
-        "prompt": {
-            "messages": [
-                {
-                    "author": "user",
-                    "content": prompt,
-                }
-            ]
-        },
-        "temperature": 0.2,
-        "candidateCount": 1,
-    }
-
-    with httpx.Client(timeout=30.0) as client:
-        try:
-            response = client.post(GEMINI_ENDPOINT, params=params, json=payload)
-            response.raise_for_status()
-        except httpx.HTTPStatusError as exc:
-            raise HTTPException(
-                status_code=502,
-                detail=f"Gemini API error {exc.response.status_code}: {exc.response.text}",
-            ) from exc
-
-        data = response.json()
-
-    candidates = data.get("candidates", [])
-    if not candidates:
-        raise HTTPException(status_code=502, detail="Gemini returned no candidates")
-
-    return candidates[0].get("content", "")
+    try:
+        response = client.models.generate_content(
+            model=GEMINI_MODEL,
+            contents=prompt,
+            config=genai.types.GenerateContentConfig(
+                temperature=0.2,
+            ),
+        )
+        return response.text
+    except Exception as exc:
+        raise HTTPException(
+            status_code=502,
+            detail=f"Gemini API error: {str(exc)}",
+        ) from exc
 
 
 @app.get("/")
