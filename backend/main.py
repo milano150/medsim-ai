@@ -4,14 +4,14 @@ import random
 from pathlib import Path
 
 from dotenv import load_dotenv
-from google import genai
+from groq import Groq
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-# Load environment variables from .env file
+# Load environment variables
 load_dotenv()
 
-app = FastAPI()
+app = FastAPI(title="MedSim Backend")
 
 app.add_middleware(
     CORSMiddleware,
@@ -21,79 +21,119 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# --------------------------------------------------
+# CONFIG
+# --------------------------------------------------
+
 BASE_CASES_PATH = Path(__file__).resolve().parent.parent / "cases"
 
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-if not GEMINI_API_KEY:
-    raise RuntimeError("GEMINI_API_KEY must be set")
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.1-flash-lite")
-client = genai.Client(api_key=GEMINI_API_KEY)
+if not GROQ_API_KEY:
+    raise RuntimeError("GROQ_API_KEY must be set in .env")
+
+client = Groq(api_key=GROQ_API_KEY)
+
+# --------------------------------------------------
+# CASE LOADING
+# --------------------------------------------------
 
 def load_random_case(specialty: str):
     specialty_folder = BASE_CASES_PATH / specialty.lower()
+
     if not specialty_folder.exists():
-        raise HTTPException(status_code=404, detail="Specialty not found")
+        raise HTTPException(
+            status_code=404,
+            detail=f"Specialty '{specialty}' not found"
+        )
 
     case_files = list(specialty_folder.glob("*.json"))
+
     if not case_files:
-        raise HTTPException(status_code=404, detail="No cases found")
+        raise HTTPException(
+            status_code=404,
+            detail=f"No cases found for specialty '{specialty}'"
+        )
 
     selected_file = random.choice(case_files)
+
     with open(selected_file, "r", encoding="utf-8") as f:
         return json.load(f)
 
-def build_gemini_prompt(case: dict) -> str:
-    return f"""
-You are a medical simulation assistant creating a realistic patient opening statement.
+# --------------------------------------------------
+# PROMPT CREATION
+# --------------------------------------------------
 
-Use the case details below to write exactly one sentence spoken by the patient as they first begin describing their complaint.
-Do not add analysis, instructions, or extra text.
-Only output the patient's first sentence.
+def build_patient_prompt(case: dict) -> str:
+    return f"""
+You are roleplaying as a patient in a medical simulation.
+
+Generate exactly ONE sentence.
+
+The sentence should be the first thing the patient says when the doctor asks:
+
+"What brings you in today?"
+
+Do not explain.
+Do not diagnose.
+Do not add extra text.
+Only output the patient's sentence.
 
 Patient:
-- Name: {case['patient_persona']['name']}
-- Age: {case['patient_persona']['age']}
-- Sex: {case['patient_persona']['sex']}
-- Occupation: {case['patient_persona']['occupation']}
+Name: {case['patient_persona']['name']}
+Age: {case['patient_persona']['age']}
+Sex: {case['patient_persona']['sex']}
+Occupation: {case['patient_persona']['occupation']}
 
-Presenting complaint:
+Presenting Complaint:
 {case['presenting_complaint']}
 
 History:
 {case.get('history', '')}
 
-Physical exam:
+Physical Exam:
 {case.get('physical_exam', '')}
 
-Laboratory findings:
+Laboratory Findings:
 {case.get('laboratory_findings', '')}
 """
 
+# --------------------------------------------------
+# GROQ / LLAMA
+# --------------------------------------------------
 
-def call_gemini(prompt: str) -> str:
+def call_llm(prompt: str) -> str:
     try:
-        response = client.models.generate_content(
-            model=GEMINI_MODEL,
-            contents=prompt,
-            config=genai.types.GenerateContentConfig(
-                temperature=0.2,
-            ),
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            temperature=0.2,
+            max_tokens=100,
         )
-        return response.text
+
+        return response.choices[0].message.content.strip()
+
     except Exception as exc:
         raise HTTPException(
             status_code=502,
-            detail=f"Gemini API error: {str(exc)}",
+            detail=f"Groq API error: {str(exc)}"
         ) from exc
 
+# --------------------------------------------------
+# ROUTES
+# --------------------------------------------------
 
 @app.get("/")
 def home():
     return {
-        "message": "MedSim Backend Running"
+        "message": "MedSim Backend Running",
+        "model": "llama-3.3-70b-versatile"
     }
-
 
 @app.get("/specialty/{specialty}")
 def get_random_case(specialty: str):
@@ -109,15 +149,16 @@ def get_random_case(specialty: str):
         "complaint": case["presenting_complaint"],
     }
 
-
-@app.get("/gemini/{specialty}")
-def gemini_case(specialty: str):
+@app.get("/llm/{specialty}")
+def generate_patient_sentence(specialty: str):
     case = load_random_case(specialty)
-    prompt = build_gemini_prompt(case)
-    response_text = call_gemini(prompt)
+
+    prompt = build_patient_prompt(case)
+
+    response_text = call_llm(prompt)
 
     return {
         "case_id": case.get("case_id"),
         "specialty": specialty,
-        "patient_start_sentence": response_text.strip(),
+        "patient_start_sentence": response_text,
     }
