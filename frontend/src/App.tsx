@@ -5,6 +5,12 @@ type Message = {
   text: string;
 };
 
+type DiagnosisResult = {
+  score: number;
+  feedback: string;
+  patientReaction: string;
+};
+
 function App() {
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
   const [caseId, setCaseId] = useState("");
@@ -17,6 +23,19 @@ function App() {
   const [showVitals, setShowVitals] = useState(false);
   const [visibleVitals, setVisibleVitals] = useState<string[]>([]);
   const [visibleInvestigations, setVisibleInvestigations] = useState<string[]>([]);
+
+  // Diagnose feature state
+  const [showDiagnoseBox, setShowDiagnoseBox] = useState(false);
+  const [diagnosisInput, setDiagnosisInput] = useState("");
+  const [diagnosisResult, setDiagnosisResult] = useState<DiagnosisResult | null>(null);
+  const [diagnosisLoading, setDiagnosisLoading] = useState(false);
+  const [diagnosisSubmitted, setDiagnosisSubmitted] = useState(false);
+
+  // Timer state
+  const [timerSeconds, setTimerSeconds] = useState(0);
+  const [timerRunning, setTimerRunning] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   const specialties = ["Cardiology", "Pulmonology", "Neurology"];
@@ -30,6 +49,26 @@ function App() {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // Timer logic
+  useEffect(() => {
+    if (timerRunning) {
+      timerRef.current = setInterval(() => {
+        setTimerSeconds((prev) => prev + 1);
+      }, 1000);
+    } else {
+      if (timerRef.current) clearInterval(timerRef.current);
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [timerRunning]);
+
+  const formatTime = (secs: number) => {
+    const m = Math.floor(secs / 60).toString().padStart(2, "0");
+    const s = (secs % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+  };
 
   const startSimulation = async () => {
     setLoading(true);
@@ -49,6 +88,16 @@ function App() {
       setShowVitals(false);
       setVisibleVitals([]);
       setVisibleInvestigations([]);
+
+      // Reset diagnosis state
+      setShowDiagnoseBox(false);
+      setDiagnosisInput("");
+      setDiagnosisResult(null);
+      setDiagnosisSubmitted(false);
+
+      // Start timer
+      setTimerSeconds(0);
+      setTimerRunning(true);
     } catch (error) {
       console.error("Error:", error);
       setPatient(null);
@@ -143,6 +192,47 @@ function App() {
     }
   };
 
+  const submitDiagnosis = async () => {
+    const diagnosis = diagnosisInput.trim();
+    if (!diagnosis || !patient) return;
+
+    setDiagnosisLoading(true);
+    setDiagnosisSubmitted(true);
+
+    // Stop the timer when diagnosis is submitted
+    setTimerRunning(false);
+
+    try {
+  const response = await fetch(`http://127.0.0.1:8000/diagnose/${caseId}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      diagnosis,
+      time_taken: formatTime(timerSeconds),
+    }),
+  });
+
+  if (!response.ok) throw new Error("Backend diagnosis scoring failed.");
+  const parsed: DiagnosisResult = await response.json();
+  setDiagnosisResult(parsed);
+
+      // Add patient reaction to the chat
+      setMessages((prev) => [
+        ...prev,
+        { role: "patient", text: parsed.patientReaction },
+      ]);
+    } catch (err) {
+      console.error("Diagnosis scoring error:", err);
+      setDiagnosisResult({
+        score: 0,
+        feedback: "Could not evaluate diagnosis. Please check your connection.",
+        patientReaction: "I... I'm not sure what's happening, doctor.",
+      });
+    } finally {
+      setDiagnosisLoading(false);
+    }
+  };
+
   const resetSimulation = () => {
     setSelectedSpecialty("");
     setPatient(null);
@@ -153,6 +243,26 @@ function App() {
     setShowVitals(false);
     setVisibleVitals([]);
     setVisibleInvestigations([]);
+    setShowDiagnoseBox(false);
+    setDiagnosisInput("");
+    setDiagnosisResult(null);
+    setDiagnosisSubmitted(false);
+    setTimerSeconds(0);
+    setTimerRunning(false);
+  };
+
+  const getScoreColor = (score: number) => {
+    if (score >= 75) return "#22c55e";
+    if (score >= 50) return "#f59e0b";
+    return "#ef4444";
+  };
+
+  const getScoreLabel = (score: number) => {
+    if (score >= 90) return "Excellent";
+    if (score >= 75) return "Good";
+    if (score >= 50) return "Partial";
+    if (score >= 25) return "Poor";
+    return "Incorrect";
   };
 
   return (
@@ -165,9 +275,16 @@ function App() {
             <span className="logo-text">MedSim <span className="logo-accent">AI</span></span>
           </div>
           {patient && (
-            <button className="btn-ghost" onClick={resetSimulation}>
-              ← New Simulation
-            </button>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              {/* Timer */}
+              <div className={`timer-badge ${diagnosisSubmitted ? "stopped" : "running"}`}>
+                <span className="timer-icon">⏱</span>
+                <span className="timer-value">{formatTime(timerSeconds)}</span>
+              </div>
+              <button className="btn-ghost" onClick={resetSimulation}>
+                ← New Simulation
+              </button>
+            </div>
           )}
         </div>
       </header>
@@ -358,6 +475,88 @@ function App() {
                     Request specific tests like CBC, chest X-ray, or ECG to reveal results here.
                   </p>
                 )}
+
+                <div className="sidebar-divider" />
+
+                {/* ── Diagnose Section ── */}
+                <div className="sidebar-section-title">
+                  <span className="sidebar-icon">🩺</span> Diagnosis
+                </div>
+
+                {!diagnosisSubmitted ? (
+                  <>
+                    <button
+                      className="btn-diagnose"
+                      onClick={() => setShowDiagnoseBox((prev) => !prev)}
+                      disabled={diagnosisLoading}
+                    >
+                      {showDiagnoseBox ? "✕ Cancel Diagnosis" : "🩺 Submit Diagnosis"}
+                    </button>
+
+                    {showDiagnoseBox && (
+                      <div className="diagnose-box">
+                        <p className="diagnose-hint">Enter your final diagnosis below. The AI will score your answer based on accuracy and relevance.</p>
+                        <textarea
+                          className="diagnose-textarea"
+                          value={diagnosisInput}
+                          onChange={(e) => setDiagnosisInput(e.target.value)}
+                          placeholder="e.g. Acute STEMI, Migraine with aura, Asthma exacerbation…"
+                          rows={3}
+                          disabled={diagnosisLoading}
+                        />
+                        <button
+                          className={`btn-primary btn-diagnose-submit ${diagnosisLoading || !diagnosisInput.trim() ? "loading" : ""}`}
+                          onClick={submitDiagnosis}
+                          disabled={diagnosisLoading || !diagnosisInput.trim()}
+                        >
+                          {diagnosisLoading ? (
+                            <><span className="spinner" /> Scoring…</>
+                          ) : (
+                            "Submit & Score →"
+                          )}
+                        </button>
+                      </div>
+                    )}
+                  </>
+                ) : diagnosisResult ? (
+                  <div className="diagnosis-result">
+                    <div className="score-ring-wrap">
+                      <svg viewBox="0 0 80 80" className="score-ring">
+                        <circle cx="40" cy="40" r="34" fill="none" stroke="var(--border)" strokeWidth="8" />
+                        <circle
+                          cx="40" cy="40" r="34"
+                          fill="none"
+                          stroke={getScoreColor(diagnosisResult.score)}
+                          strokeWidth="8"
+                          strokeDasharray={`${(diagnosisResult.score / 100) * 213.6} 213.6`}
+                          strokeLinecap="round"
+                          transform="rotate(-90 40 40)"
+                          style={{ transition: "stroke-dasharray 1s ease" }}
+                        />
+                      </svg>
+                      <div className="score-ring-text">
+                        <span className="score-number" style={{ color: getScoreColor(diagnosisResult.score) }}>
+                          {diagnosisResult.score}
+                        </span>
+                        <span className="score-denom">/100</span>
+                      </div>
+                    </div>
+                    <div className="score-label" style={{ color: getScoreColor(diagnosisResult.score) }}>
+                      {getScoreLabel(diagnosisResult.score)}
+                    </div>
+                    <div className="time-taken">
+                      ⏱ Completed in <strong>{formatTime(timerSeconds)}</strong>
+                    </div>
+                    <div className="score-feedback">
+                      <div className="score-feedback-title">Feedback</div>
+                      <p>{diagnosisResult.feedback}</p>
+                    </div>
+                    <div className="score-answer">
+                      <span className="score-answer-label">Correct diagnosis:</span>
+                      <span className="score-answer-val">{patient.hidden_diagnosis}</span>
+                    </div>
+                  </div>
+                ) : null}
               </div>
 
               <button className="btn-new-sim" onClick={resetSimulation}>

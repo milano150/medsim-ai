@@ -81,6 +81,10 @@ def load_case_by_id(case_id: str):
 class ChatRequest(BaseModel):
     question: str
 
+class DiagnoseRequest(BaseModel):
+    diagnosis: str
+    time_taken: str
+
 
 def normalize_text(text: str) -> str:
     return re.sub(r"\W+", " ", text.lower()).strip()
@@ -311,3 +315,44 @@ def chat_patient(case_id: str, body: ChatRequest):
         "answer": response_text,
         "suggestions": suggest_checks(case),
     }
+
+@app.post("/diagnose/{case_id}")
+def score_diagnosis(case_id: str, body: DiagnoseRequest):
+    diagnosis = body.diagnosis.strip()
+    if not diagnosis:
+        raise HTTPException(status_code=400, detail="Diagnosis must not be empty")
+
+    case = load_case_by_id(case_id)
+    hidden_diagnosis = case.get("hidden_diagnosis", "")
+    keywords = case.get("scoring_rubric", {}).get("correct_diagnosis_keywords", [])
+    persona = case.get("patient_persona", {})
+
+    prompt = f"""You are a medical education scoring assistant. A medical student submitted a diagnosis for a simulated patient case.
+
+Hidden correct diagnosis: "{hidden_diagnosis}"
+Correct diagnosis keywords: {json.dumps(keywords)}
+Student's diagnosis: "{diagnosis}"
+Time taken: {body.time_taken}
+
+Evaluate the student's diagnosis and respond ONLY with a valid JSON object (no markdown, no backticks, no extra text) in this exact format:
+{{"score": <number 0-100>, "feedback": "<2-3 sentence constructive feedback explaining the score, what was right and what was missed>", "patientReaction": "<a short in-character message the patient named {persona.get('name', 'the patient')} would say, thankful if score > 75, disappointed if score <= 75>"}}
+
+Scoring criteria:
+- 90-100: Exact or near-exact match with correct diagnosis
+- 70-89: Correct general diagnosis but missing specifics (e.g. "heart attack" vs "STEMI")
+- 50-69: Partially correct, related condition identified
+- 25-49: Some relevant medical thinking but wrong diagnosis
+- 0-24: Completely incorrect or unrelated diagnosis"""
+
+    raw = call_llm(prompt)
+
+    try:
+        clean = raw.replace("```json", "").replace("```", "").strip()
+        parsed = json.loads(clean)
+        return {
+            "score": parsed.get("score", 0),
+            "feedback": parsed.get("feedback", ""),
+            "patientReaction": parsed.get("patientReaction", ""),
+        }
+    except Exception:
+        raise HTTPException(status_code=502, detail=f"Failed to parse scoring response: {raw}")
