@@ -1,323 +1,372 @@
-import { useState, useEffect, useMemo } from "react";
-import "./App.css";
+import { useState, useRef, useEffect } from "react";
 
-// Only include cardiology, pulmonology and neurology cases
-import cardio_stemi from "../../cases/cardiology/stemi_01.json";
-import cardio_angina from "../../cases/cardiology/angina_01.json";
-import cardio_afib from "../../cases/cardiology/afib_01.json";
-
-import pulm_asthma from "../../cases/pulmonology/asthma_01.json";
-import pulm_pneumo from "../../cases/pulmonology/pneumonia_01.json";
-import pulm_copd from "../../cases/pulmonology/copd_01.json";
-
-import neuro_migraine from "../../cases/neurology/migraine_01.json";
-import neuro_stroke from "../../cases/neurology/stroke_01.json";
-import neuro_seizure from "../../cases/neurology/seizure_01.json";
-
-const CASES: Record<string, any[]> = {
-  cardio: [cardio_stemi, cardio_angina, cardio_afib],
-  pulmo: [pulm_asthma, pulm_pneumo, pulm_copd],
-  neuro: [neuro_migraine, neuro_stroke, neuro_seizure],
+type Message = {
+  role: "user" | "patient";
+  text: string;
 };
 
-function ChatInput({ onSend }: { onSend: (text: string) => void }) {
-  const [text, setText] = useState("");
-  return (
-    <form className="chat-input" onSubmit={(e) => { e.preventDefault(); if (!text.trim()) return; onSend(text.trim()); setText(""); }}>
-      <input className="chat-input-field" value={text} onChange={(e) => setText(e.target.value)} placeholder="Type message..." />
-      <button className="chat-input-send" type="submit">Send</button>
-    </form>
-  );
-}
-
-function SimulationPage({ route, onBack }: { route: string; onBack: () => void }) {
-  const params = new URLSearchParams(route.split("?")[1] || "");
-  const spec = params.get("spec") || "cardio";
-  const caseIdx = parseInt(params.get("case") || "0", 10) || 0;
-  const caseList = CASES[spec] || [];
-  const simCase = caseList[caseIdx] || caseList[0] || null;
-  const specInfo = SPECIALTIES.find(s => s.id === spec) || null;
-
-  const [messages, setMessages] = useState<{from: 'ai'|'user', text: string}[]>([{ from: 'ai', text: 'Hi' }]);
-
-  return (
-    <div className="sim-page">
-      <header className="sim-header">
-        <button className="btn-secondary" onClick={onBack}>← Back</button>
-        <div style={{display:'flex',gap:12,alignItems:'center'}}>
-          <div style={{fontSize:22}}>{specInfo ? specInfo.icon : '⚕️'}</div>
-          <div>
-            <div className="panel-specialty">{specInfo ? specInfo.name : spec.toUpperCase()}</div>
-            <div className="sim-sub">Simulation</div>
-          </div>
-        </div>
-      </header>
-
-      <main className="sim-main">
-        {simCase && (
-          <section className="sim-case">
-            <h3 className="case-title">{simCase.presenting_complaint}</h3>
-            <div className="case-row">{simCase.patient_persona.name} — {simCase.patient_persona.age}yo {simCase.patient_persona.sex}</div>
-            <div className="case-row">Tags: {(simCase.metadata?.tags || []).join(', ')}</div>
-            <div className="case-row"><strong>Likely:</strong> {simCase.hidden_diagnosis}</div>
-          </section>
-        )}
-
-        <section className="sim-chat">
-          <div className="chat-body">
-            {messages.map((m, i) => (
-              <div key={i} className={`chat-message ${m.from}`}>
-                <strong>{m.from === 'ai' ? 'AI' : 'You'}:</strong> {m.text}
-              </div>
-            ))}
-          </div>
-          <ChatInput onSend={(text) => {
-            // append user message and placeholder AI reply in one update
-            setMessages((s) => [...s, { from: 'user', text }, { from: 'ai', text: 'WIP' }]);
-          }} />
-        </section>
-      </main>
-    </div>
-  );
-}
-
-/* ─── Data ─────────────────────────────────────────────────── */
-type Tag = "surgical" | "internal" | "diagnostics" | "emergency" | "neuro";
-
-interface Specialty {
-  id: string;
-  name: string;
-  icon: string;
-  desc: string;
-  tag: Tag;
-  cases: number;
-  animDelay: number;
-}
-
-const SPECIALTIES: Specialty[] = [
-  { id: "cardio", name: "Cardiology", icon: "🫀", desc: "Heart disease, arrhythmias, interventional procedures.", tag: "internal", cases: 340, animDelay: 0 },
-  { id: "pulmo", name: "Pulmonology", icon: "🫁", desc: "Respiratory conditions, COPD, asthma management.", tag: "internal", cases: 218, animDelay: 50 },
-  { id: "neuro", name: "Neurology", icon: "🧠", desc: "Stroke, epilepsy, movement and peripheral nerve disorders.", tag: "neuro", cases: 285, animDelay: 0 },
-];
-
-const FILTERS: { label: string; value: string }[] = [
-  { label: "All",         value: "all"        },
-  { label: "Internal",    value: "internal"   },
-  { label: "Surgical",    value: "surgical"   },
-  { label: "Emergency",   value: "emergency"  },
-  { label: "Neuro",       value: "neuro"      },
-  { label: "Diagnostics", value: "diagnostics"},
-];
-
-/* ─── Component ────────────────────────────────────────────── */
 function App() {
-  const [selected, setSelected]   = useState<Specialty | null>(null);
-  const [filter, setFilter]       = useState("all");
-  const [search, setSearch]       = useState("");
-  const [selectedCaseIndex, setSelectedCaseIndex] = useState<number | null>(null);
-  const [route, setRoute] = useState<string>(window.location.pathname + window.location.search);
+  const [selectedSpecialty, setSelectedSpecialty] = useState("");
+  const [caseId, setCaseId] = useState("");
+  const [patient, setPatient] = useState<any>(null);
+  const [patientOpening, setPatientOpening] = useState<string>("");
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [chatInput, setChatInput] = useState("");
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [showVitals, setShowVitals] = useState(false);
+  const [visibleVitals, setVisibleVitals] = useState<string[]>([]);
+  const [visibleInvestigations, setVisibleInvestigations] = useState<string[]>([]);
+  const chatEndRef = useRef<HTMLDivElement>(null);
 
-  const currentCaseList = selected ? (CASES[selected.id] || []) : [];
-  const currentCase = (selectedCaseIndex != null && currentCaseList[selectedCaseIndex]) || null;
-  /* Mouse-tracking shimmer on cards */
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const mx = ((e.clientX - rect.left) / rect.width)  * 100;
-    const my = ((e.clientY - rect.top)  / rect.height) * 100;
-    card.style.setProperty("--mx", `${mx}%`);
-    card.style.setProperty("--my", `${my}%`);
+  const specialties = ["Cardiology", "Pulmonology", "Neurology"];
+
+  const specialtyIcons: Record<string, string> = {
+    Cardiology: "♥",
+    Pulmonology: "◎",
+    Neurology: "⊕",
   };
 
-  const filtered = useMemo(() => {
-    return SPECIALTIES.filter((s) => {
-      const matchesFilter = filter === "all" || s.tag === filter;
-      const matchesSearch = s.name.toLowerCase().includes(search.toLowerCase()) ||
-                            s.desc.toLowerCase().includes(search.toLowerCase());
-      return matchesFilter && matchesSearch;
-    });
-  }, [filter, search]);
-
-  /* Dismiss panel on Escape */
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setSelected(null);
-        setSelectedCaseIndex(null);
-        // navigate home
-        history.pushState({}, "", "/");
-        setRoute(window.location.pathname + window.location.search);
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const startSimulation = async () => {
+    setLoading(true);
+    try {
+      const caseResponse = await fetch(
+        `http://127.0.0.1:8000/specialty/${selectedSpecialty.toLowerCase()}`
+      );
+      const caseData = await caseResponse.json();
+      setCaseId(caseData.case_id);
+      setPatient(caseData);
+
+      const llmResponse = await fetch(`http://127.0.0.1:8000/llm/${caseData.case_id}`);
+      const llmData = await llmResponse.json();
+      setPatientOpening(llmData.patient_start_sentence);
+      setMessages([{ role: "patient", text: llmData.patient_start_sentence }]);
+      setSuggestions([]);
+      setShowVitals(false);
+      setVisibleVitals([]);
+      setVisibleInvestigations([]);
+    } catch (error) {
+      console.error("Error:", error);
+      setPatient(null);
+      setPatientOpening("");
+      setMessages([]);
+      setSuggestions([]);
+      setShowVitals(false);
+      setVisibleVitals([]);
+      setVisibleInvestigations([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const sendChat = async () => {
+    const raw = chatInput.trim();
+    if (!raw) return;
+
+    const isVitalQuestion = (q: string) => {
+      const s = q.toLowerCase();
+      const vitalsMap: { [key: string]: string[] } = {
+        bp: ["blood pressure", "bp", "bloodpressure", "pressure"],
+        hr: ["heart rate", "hr", "pulse", "heartbeat"],
+        spo2: ["oxygen", "spo2", "blood oxygen", "oxygen level", "o2"],
+        temp: ["temperature", "temp", "fever", "hot"],
+        rr: ["respiratory rate", "rr", "breathing rate", "respiration", "breaths per minute"],
+      };
+      const found: string[] = [];
+      for (const key of Object.keys(vitalsMap)) {
+        for (const v of vitalsMap[key]) {
+          if (s.includes(v) && !found.includes(key)) found.push(key);
+        }
       }
+      return found;
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
 
-  useEffect(() => {
-    const onPop = () => setRoute(window.location.pathname + window.location.search);
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
-  }, []);
+    const isInvestigationQuestion = (q: string) => {
+      const s = q.toLowerCase();
+      const invMap: { [key: string]: string[] } = {};
+      if (patient && patient.investigations) {
+        Object.keys(patient.investigations).forEach((k: string) => {
+          const lower = k.toLowerCase();
+          const variants = [lower];
+          if (lower.includes("cbc") || lower.includes("complete blood")) variants.push("cbc", "blood count");
+          if (lower.includes("chest") || lower.includes("x-ray") || lower.includes("xray")) variants.push("chest x-ray", "xray", "cxr", "x ray");
+          if (lower.includes("peak")) variants.push("peak flow", "peakflow");
+          if (lower.includes("ecg") || lower.includes("ekg")) variants.push("ecg", "ekg");
+          if (lower.includes("ct")) variants.push("ct", "ct scan");
+          invMap[k] = variants;
+        });
+      }
+      const found: string[] = [];
+      for (const key of Object.keys(invMap)) {
+        for (const v of invMap[key]) {
+          if (s.includes(v) && !found.includes(key)) found.push(key);
+        }
+      }
+      return found;
+    };
 
-  // route-level short-circuit: if navigating to simulation, render that page
-  if (route.startsWith("/simulation")) {
-    return <SimulationPage route={route} onBack={() => { history.pushState({}, "", "/"); setRoute(window.location.pathname + window.location.search); }} />;
-  }
+    const question = raw;
+    setChatInput("");
+    setMessages((prev) => [...prev, { role: "user", text: question }]);
+
+    const requestedVitals = isVitalQuestion(question);
+    const requestedInv = isInvestigationQuestion(question);
+
+    if (requestedVitals.length > 0) {
+      setShowVitals(true);
+      setVisibleVitals((prev) => Array.from(new Set([...prev, ...requestedVitals])));
+    }
+    if (requestedInv.length > 0) {
+      setVisibleInvestigations((prev) => Array.from(new Set([...prev, ...requestedInv])));
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/chat/${caseId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question }),
+      });
+      if (!response.ok) throw new Error("Failed to get response from patient chat.");
+      const data = await response.json();
+      setMessages((prev) => [...prev, { role: "patient", text: data.answer }]);
+      setSuggestions(data.suggestions || []);
+    } catch (error) {
+      console.error("Chat error:", error);
+      setSuggestions([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resetSimulation = () => {
+    setSelectedSpecialty("");
+    setPatient(null);
+    setPatientOpening("");
+    setMessages([]);
+    setChatInput("");
+    setSuggestions([]);
+    setShowVitals(false);
+    setVisibleVitals([]);
+    setVisibleInvestigations([]);
+  };
 
   return (
-    <div className="app-shell">
-      {/* Background effects */}
-      <div className="bg-grid" />
-      <div className="bg-orb bg-orb-1" />
-      <div className="bg-orb bg-orb-2" />
-
+    <div className="app-root">
       {/* Header */}
-      <header className="header">
-        <div className="logo-mark">
-          <div className="logo-icon">⚕️</div>
-          <div className="logo-text">Med<span>Sim</span> AI</div>
+      <header className="app-header">
+        <div className="header-inner">
+          <div className="logo-group">
+            <span className="logo-icon">⚕</span>
+            <span className="logo-text">MedSim <span className="logo-accent">AI</span></span>
+          </div>
+          {patient && (
+            <button className="btn-ghost" onClick={resetSimulation}>
+              ← New Simulation
+            </button>
+          )}
         </div>
-        <div className="header-badge">v2.0 BETA</div>
       </header>
 
-      {/* Hero */}
-      <section className="hero-section">
-        <div className="hero-eyebrow">
-          <span className="eyebrow-dot" />
-          Clinical Simulation Platform
-        </div>
-        <h1 className="hero-title">
-          Choose your <em>Specialty</em>
-        </h1>
-        <p className="hero-sub">
-          Immersive AI-driven simulations across 29 medical specialties.
-          Practice, diagnose, and refine your clinical reasoning.
-        </p>
-        <div className="hero-stats">
-          <div className="stat">
-            <span className="stat-value">29</span>
-            <span className="stat-label">Specialties</span>
-          </div>
-          <div className="stat-sep" />
-          <div className="stat">
-            <span className="stat-value">5K+</span>
-            <span className="stat-label">Case Scenarios</span>
-          </div>
-          <div className="stat-sep" />
-          <div className="stat">
-            <span className="stat-value">AI</span>
-            <span className="stat-label">Powered</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Search */}
-      <div className="search-wrap">
-        <span className="search-icon">🔍</span>
-        <input
-          className="search-input"
-          type="text"
-          placeholder="Search specialties…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
-
-      {/* Filter Pills */}
-      <div className="filter-row">
-        {FILTERS.map((f) => (
-          <button
-            key={f.value}
-            className={`filter-pill${filter === f.value ? " active" : ""}`}
-            onClick={() => setFilter(f.value)}
-          >
-            {f.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Grid */}
-      <div className="specialty-grid">
-        {filtered.length === 0 && (
-          <div className="empty-state">No specialties match your search.</div>
-        )}
-        {filtered.map((s, i) => (
-          <div
-            key={s.id}
-            className={`specialty-card${selected?.id === s.id ? " selected" : ""}`}
-            style={{ animationDelay: `${i * 40}ms` }}
-            onClick={() => {
-              const newSel = s.id === selected?.id ? null : s;
-              setSelected(newSel);
-              setSelectedCaseIndex(null);
-            }}
-            onMouseMove={handleMouseMove}
-          >
-            <div className="card-header">
-              <span className="card-icon" style={{ animationDelay: `${i * 200}ms` }}>
-                {s.icon}
-              </span>
-              <span className={`card-tag tag-${s.tag}`}>{s.tag}</span>
+      <main className="app-main">
+        {!patient ? (
+          /* ── Landing / Specialty Selection ── */
+          <div className="landing">
+            <div className="landing-hero">
+              <p className="landing-eyebrow">Clinical Training Platform</p>
+              <h1 className="landing-title">Choose a Specialty</h1>
+              <p className="landing-sub">Select a medical specialty to begin your simulated patient encounter.</p>
             </div>
-            <div className="card-name">{s.name}</div>
-            <div className="card-desc">{s.desc}</div>
-            <div className="card-footer">
-              <div className="card-cases">
-                <span className="card-cases-dot" />
-                {s.cases} cases
+
+            <div className="specialty-grid">
+              {specialties.map((specialty) => (
+                <button
+                  key={specialty}
+                  className={`specialty-card ${selectedSpecialty === specialty ? "selected" : ""}`}
+                  onClick={() => setSelectedSpecialty(specialty)}
+                >
+                  <span className="specialty-icon">{specialtyIcons[specialty]}</span>
+                  <span className="specialty-name">{specialty}</span>
+                  <span className="specialty-check">{selectedSpecialty === specialty ? "✓" : ""}</span>
+                </button>
+              ))}
+            </div>
+
+            {selectedSpecialty && (
+              <div className="start-panel">
+                <div className="selected-badge">
+                  {specialtyIcons[selectedSpecialty]} {selectedSpecialty} selected
+                </div>
+                <button
+                  className={`btn-primary ${loading ? "loading" : ""}`}
+                  onClick={startSimulation}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <><span className="spinner" /> Generating Case…</>
+                  ) : (
+                    "Start Simulation →"
+                  )}
+                </button>
               </div>
-              <div className="card-arrow">→</div>
+            )}
+          </div>
+        ) : (
+          /* ── Simulation Layout ── */
+          <div className="sim-layout">
+            {/* Left: Patient Info + Chat */}
+            <div className="sim-main">
+              {/* Patient Card */}
+              <div className="patient-card">
+                <div className="patient-header">
+                  <div>
+                    <div className="patient-tag">Active Case · {selectedSpecialty}</div>
+                    <h2 className="patient-name">{patient.name}</h2>
+                  </div>
+                  <div className="patient-meta-pills">
+                    <span className="pill">{patient.age} yrs</span>
+                    <span className="pill">{patient.sex}</span>
+                    <span className="pill">{patient.occupation}</span>
+                  </div>
+                </div>
+                <div className="complaint-row">
+                  <span className="complaint-label">Chief Complaint</span>
+                  <span className="complaint-text">{patient.complaint}</span>
+                </div>
+              </div>
+
+              {/* Patient Opening */}
+              <div className="opening-card">
+                <div className="opening-label">Patient Opening Statement</div>
+                <p className="opening-text">"{patientOpening}"</p>
+              </div>
+
+              {/* Chat */}
+              <div className="chat-card">
+                <div className="chat-title">Patient Interview</div>
+
+                <div className="chat-messages">
+                  {messages.map((message, index) => (
+                    <div
+                      key={index}
+                      className={`message-row ${message.role === "user" ? "user-row" : "patient-row"}`}
+                    >
+                      <div className="message-avatar">
+                        {message.role === "user" ? "DR" : "PT"}
+                      </div>
+                      <div className={`message-bubble ${message.role}`}>
+                        <span className="message-sender">
+                          {message.role === "user" ? "You (Doctor)" : "Patient"}
+                        </span>
+                        <p>{message.text}</p>
+                      </div>
+                    </div>
+                  ))}
+                  {loading && (
+                    <div className="message-row patient-row">
+                      <div className="message-avatar">PT</div>
+                      <div className="message-bubble patient typing-indicator">
+                        <span /><span /><span />
+                      </div>
+                    </div>
+                  )}
+                  <div ref={chatEndRef} />
+                </div>
+
+                {suggestions.length > 0 && (
+                  <div className="suggestions-bar">
+                    <span className="suggestions-label">💡 Suggested:</span>
+                    {suggestions.map((s, i) => (
+                      <span key={i} className="suggestion-chip">{s}</span>
+                    ))}
+                  </div>
+                )}
+
+                <div className="chat-input-row">
+                  <input
+                    className="chat-input"
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    placeholder="Ask about symptoms, history, or request tests…"
+                    onKeyDown={(e) => { if (e.key === "Enter") sendChat(); }}
+                    disabled={loading}
+                  />
+                  <button
+                    className={`btn-send ${loading || !chatInput.trim() ? "disabled" : ""}`}
+                    onClick={sendChat}
+                    disabled={loading || !chatInput.trim()}
+                  >
+                    {loading ? <span className="spinner sm" /> : "Send"}
+                  </button>
+                </div>
+              </div>
+
+              {/* Red Flags */}
+              {patient.red_flags && patient.red_flags.length > 0 && (
+                <div className="red-flags-card">
+                  <div className="red-flags-title">🚨 Red Flags</div>
+                  <ul className="red-flags-list">
+                    {patient.red_flags.map((flag: string, index: number) => (
+                      <li key={index}>{flag}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Right: Vitals + Investigations */}
+            <div className="sim-sidebar">
+              <div className="sidebar-card">
+                <div className="sidebar-section-title">
+                  <span className="sidebar-icon">📊</span> Vitals
+                </div>
+                {showVitals && visibleVitals.length > 0 && patient?.vitals ? (
+                  <div className="vitals-list">
+                    {visibleVitals.map((key) => (
+                      <div key={key} className="vital-row">
+                        <span className="vital-key">{key.toUpperCase()}</span>
+                        <span className="vital-val">{patient.vitals[key] ?? "N/A"}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="sidebar-hint">
+                    Ask about blood pressure, heart rate, SpO₂, temperature, or respiratory rate to reveal vitals.
+                  </p>
+                )}
+
+                <div className="sidebar-divider" />
+
+                <div className="sidebar-section-title">
+                  <span className="sidebar-icon">🔬</span> Investigations
+                </div>
+                {visibleInvestigations.length > 0 && patient?.investigations ? (
+                  <div className="vitals-list">
+                    {visibleInvestigations.map((key) => (
+                      <div key={key} className="vital-row">
+                        <span className="vital-key">{key}</span>
+                        <span className="vital-val">{patient.investigations[key] ?? "N/A"}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="sidebar-hint">
+                    Request specific tests like CBC, chest X-ray, or ECG to reveal results here.
+                  </p>
+                )}
+              </div>
+
+              <button className="btn-new-sim" onClick={resetSimulation}>
+                ← New Simulation
+              </button>
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* Bottom Action Panel */}
-      <div className={`action-panel${selected ? " visible" : ""}`}>
-        <div className="panel-info">
-          <div className="panel-label">Selected Specialty</div>
-          <div className="panel-specialty">
-            {selected ? `${selected.icon}  ${selected.name}` : "—"}
-          </div>
-        </div>
-        {currentCase && (
-          <div className="panel-case">
-            <div className="case-title">{currentCase.presenting_complaint}</div>
-            <div className="case-patient">{currentCase.patient_persona.name} — {currentCase.patient_persona.age}yo {currentCase.patient_persona.sex}</div>
-            <div className="case-tags">{(currentCase.metadata?.tags || []).join(", ")}</div>
-            <div className="case-dx"><strong>Likely Diagnosis:</strong> {currentCase.hidden_diagnosis}</div>
-          </div>
         )}
-        <div className="panel-actions">
-          <button className="btn-secondary" onClick={() => { setSelected(null); setSelectedCaseIndex(null); }}>
-            Clear
-          </button>
-          <button className="btn-primary" onClick={() => {
-            // ensure a case is chosen
-            const caseIdx = (currentCaseList.length > 0 && selectedCaseIndex == null) ? 0 : selectedCaseIndex ?? 0;
-            if (!selected) return;
-            // navigate to simulation page with query params
-            const url = `/simulation?spec=${encodeURIComponent(selected.id)}&case=${caseIdx}`;
-            history.pushState({}, "", url);
-            setRoute(window.location.pathname + window.location.search);
-          }}>
-            ▶ &nbsp;Start Simulation
-          </button>
-        </div>
-        <div className="panel-case-picker">
-          {currentCaseList.slice(0,3).map((c, idx) => (
-            <label key={c.case_id} className={`case-option${selectedCaseIndex===idx?" selected":""}`}>
-              <input type="radio" name="case" checked={selectedCaseIndex===idx} onChange={() => setSelectedCaseIndex(idx)} />
-              <div className="case-meta">
-                <div className="case-title-small">{c.presenting_complaint}</div>
-                <div className="case-sub">{c.patient_persona.name} — {c.patient_persona.age}yo</div>
-              </div>
-            </label>
-          ))}
-        </div>
-        {/* nothing: simulation page rendered at route /simulation */}
-      </div>
-  
+      </main>
     </div>
   );
 }
