@@ -11,6 +11,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+active_cases = {}
+
 # Load environment variables from the backend package directory
 dotenv_path = Path(__file__).resolve().parent / ".env"
 load_dotenv(dotenv_path=dotenv_path)
@@ -40,10 +42,156 @@ if not GROQ_API_KEY:
 client = Groq(api_key=GROQ_API_KEY)
 
 # --------------------------------------------------
-# CASE LOADING
+# CASE LOADING & GENERATION
 # --------------------------------------------------
 
+def generate_patient_persona(case: dict) -> dict:
+    generator = case.get("patient_generator", {})
+
+    age_range = generator.get("age_range", [18, 90])
+    age = random.randint(age_range[0], age_range[1])
+
+    sex = random.choice(generator.get("sexes", ["male", "female"]))
+    occupation = random.choice(generator.get("occupations", ["teacher"]))
+
+    prompt = f"""
+Generate a realistic full human name.
+
+Sex: {sex}
+Age: {age}
+Occupation: {occupation}
+
+Rules:
+- Return ONLY the full name
+- No explanations
+- No quotation marks
+- Realistic modern name
+"""
+
+    try:
+        name = call_llm(prompt).strip()
+    except Exception:
+        name = "Unknown Patient"
+
+    return {
+        "name": name,
+        "age": age,
+        "sex": sex,
+        "occupation": occupation
+    }
+
+
+def generate_physical_exam(case: dict) -> dict:
+    exam = case.get("physical_exam", {})
+
+    generated = {}
+
+    for section, findings in exam.items():
+        if isinstance(findings, list):
+            count = random.randint(1, min(2, len(findings)))
+            generated[section] = random.sample(findings, count)
+
+    return generated
+
+def generate_vitals(case: dict) -> dict:
+    """Generate randomized vitals from ranges."""
+    ranges = case.get("vitals_ranges", {})
+    vitals = {}
+    
+    if "systolic_bp" in ranges:
+        sys, dia = ranges["systolic_bp"], ranges.get("diastolic_bp", [50, 100])
+        systolic = random.randint(sys[0], sys[1])
+        diastolic = random.randint(dia[0], dia[1])
+        vitals["bp"] = f"{systolic}/{diastolic}"
+    
+    if "heart_rate" in ranges:
+        hr_range = ranges["heart_rate"]
+        vitals["hr"] = random.randint(hr_range[0], hr_range[1])
+    
+    if "resp_rate" in ranges:
+        rr_range = ranges["resp_rate"]
+        vitals["rr"] = random.randint(rr_range[0], rr_range[1])
+    
+    if "spo2" in ranges:
+        spo2_range = ranges["spo2"]
+        vitals["spo2"] = random.randint(spo2_range[0], spo2_range[1])
+    
+    if "temperature" in ranges:
+        temp_range = ranges["temperature"]
+        vitals["temp"] = round(random.uniform(temp_range[0], temp_range[1]), 1)
+    
+    return vitals
+
+
+def generate_investigations(case: dict) -> dict:
+    """Generate randomized investigation results."""
+    inv = case.get("investigations", {})
+    investigations = {}
+    
+    if "ecg_variants" in inv:
+        investigations["ECG"] = random.choice(inv["ecg_variants"])
+    
+    if "troponin_range" in inv:
+        troponin_range = inv["troponin_range"]
+        troponin = round(random.uniform(troponin_range[0], troponin_range[1]), 2)
+        investigations["Troponin"] = f"{troponin} ng/mL"
+    
+    if "chest_xray" in inv:
+        investigations["Chest X-Ray"] = random.choice(inv["chest_xray"])
+    
+    if "lab_findings" in inv:
+        findings = inv["lab_findings"]
+        count = random.randint(1, len(findings))
+        investigations["Lab Findings"] = ", ".join(random.sample(findings, count))
+    
+    return investigations
+
+
+def generate_case_data(case: dict) -> dict:
+    """Generate all randomized case data."""
+    # Generate patient persona
+    persona = generate_patient_persona(case)
+    case["patient_persona"] = persona
+
+    case["physical_exam"] = generate_physical_exam(case)
+    
+    # Select random presenting complaint
+    variants = case.get("presentation_variants", [])
+    if variants:
+        case["presenting_complaint"] = random.choice(variants).get("presenting_complaint", case.get("presenting_complaint"))
+    
+    # Generate vitals
+    case["vitals"] = generate_vitals(case)
+    
+    # Generate investigations
+    case["investigations"] = generate_investigations(case)
+    
+    # Generate pain score
+    pain_range = case.get("patient_generator", {}).get("pain_score_range", [1, 10])
+    case["patient_response_rules"] = {
+        "pain_score": random.randint(pain_range[0], pain_range[1])
+    }
+    
+    # Populate history data
+    history = case.get("history_data", {})
+    if "pmh_pool" in history:
+        risk_count = case.get("patient_generator", {}).get("risk_factor_count_range", [1, 3])
+        count = random.randint(risk_count[0], risk_count[1])
+        pmh = random.sample(history["pmh_pool"], min(count, len(history["pmh_pool"])))
+        history["pmh"] = pmh
+    
+    if "medications_pool" in history:
+        meds = history["medications_pool"]
+        med_count = random.randint(1, min(3, len(meds)))
+        history["medications"] = random.sample(meds, med_count)
+    
+    history["social"] = history.get("social_history", {})
+    
+    return case
+
+
 def load_random_case(specialty: str):
+    """Load a random case from a specialty folder and generate randomized data."""
     specialty_folder = BASE_CASES_PATH / specialty.lower()
 
     if not specialty_folder.exists():
@@ -63,25 +211,33 @@ def load_random_case(specialty: str):
     selected_file = random.choice(case_files)
 
     with open(selected_file, "r", encoding="utf-8") as f:
-        return json.load(f)
+        case = json.load(f)
+    
+    return generate_case_data(case)
 
 
 def load_case_by_id(case_id: str):
+    """Load a case by ID and generate randomized data."""
     for case_file in BASE_CASES_PATH.rglob("*.json"):
         with open(case_file, "r", encoding="utf-8") as f:
             case = json.load(f)
             if case.get("case_id") == case_id:
-                return case
+                return generate_case_data(case)
 
     raise HTTPException(
         status_code=404,
         detail=f"Case with id '{case_id}' not found"
     )
 
+
+
 class ChatRequest(BaseModel):
+    session_id: str
     question: str
 
+
 class DiagnoseRequest(BaseModel):
+    session_id: str
     diagnosis: str
     time_taken: str
 
@@ -264,6 +420,26 @@ def call_llm(prompt: str) -> str:
 # ROUTES
 # --------------------------------------------------
 
+
+@app.post("/start/{case_id}")
+def start_case(case_id: str):
+
+    case = load_case_by_id(case_id)
+
+    session_id = str(random.randint(100000, 999999))
+
+    active_cases[session_id] = case
+
+    return {
+        "session_id": session_id,
+        "patient": {
+            "name": case["patient_persona"]["name"],
+            "age": case["patient_persona"]["age"],
+            "sex": case["patient_persona"]["sex"],
+            "occupation": case["patient_persona"]["occupation"]
+        }
+    }
+
 @app.get("/")
 def home():
     return {
@@ -301,14 +477,30 @@ def generate_patient_sentence(case_id: str):
         "patient_start_sentence": response_text,
     }
 
-@app.post("/chat/{case_id}")
-def chat_patient(case_id: str, body: ChatRequest):
-    question = body.question.strip()
-    if not question:
-        raise HTTPException(status_code=400, detail="Question must not be empty")
+@app.post("/chat")
+def chat_patient(body: ChatRequest):
 
-    case = load_case_by_id(case_id)
-    prompt = build_patient_chat_prompt(case, question)
+    question = body.question.strip()
+
+    if not question:
+        raise HTTPException(
+            status_code=400,
+            detail="Question must not be empty"
+        )
+
+    case = active_cases.get(body.session_id)
+
+    if not case:
+        raise HTTPException(
+            status_code=404,
+            detail="Session not found"
+        )
+
+    prompt = build_patient_chat_prompt(
+        case,
+        question
+    )
+
     response_text = call_llm(prompt)
 
     return {
@@ -322,7 +514,13 @@ def score_diagnosis(case_id: str, body: DiagnoseRequest):
     if not diagnosis:
         raise HTTPException(status_code=400, detail="Diagnosis must not be empty")
 
-    case = load_case_by_id(case_id)
+    case = active_cases.get(body.session_id)
+
+    if not case:
+        raise HTTPException(
+            status_code=404,
+            detail="Session not found"
+        )
     hidden_diagnosis = case.get("hidden_diagnosis", "")
     keywords = case.get("scoring_rubric", {}).get("correct_diagnosis_keywords", [])
     persona = case.get("patient_persona", {})

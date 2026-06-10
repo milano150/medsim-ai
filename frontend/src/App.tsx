@@ -14,6 +14,7 @@ type DiagnosisResult = {
 function App() {
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
   const [caseId, setCaseId] = useState("");
+  const [sessionId, setSessionId] = useState("");
   const [patient, setPatient] = useState<any>(null);
   const [patientOpening, setPatientOpening] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -37,6 +38,7 @@ function App() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const chatInputRef = useRef<HTMLInputElement>(null);
 
   const specialties = ["Cardiology", "Pulmonology", "Neurology"];
 
@@ -48,6 +50,7 @@ function App() {
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    chatInputRef.current?.focus();
   }, [messages]);
 
   // Timer logic
@@ -79,11 +82,24 @@ function App() {
       const caseData = await caseResponse.json();
       setCaseId(caseData.case_id);
       setPatient(caseData);
+      const startResponse = await fetch(
+        `http://127.0.0.1:8000/start/${caseData.case_id}`,
+        {
+          method: "POST"
+        }
+      );
+
+      const startData = await startResponse.json();
+
+      setSessionId(startData.session_id);
 
       const llmResponse = await fetch(`http://127.0.0.1:8000/llm/${caseData.case_id}`);
       const llmData = await llmResponse.json();
       setPatientOpening(llmData.patient_start_sentence);
       setMessages([{ role: "patient", text: llmData.patient_start_sentence }]);
+      setTimeout(() => {
+        chatInputRef.current?.focus();
+      }, 100);
       setSuggestions([]);
       setShowVitals(false);
       setVisibleVitals([]);
@@ -175,10 +191,13 @@ function App() {
 
     setLoading(true);
     try {
-      const response = await fetch(`http://127.0.0.1:8000/chat/${caseId}`, {
+      const response = await fetch(`http://127.0.0.1:8000/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({
+          session_id: sessionId,
+          question,
+        }),
       });
       if (!response.ok) throw new Error("Failed to get response from patient chat.");
       const data = await response.json();
@@ -207,6 +226,7 @@ function App() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
+      session_id: sessionId,
       diagnosis,
       time_taken: formatTime(timerSeconds),
     }),
@@ -356,11 +376,7 @@ function App() {
                 </div>
               </div>
 
-              {/* Patient Opening */}
-              <div className="opening-card">
-                <div className="opening-label">Patient Opening Statement</div>
-                <p className="opening-text">"{patientOpening}"</p>
-              </div>
+              
 
               {/* Chat */}
               <div className="chat-card">
@@ -373,11 +389,20 @@ function App() {
                       className={`message-row ${message.role === "user" ? "user-row" : "patient-row"}`}
                     >
                       <div className="message-avatar">
-                        {message.role === "user" ? "DR" : "PT"}
+                        {message.role === "user"
+                          ? "DR"
+                          : patient?.name
+                              ?.split(" ")
+                              .map((n: string) => n[0])
+                              .join("")
+                              .slice(0, 2)
+                              .toUpperCase() || "PT"}
                       </div>
                       <div className={`message-bubble ${message.role}`}>
                         <span className="message-sender">
-                          {message.role === "user" ? "You (Doctor)" : "Patient"}
+                          {message.role === "user"
+                            ? "You (Doctor)"
+                            : patient?.name || "Patient"}
                         </span>
                         <p>{message.text}</p>
                       </div>
@@ -405,6 +430,7 @@ function App() {
 
                 <div className="chat-input-row">
                   <input
+                    ref={chatInputRef}
                     className="chat-input"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}

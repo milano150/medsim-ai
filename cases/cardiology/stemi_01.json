@@ -1,61 +1,181 @@
+
 {
-  "case_id": "cardio-001",
-  "version": "1.0",
+  "case_id": "stemi_01",
+  "version": "3.1",
 
   "metadata": {
     "specialty": "Cardiology",
     "difficulty": "intermediate",
+    "diagnosis": "Acute STEMI (LAD Occlusion)",
     "tags": [
       "chest pain",
       "stemi",
-      "myocardial infarction"
+      "myocardial infarction",
+      "acute coronary syndrome",
+      "cardiology"
     ]
   },
 
-  "patient_persona": {
-    "name": "James Walker",
-    "age": 58,
-    "sex": "male",
-    "occupation": "bus driver"
+  "patient_generator": {
+    "age_range": [45, 75],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "teacher",
+      "accountant",
+      "sales manager",
+      "electrician",
+      "retail worker",
+      "office administrator",
+      "bus driver",
+      "shop owner",
+      "delivery driver",
+      "factory worker"
+    ],
+    "pain_score_range": [7, 10],
+    "risk_factor_count_range": [2, 4]
   },
 
-  "presenting_complaint": "Crushing chest pain for 2 hours radiating to the left arm",
-
-  "hidden_diagnosis": "Acute STEMI (LAD occlusion)",
+  "presentation_variants": [
+    {
+      "presenting_complaint": "Crushing chest pain radiating to the left arm"
+    },
+    {
+      "presenting_complaint": "Severe central chest pressure with sweating"
+    },
+    {
+      "presenting_complaint": "Chest tightness with nausea and arm discomfort"
+    },
+    {
+      "presenting_complaint": "Heavy chest pain spreading to the jaw"
+    },
+    {
+      "presenting_complaint": "Sudden severe chest pain while resting"
+    },
+    {
+      "presenting_complaint": "Pressure-like chest pain with sweating and nausea"
+    },
+    {
+      "presenting_complaint": "Severe chest discomfort radiating into my left shoulder"
+    },
+    {
+      "presenting_complaint": "Crushing chest pain that started suddenly while watching TV"
+    }
+  ],
 
   "history_data": {
-    "hpi": "Chest pain started suddenly 2 hours ago while driving. Pain is central, crushing in nature, radiates to the left arm, associated with sweating and nausea.",
+    "hpi": "Patient experienced sudden onset crushing chest pain while at rest approximately 2 hours ago. Pain is central and radiating to the left arm. Associated with diaphoresis and mild nausea. Denies dyspnea at onset but now feeling uncomfortable.",
 
-    "pmh": [
+    "patient_quotes": [
+      "It feels like an elephant is sitting on my chest.",
+      "I've never had pain this bad before.",
+      "The pain keeps spreading into my arm.",
+      "I'm starting to feel really worried.",
+      "Something feels very wrong."
+    ],
+
+    "pmh_pool": [
       "Hypertension",
-      "Hyperlipidemia"
+      "Hyperlipidemia",
+      "Smoking",
+      "Diabetes Mellitus",
+      "Family history of coronary artery disease",
+      "Obesity",
+      "Sedentary lifestyle"
     ],
 
-    "medications": [
-      "Amlodipine 5mg daily",
-      "Atorvastatin 20mg daily"
+    "medications_pool": [
+      "Lisinopril 10mg daily",
+      "Atorvastatin 40mg daily",
+      "Metformin 500mg twice daily",
+      "Aspirin 81mg daily",
+      "Amlodipine 5mg daily"
     ],
 
-    "social": {
-      "smoking": "1 pack per day for 30 years",
-      "alcohol": "Occasional",
-      "exercise": "Minimal"
-    }
+    "social_history": {
+      "smoking": "Active smoker, 1.5 packs per day for 30 years",
+      "alcohol": "Social drinker, 2-3 beers per week",
+      "exercise": "Sedentary, no regular exercise",
+      "stress": "High stress from work"
+    },
+
+    "core_facts": {
+      "pain_location": "central chest",
+      "pain_character": "crushing",
+      "pain_duration": "2 hours",
+      "radiation": "left arm",
+      "associated_symptoms": [
+        "sweating",
+        "nausea"
+      ]
+    },
+
+    "negative_history": [
+      "No recent trauma",
+      "No fever",
+      "No recent surgery"
+    ]
   },
 
-  "vitals": {
-    "bp": "94/60",
-    "hr": 112,
-    "rr": 22,
-    "spo2": 94,
-    "temp": 37.1
+  "physical_exam": {
+    "general_appearance": [
+      "Appears anxious",
+      "Appears distressed",
+      "Clutching chest",
+      "Diaphoretic"
+    ],
+
+    "cardiovascular": [
+      "Tachycardia",
+      "Regular rhythm",
+      "No murmurs",
+      "Cool extremities"
+    ],
+
+    "respiratory": [
+      "Clear breath sounds bilaterally"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [85, 110],
+    "diastolic_bp": [50, 75],
+    "heart_rate": [95, 125],
+    "resp_rate": [18, 26],
+    "spo2": [92, 97],
+    "temperature": [36.8, 37.4]
   },
 
   "investigations": {
-    "ECG": "ST elevation V1-V4",
-    "Troponin": "0.8 ng/mL (elevated)",
-    "CBC": "Normal",
-    "Chest X-Ray": "No acute abnormality"
+    "ecg_variants": [
+      "2 mm ST elevation in V1-V4 with reciprocal inferior changes",
+      "Anterior STEMI pattern with ST elevation V2-V5",
+      "Large anterior STEMI with ST elevation V1-V6",
+      "Acute LAD occlusion pattern with ST elevation V1-V4",
+      "Anterior wall STEMI with evolving Q waves"
+    ],
+
+    "troponin_range": [2.0, 50.0],
+
+    "chest_xray": [
+      "No acute abnormality"
+    ],
+
+    "lab_findings": [
+      "Elevated Troponin I",
+      "Elevated Troponin T"
+    ]
+  },
+
+  "hidden_diagnosis": "Acute Anterior Wall STEMI (LAD Occlusion)",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "anxious",
+    "allow_small_talk": false
   },
 
   "scoring_rubric": {
@@ -70,26 +190,43 @@
       "cardiac risk factors"
     ],
 
+    "essential_examinations": [
+      "vital signs",
+      "cardiovascular examination",
+      "respiratory examination"
+    ],
+
+    "essential_investigations": [
+      "ecg",
+      "troponin",
+      "chest xray"
+    ],
+
+    "critical_actions": [
+      "recognize STEMI",
+      "obtain ECG",
+      "order troponin",
+      "give aspirin",
+      "activate reperfusion pathway"
+    ],
+
     "red_flags": [
-      "hypotension",
-      "persistent chest pain",
-      "tachycardia"
+      "Persistent crushing chest pain",
+      "Diaphoresis",
+      "Radiation to left arm",
+      "Hypotension",
+      "Tachycardia",
+      "Elevated troponin",
+      "ST elevation on ECG"
     ],
 
     "correct_diagnosis_keywords": [
       "stemi",
       "acute myocardial infarction",
       "heart attack",
-      "anterior wall myocardial infarction"
-    ],
-
-    "patient_response_rules": {
-        "never_reveal_diagnosis": true,
-        "only_answer_if_asked": true,
-        "emotional_state": "anxious",
-        "pain_score": 8
-    }
-
-    
+      "anterior wall myocardial infarction",
+      "acute coronary syndrome"
+    ]
   }
 }
+
