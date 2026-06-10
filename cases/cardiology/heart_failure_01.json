@@ -1,0 +1,216 @@
+{
+  "case_id": "heart_failure_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Cardiology",
+    "difficulty": "intermediate",
+    "diagnosis": "Acute Decompensated Heart Failure",
+    "tags": [
+      "heart failure",
+      "dyspnea",
+      "orthopnea",
+      "edema",
+      "cardiology"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [55, 85],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "retired teacher",
+      "retired accountant",
+      "retired factory worker",
+      "retired bus driver",
+      "shop owner",
+      "security guard",
+      "office administrator",
+      "business owner"
+    ],
+    "pain_score_range": [0, 3],
+    "risk_factor_count_range": [2, 5]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "Shortness of breath that keeps getting worse"
+    },
+    {
+      "presenting_complaint": "Difficulty breathing when lying down"
+    },
+    {
+      "presenting_complaint": "Swollen legs and breathlessness"
+    },
+    {
+      "presenting_complaint": "Waking up gasping for air at night"
+    },
+    {
+      "presenting_complaint": "Breathlessness with minimal activity"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient reports progressive shortness of breath over the past week. Symptoms are worse when lying flat and have resulted in multiple episodes of waking up suddenly at night feeling unable to breathe. Leg swelling has also increased over the same period.",
+
+    "patient_quotes": [
+      "I can't sleep flat anymore.",
+      "I need several pillows to breathe comfortably.",
+      "My ankles have become very swollen.",
+      "Walking across the room leaves me breathless.",
+      "I keep waking up gasping for air."
+    ],
+
+    "pmh_pool": [
+      "Hypertension",
+      "Coronary artery disease",
+      "Previous myocardial infarction",
+      "Type 2 diabetes",
+      "Hyperlipidemia",
+      "Chronic heart failure",
+      "Atrial fibrillation"
+    ],
+
+    "medications_pool": [
+      "Furosemide 40mg daily",
+      "Lisinopril 10mg daily",
+      "Metoprolol 50mg daily",
+      "Spironolactone 25mg daily",
+      "Atorvastatin 40mg daily"
+    ],
+
+    "social_history": {
+      "smoking": "Former smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Limited by breathlessness",
+      "stress": "Minimal"
+    },
+
+    "core_facts": {
+      "symptom_duration": "1 week",
+      "orthopnea": true,
+      "paroxysmal_nocturnal_dyspnea": true,
+      "leg_swelling": true,
+      "exercise_tolerance": "markedly reduced"
+    },
+
+    "negative_history": [
+      "No fever",
+      "No chest trauma",
+      "No recent surgery"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Appears breathless",
+      "Speaking in short sentences",
+      "Mild respiratory distress"
+    ],
+
+    "cardiovascular": [
+      "Tachycardia",
+      "Elevated jugular venous pressure",
+      "S3 gallop present",
+      "Peripheral edema"
+    ],
+
+    "respiratory": [
+      "Bibasal crackles",
+      "Reduced air entry at lung bases"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [100, 160],
+    "diastolic_bp": [60, 95],
+    "heart_rate": [90, 130],
+    "resp_rate": [20, 32],
+    "spo2": [88, 95],
+    "temperature": [36.5, 37.2]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Left ventricular hypertrophy",
+      "Old anterior infarct changes",
+      "Atrial fibrillation",
+      "Non-specific ST-T abnormalities"
+    ],
+
+    "troponin_range": [0.0, 0.20],
+
+    "chest_xray": [
+      "Pulmonary edema",
+      "Cardiomegaly with pulmonary vascular congestion",
+      "Bilateral pleural effusions",
+      "Congestive heart failure changes"
+    ],
+
+    "lab_findings": [
+      "Elevated BNP",
+      "Elevated NT-proBNP"
+    ]
+  },
+
+  "hidden_diagnosis": "Acute Decompensated Heart Failure",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "worried",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "shortness of breath",
+      "orthopnea",
+      "paroxysmal nocturnal dyspnea",
+      "leg swelling",
+      "exercise tolerance",
+      "cardiac history"
+    ],
+
+    "essential_examinations": [
+      "vital signs",
+      "cardiovascular examination",
+      "respiratory examination",
+      "peripheral edema assessment"
+    ],
+
+    "essential_investigations": [
+      "chest xray",
+      "ecg",
+      "bnp"
+    ],
+
+    "critical_actions": [
+      "recognize heart failure",
+      "assess respiratory status",
+      "identify fluid overload",
+      "consider diuretic therapy",
+      "monitor oxygenation"
+    ],
+
+    "red_flags": [
+      "Orthopnea",
+      "Paroxysmal nocturnal dyspnea",
+      "Low oxygen saturation",
+      "Pulmonary edema",
+      "Bibasal crackles",
+      "Elevated JVP",
+      "Peripheral edema"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "heart failure",
+      "congestive heart failure",
+      "acute decompensated heart failure",
+      "cardiac failure"
+    ]
+  }
+}

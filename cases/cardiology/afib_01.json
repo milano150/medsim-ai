@@ -1,0 +1,213 @@
+{
+  "case_id": "afib_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Cardiology",
+    "difficulty": "intermediate",
+    "diagnosis": "Atrial Fibrillation with Rapid Ventricular Response",
+    "tags": [
+      "atrial fibrillation",
+      "afib",
+      "palpitations",
+      "arrhythmia",
+      "cardiology"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [55, 85],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "retired teacher",
+      "retired accountant",
+      "retired engineer",
+      "shop owner",
+      "security guard",
+      "retired bus driver",
+      "office administrator",
+      "business owner"
+    ],
+    "pain_score_range": [0, 4],
+    "risk_factor_count_range": [2, 5]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "My heart has been racing all day"
+    },
+    {
+      "presenting_complaint": "Palpitations and shortness of breath"
+    },
+    {
+      "presenting_complaint": "My heartbeat feels irregular"
+    },
+    {
+      "presenting_complaint": "Sudden fluttering in my chest"
+    },
+    {
+      "presenting_complaint": "Fast heartbeat and dizziness"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient developed sudden onset palpitations approximately 8 hours ago. Describes the heartbeat as fast and irregular. Associated with mild shortness of breath, fatigue and occasional dizziness. No syncope reported.",
+
+    "patient_quotes": [
+      "It feels like my heart is skipping beats.",
+      "My chest keeps fluttering.",
+      "I can feel my heart racing.",
+      "I get lightheaded when I stand up.",
+      "Something feels off with my heartbeat."
+    ],
+
+    "pmh_pool": [
+      "Hypertension",
+      "Heart failure",
+      "Coronary artery disease",
+      "Hyperlipidemia",
+      "Previous atrial fibrillation",
+      "Type 2 diabetes",
+      "Obesity"
+    ],
+
+    "medications_pool": [
+      "Metoprolol 50mg daily",
+      "Apixaban 5mg twice daily",
+      "Warfarin",
+      "Lisinopril 10mg daily",
+      "Atorvastatin 40mg daily"
+    ],
+
+    "social_history": {
+      "smoking": "Former smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Limited exercise",
+      "stress": "Recent emotional stress"
+    },
+
+    "core_facts": {
+      "symptom_duration": "8 hours",
+      "palpitations": true,
+      "irregular_heartbeat": true,
+      "shortness_of_breath": true,
+      "dizziness": true
+    },
+
+    "negative_history": [
+      "No chest trauma",
+      "No fever",
+      "No loss of consciousness"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Appears anxious",
+      "Mild distress",
+      "Comfortable at rest"
+    ],
+
+    "cardiovascular": [
+      "Irregularly irregular pulse",
+      "Tachycardia",
+      "Variable pulse volume",
+      "No murmurs"
+    ],
+
+    "respiratory": [
+      "Clear breath sounds bilaterally"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [95, 150],
+    "diastolic_bp": [60, 95],
+    "heart_rate": [120, 180],
+    "resp_rate": [16, 26],
+    "spo2": [94, 99],
+    "temperature": [36.5, 37.2]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Atrial fibrillation with ventricular rate of 140 bpm",
+      "Atrial fibrillation with rapid ventricular response",
+      "Irregularly irregular rhythm without visible P waves",
+      "AF with ventricular rate of 160 bpm",
+      "Atrial fibrillation with uncontrolled ventricular response"
+    ],
+
+    "troponin_range": [0.0, 0.05],
+
+    "chest_xray": [
+      "No acute abnormality",
+      "Mild cardiomegaly"
+    ],
+
+    "lab_findings": [
+      "Normal troponin",
+      "Normal CBC",
+      "Normal electrolytes"
+    ]
+  },
+
+  "hidden_diagnosis": "Atrial Fibrillation with Rapid Ventricular Response",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "anxious",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "palpitations",
+      "symptom duration",
+      "dizziness",
+      "shortness of breath",
+      "previous atrial fibrillation",
+      "medication history",
+      "cardiac history"
+    ],
+
+    "essential_examinations": [
+      "pulse assessment",
+      "vital signs",
+      "cardiovascular examination"
+    ],
+
+    "essential_investigations": [
+      "ecg",
+      "electrolytes",
+      "troponin"
+    ],
+
+    "critical_actions": [
+      "recognize atrial fibrillation",
+      "obtain ECG",
+      "assess hemodynamic stability",
+      "consider rate control",
+      "evaluate anticoagulation need"
+    ],
+
+    "red_flags": [
+      "Heart rate above 150 bpm",
+      "Irregularly irregular pulse",
+      "Shortness of breath",
+      "Dizziness",
+      "History of atrial fibrillation"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "atrial fibrillation",
+      "afib",
+      "atrial fibrillation with rvr",
+      "atrial fibrillation with rapid ventricular response"
+    ]
+  }
+}

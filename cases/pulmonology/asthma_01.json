@@ -1,205 +1,205 @@
 {
-"case_id": "asthma_01",
-"version": "3.1",
+  "case_id": "asthma_01",
+  "version": "3.1",
 
-"metadata": {
-"specialty": "Pulmonology",
-"difficulty": "intermediate",
-"diagnosis": "Acute Asthma Exacerbation",
-"tags": [
-"asthma",
-"wheeze",
-"shortness of breath",
-"pulmonology",
-"respiratory"
-]
-},
+  "metadata": {
+    "specialty": "Pulmonology",
+    "difficulty": "easy",
+    "diagnosis": "Acute Asthma Exacerbation",
+    "tags": [
+      "asthma",
+      "wheezing",
+      "shortness of breath",
+      "pulmonology",
+      "respiratory"
+    ]
+  },
 
-"patient_generator": {
-"age_range": [16, 50],
-"sexes": ["male", "female"],
-"occupations": [
-"student",
-"teacher",
-"retail worker",
-"software engineer",
-"nurse",
-"delivery driver",
-"office worker",
-"sales representative"
-],
-"pain_score_range": [1, 4],
-"risk_factor_count_range": [1, 3]
-},
+  "patient_generator": {
+    "age_range": [18, 55],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "student",
+      "teacher",
+      "software engineer",
+      "accountant",
+      "nurse",
+      "retail worker",
+      "office worker",
+      "sales representative"
+    ],
+    "pain_score_range": [0, 3],
+    "risk_factor_count_range": [1, 3]
+  },
 
-"presentation_variants": [
-{
-"presenting_complaint": "Shortness of breath and wheezing"
-},
-{
-"presenting_complaint": "Difficulty breathing since last night"
-},
-{
-"presenting_complaint": "Chest tightness and wheezing"
-},
-{
-"presenting_complaint": "I can't catch my breath properly"
-},
-{
-"presenting_complaint": "Persistent wheezing despite using my inhaler"
-}
-],
+  "presentation_variants": [
+    {
+      "presenting_complaint": "I'm wheezing and short of breath"
+    },
+    {
+      "presenting_complaint": "My asthma is acting up"
+    },
+    {
+      "presenting_complaint": "I can't catch my breath"
+    },
+    {
+      "presenting_complaint": "Chest tightness and wheezing"
+    },
+    {
+      "presenting_complaint": "Breathing has become difficult today"
+    }
+  ],
 
-"history_data": {
-"hpi": "Patient developed worsening shortness of breath and wheezing over the past 24 hours. Symptoms began after exposure to dust and have not improved despite repeated use of a rescue inhaler.",
+  "history_data": {
+    "hpi": "Patient developed worsening shortness of breath and wheezing over the past 12 hours. Symptoms began after exposure to dust and have not improved with usual inhaler use. Reports chest tightness and cough.",
 
+    "patient_quotes": [
+      "I feel like I can't get enough air.",
+      "I've been wheezing all day.",
+      "My inhaler isn't helping much.",
+      "My chest feels tight.",
+      "Breathing is getting harder."
+    ],
 
-"patient_quotes": [
-  "My inhaler isn't helping as much as usual.",
-  "I feel tightness in my chest.",
-  "It's harder to breathe than normal.",
-  "The wheezing keeps getting worse.",
-  "I get out of breath just walking around."
-],
+    "pmh_pool": [
+      "Asthma",
+      "Allergic rhinitis",
+      "Eczema",
+      "Previous asthma hospitalization"
+    ],
 
-"pmh_pool": [
-  "Asthma",
-  "Childhood asthma",
-  "Seasonal allergies",
-  "Eczema",
-  "Allergic rhinitis"
-],
+    "medications_pool": [
+      "Salbutamol inhaler",
+      "Budesonide inhaler",
+      "Montelukast",
+      "Fluticasone inhaler"
+    ],
 
-"medications_pool": [
-  "Salbutamol inhaler",
-  "Budesonide inhaler",
-  "Fluticasone inhaler",
-  "Montelukast"
-],
+    "social_history": {
+      "smoking": "Non-smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Limited due to symptoms",
+      "stress": "Normal daily stress"
+    },
 
-"social_history": {
-  "smoking": "Non-smoker",
-  "alcohol": "Occasional alcohol use",
-  "exercise": "Usually active",
-  "stress": "No significant stress"
-},
+    "core_facts": {
+      "shortness_of_breath": true,
+      "wheezing": true,
+      "chest_tightness": true,
+      "cough": true,
+      "duration": "12 hours"
+    },
 
-"core_facts": {
-  "trigger": "dust exposure",
-  "symptom_duration": "24 hours",
-  "associated_symptoms": [
-    "wheezing",
-    "chest tightness",
-    "shortness of breath"
-  ]
-},
+    "negative_history": [
+      "No chest pain",
+      "No hemoptysis",
+      "No recent surgery"
+    ]
+  },
 
-"negative_history": [
-  "No chest pain",
-  "No fever",
-  "No hemoptysis",
-  "No recent travel"
-]
+  "physical_exam": {
+    "general_appearance": [
+      "Mild respiratory distress",
+      "Speaking in short sentences",
+      "Appears anxious"
+    ],
 
+    "cardiovascular": [
+      "Tachycardia",
+      "Regular rhythm"
+    ],
 
-},
+    "respiratory": [
+      "Diffuse expiratory wheeze",
+      "Prolonged expiratory phase",
+      "Reduced air entry bilaterally"
+    ]
+  },
 
-"physical_exam": {
-"general_appearance": [
-"Mild respiratory distress",
-"Speaking in short sentences",
-"Using accessory muscles",
-"Appears anxious"
-],
+  "vitals_ranges": {
+    "systolic_bp": [105, 150],
+    "diastolic_bp": [65, 95],
+    "heart_rate": [95, 140],
+    "resp_rate": [20, 35],
+    "spo2": [88, 96],
+    "temperature": [36.4, 37.4]
+  },
 
+  "investigations": {
+    "ecg_variants": [
+      "Sinus tachycardia"
+    ],
 
-"respiratory": [
-  "Diffuse expiratory wheeze",
-  "Prolonged expiratory phase",
-  "Reduced air entry bilaterally"
-],
+    "troponin_range": [0.0, 0.05],
 
-"cardiovascular": [
-  "Tachycardia",
-  "Regular rhythm",
-  "No murmurs"
-]
+    "chest_xray": [
+      "Hyperinflation",
+      "No acute abnormality",
+      "Mild hyperexpanded lungs"
+    ],
 
+    "lab_findings": [
+      "Eosinophilia",
+      "Normal CBC",
+      "Mild respiratory alkalosis"
+    ]
+  },
 
-},
+  "hidden_diagnosis": "Acute Asthma Exacerbation",
 
-"vitals_ranges": {
-"systolic_bp": [110, 145],
-"diastolic_bp": [65, 90],
-"heart_rate": [95, 130],
-"resp_rate": [20, 32],
-"spo2": [89, 96],
-"temperature": [36.5, 37.3]
-},
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "anxious",
+    "allow_small_talk": false
+  },
 
-"investigations": {
-"peak_flow_range": [120, 350],
+  "scoring_rubric": {
+    "essential_questions": [
+      "shortness of breath",
+      "wheezing",
+      "inhaler use",
+      "trigger exposure",
+      "previous attacks",
+      "hospital admissions",
+      "cough"
+    ],
 
+    "essential_examinations": [
+      "respiratory examination",
+      "vital signs",
+      "oxygen saturation"
+    ],
 
-"chest_xray": [
-  "No acute abnormality",
-  "Hyperinflated lungs"
-],
+    "essential_investigations": [
+      "peak flow",
+      "chest xray",
+      "oxygen saturation"
+    ],
 
-"lab_findings": [
-  "Mild eosinophilia",
-  "Normal CBC"
-]
+    "critical_actions": [
+      "recognize asthma exacerbation",
+      "assess severity",
+      "administer bronchodilator",
+      "provide oxygen if needed",
+      "consider steroids"
+    ],
 
+    "red_flags": [
+      "Unable to complete sentences",
+      "Low oxygen saturation",
+      "Silent chest",
+      "Previous ICU admission",
+      "Severe respiratory distress"
+    ],
 
-},
-
-"hidden_diagnosis": "Acute Asthma Exacerbation",
-
-"patient_rules": {
-"never_reveal_diagnosis": true,
-"only_answer_if_asked": true,
-"emotional_state": "anxious",
-"allow_small_talk": false
-},
-
-"scoring_rubric": {
-"essential_questions": [
-"shortness of breath",
-"wheezing",
-"asthma history",
-"trigger exposure",
-"inhaler use",
-"night symptoms",
-"allergies"
-],
-
-
-"essential_examinations": [
-  "respiratory examination",
-  "vital signs",
-  "oxygen saturation"
-],
-
-"essential_investigations": [
-  "peak flow",
-  "chest xray"
-],
-
-"critical_actions": [
-  "recognize asthma exacerbation",
-  "assess severity",
-  "administer bronchodilator",
-  "monitor oxygen saturation"
-],
-
-"correct_diagnosis_keywords": [
-  "asthma",
-  "acute asthma exacerbation",
-  "asthma attack",
-  "bronchial asthma"
-]
-
-
-}
+    "correct_diagnosis_keywords": [
+      "asthma",
+      "acute asthma exacerbation",
+      "bronchial asthma"
+    ]
+  }
 }

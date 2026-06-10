@@ -1,0 +1,211 @@
+{
+  "case_id": "seizure_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Neurology",
+    "difficulty": "intermediate",
+    "diagnosis": "Generalized Tonic-Clonic Seizure",
+    "tags": [
+      "seizure",
+      "epilepsy",
+      "neurology",
+      "loss of consciousness",
+      "convulsion"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [18, 70],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "student",
+      "teacher",
+      "software engineer",
+      "accountant",
+      "sales representative",
+      "office worker",
+      "electrician",
+      "retail worker"
+    ],
+    "pain_score_range": [0, 4],
+    "risk_factor_count_range": [0, 3]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "I blacked out and woke up confused"
+    },
+    {
+      "presenting_complaint": "My family says I had a seizure"
+    },
+    {
+      "presenting_complaint": "I lost consciousness suddenly"
+    },
+    {
+      "presenting_complaint": "I woke up on the floor confused"
+    },
+    {
+      "presenting_complaint": "I don't remember what happened"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient was witnessed to suddenly lose consciousness and develop generalized shaking movements lasting approximately 2 minutes. Following the event, the patient remained confused for 20 minutes before gradually returning to baseline.",
+
+    "patient_quotes": [
+      "I don't remember the event itself.",
+      "The next thing I knew, people were standing around me.",
+      "I felt very confused afterward.",
+      "My muscles are sore now.",
+      "Apparently I was shaking all over."
+    ],
+
+    "pmh_pool": [
+      "Epilepsy",
+      "Previous seizure",
+      "Sleep deprivation",
+      "Recent alcohol binge",
+      "No significant medical history"
+    ],
+
+    "medications_pool": [
+      "Levetiracetam",
+      "Valproate",
+      "Lamotrigine",
+      "No regular medications"
+    ],
+
+    "social_history": {
+      "smoking": "Non-smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Regular exercise",
+      "stress": "Recent sleep deprivation"
+    },
+
+    "core_facts": {
+      "loss_of_consciousness": true,
+      "generalized_shaking": true,
+      "duration": "2 minutes",
+      "postictal_confusion": true,
+      "tongue_biting": true
+    },
+
+    "negative_history": [
+      "No chest pain",
+      "No focal weakness before event",
+      "No recent head trauma"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Appears tired",
+      "Mild confusion initially",
+      "Alert after recovery"
+    ],
+
+    "cardiovascular": [
+      "Regular rhythm",
+      "Normal heart sounds"
+    ],
+
+    "respiratory": [
+      "Clear breath sounds bilaterally"
+    ],
+
+    "neurological": [
+      "No focal neurological deficit",
+      "Postictal confusion improving",
+      "Normal cranial nerves"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [110, 170],
+    "diastolic_bp": [65, 100],
+    "heart_rate": [90, 130],
+    "resp_rate": [14, 26],
+    "spo2": [95, 100],
+    "temperature": [36.4, 37.5]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Normal sinus rhythm",
+      "Sinus tachycardia"
+    ],
+
+    "troponin_range": [0.0, 0.05],
+
+    "chest_xray": [
+      "No acute abnormality"
+    ],
+
+    "lab_findings": [
+      "Elevated lactate",
+      "Mild leukocytosis",
+      "Normal electrolytes"
+    ]
+  },
+
+  "hidden_diagnosis": "Generalized Tonic-Clonic Seizure",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "confused",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "loss of consciousness",
+      "witnessed movements",
+      "duration",
+      "postictal confusion",
+      "tongue biting",
+      "urinary incontinence",
+      "previous seizures"
+    ],
+
+    "essential_examinations": [
+      "neurological examination",
+      "vital signs",
+      "mental status examination"
+    ],
+
+    "essential_investigations": [
+      "blood glucose",
+      "electrolytes",
+      "ct head",
+      "eeg"
+    ],
+
+    "critical_actions": [
+      "recognize seizure",
+      "identify postictal state",
+      "exclude hypoglycemia",
+      "assess airway safety",
+      "investigate underlying cause"
+    ],
+
+    "red_flags": [
+      "First seizure",
+      "Prolonged seizure",
+      "Persistent confusion",
+      "Head injury",
+      "Status epilepticus"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "seizure",
+      "generalized tonic clonic seizure",
+      "epileptic seizure",
+      "epilepsy"
+    ]
+  }
+}

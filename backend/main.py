@@ -217,12 +217,23 @@ def load_random_case(specialty: str):
 
 
 def load_case_by_id(case_id: str):
-    """Load a case by ID and generate randomized data."""
+
     for case_file in BASE_CASES_PATH.rglob("*.json"):
-        with open(case_file, "r", encoding="utf-8") as f:
-            case = json.load(f)
+
+        try:
+            with open(case_file, "r", encoding="utf-8") as f:
+                case = json.load(f)
+
             if case.get("case_id") == case_id:
                 return generate_case_data(case)
+
+        except Exception as e:
+            print("\n===================")
+            print("BROKEN FILE:")
+            print(case_file)
+            print(e)
+            print("===================\n")
+            raise
 
     raise HTTPException(
         status_code=404,

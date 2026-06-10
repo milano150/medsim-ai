@@ -1,0 +1,208 @@
+{
+  "case_id": "tuberculosis_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Pulmonology",
+    "difficulty": "intermediate",
+    "diagnosis": "Pulmonary Tuberculosis",
+    "tags": [
+      "tuberculosis",
+      "tb",
+      "chronic cough",
+      "weight loss",
+      "pulmonology"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [18, 75],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "student",
+      "teacher",
+      "factory worker",
+      "construction worker",
+      "shop owner",
+      "office worker",
+      "security guard",
+      "driver"
+    ],
+    "pain_score_range": [0, 5],
+    "risk_factor_count_range": [1, 4]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "I've had a cough for months"
+    },
+    {
+      "presenting_complaint": "Persistent cough and weight loss"
+    },
+    {
+      "presenting_complaint": "Night sweats and coughing"
+    },
+    {
+      "presenting_complaint": "I'm coughing up blood occasionally"
+    },
+    {
+      "presenting_complaint": "I've been feeling sick for weeks"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient reports a persistent cough for the past 8 weeks. Symptoms are associated with weight loss, night sweats, fatigue, and occasional blood-streaked sputum. Appetite has decreased significantly.",
+
+    "patient_quotes": [
+      "The cough just won't go away.",
+      "I've been sweating a lot at night.",
+      "I've lost weight without trying.",
+      "Sometimes there's blood in my sputum.",
+      "I feel exhausted all the time."
+    ],
+
+    "pmh_pool": [
+      "Previous TB exposure",
+      "Diabetes mellitus",
+      "Smoking",
+      "HIV risk factors",
+      "No significant medical history"
+    ],
+
+    "medications_pool": [
+      "Metformin",
+      "Amlodipine",
+      "No regular medications"
+    ],
+
+    "social_history": {
+      "smoking": "Current smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Reduced due to fatigue",
+      "stress": "Normal daily stress"
+    },
+
+    "core_facts": {
+      "chronic_cough": true,
+      "weight_loss": true,
+      "night_sweats": true,
+      "fatigue": true,
+      "duration": "8 weeks"
+    },
+
+    "negative_history": [
+      "No recent surgery",
+      "No chest trauma",
+      "No acute onset symptoms"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Appears thin",
+      "Looks fatigued",
+      "Chronically unwell appearance"
+    ],
+
+    "cardiovascular": [
+      "Regular rhythm",
+      "Mild tachycardia"
+    ],
+
+    "respiratory": [
+      "Crackles in upper lung fields",
+      "Reduced air entry in upper lobe",
+      "Occasional wheeze"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [100, 145],
+    "diastolic_bp": [60, 90],
+    "heart_rate": [85, 120],
+    "resp_rate": [16, 28],
+    "spo2": [92, 98],
+    "temperature": [37.2, 39.0]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Normal sinus rhythm",
+      "Sinus tachycardia"
+    ],
+
+    "troponin_range": [0.0, 0.05],
+
+    "chest_xray": [
+      "Right upper lobe cavitary lesion",
+      "Upper lobe infiltrates",
+      "Apical fibrosis and cavitation",
+      "Findings consistent with pulmonary tuberculosis"
+    ],
+
+    "lab_findings": [
+      "Elevated ESR",
+      "Mild anemia",
+      "Positive acid-fast bacilli smear"
+    ]
+  },
+
+  "hidden_diagnosis": "Pulmonary Tuberculosis",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "fatigued",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "cough duration",
+      "weight loss",
+      "night sweats",
+      "hemoptysis",
+      "tb exposure",
+      "fever",
+      "appetite loss"
+    ],
+
+    "essential_examinations": [
+      "respiratory examination",
+      "weight assessment",
+      "vital signs"
+    ],
+
+    "essential_investigations": [
+      "chest xray",
+      "sputum microscopy",
+      "tb pcr"
+    ],
+
+    "critical_actions": [
+      "recognize tuberculosis",
+      "isolate patient if needed",
+      "obtain sputum samples",
+      "order chest imaging",
+      "initiate anti-tb treatment pathway"
+    ],
+
+    "red_flags": [
+      "Hemoptysis",
+      "Weight loss",
+      "Night sweats",
+      "Chronic cough",
+      "TB exposure",
+      "Upper lobe cavitation"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "tuberculosis",
+      "pulmonary tuberculosis",
+      "tb"
+    ]
+  }
+}

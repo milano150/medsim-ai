@@ -1,0 +1,214 @@
+{
+  "case_id": "tia_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Neurology",
+    "difficulty": "intermediate",
+    "diagnosis": "Transient Ischemic Attack",
+    "tags": [
+      "tia",
+      "neurology",
+      "stroke",
+      "transient weakness",
+      "speech difficulty"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [45, 85],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "retired teacher",
+      "retired accountant",
+      "shop owner",
+      "office administrator",
+      "retired engineer",
+      "business owner",
+      "security guard",
+      "retired bus driver"
+    ],
+    "pain_score_range": [0, 2],
+    "risk_factor_count_range": [2, 5]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "My arm suddenly went weak but got better"
+    },
+    {
+      "presenting_complaint": "I couldn't speak properly for a few minutes"
+    },
+    {
+      "presenting_complaint": "Sudden facial drooping that resolved"
+    },
+    {
+      "presenting_complaint": "Temporary weakness on one side"
+    },
+    {
+      "presenting_complaint": "Brief episode of slurred speech"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient experienced sudden onset left-sided weakness and slurred speech approximately 3 hours ago. Symptoms lasted about 20 minutes and completely resolved before arrival to the hospital.",
+
+    "patient_quotes": [
+      "My arm suddenly stopped working properly.",
+      "I couldn't get my words out.",
+      "Everything went back to normal after a while.",
+      "It was frightening.",
+      "I feel completely fine now."
+    ],
+
+    "pmh_pool": [
+      "Hypertension",
+      "Atrial fibrillation",
+      "Type 2 diabetes",
+      "Hyperlipidemia",
+      "Smoking",
+      "Previous TIA",
+      "Coronary artery disease"
+    ],
+
+    "medications_pool": [
+      "Aspirin 81mg daily",
+      "Atorvastatin 40mg daily",
+      "Metformin 500mg twice daily",
+      "Amlodipine 5mg daily",
+      "Apixaban"
+    ],
+
+    "social_history": {
+      "smoking": "Former smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Limited exercise",
+      "stress": "Normal daily stress"
+    },
+
+    "core_facts": {
+      "symptom_duration": "20 minutes",
+      "speech_difficulty": true,
+      "unilateral_weakness": true,
+      "complete_resolution": true,
+      "sudden_onset": true
+    },
+
+    "negative_history": [
+      "No seizure activity",
+      "No head trauma",
+      "No persistent neurological deficit",
+      "No loss of consciousness"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Comfortable",
+      "Alert",
+      "No distress"
+    ],
+
+    "cardiovascular": [
+      "Regular rhythm",
+      "No murmurs"
+    ],
+
+    "respiratory": [
+      "Clear breath sounds bilaterally"
+    ],
+
+    "neurological": [
+      "No focal neurological deficit",
+      "Normal motor strength",
+      "Normal cranial nerves"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [135, 190],
+    "diastolic_bp": [80, 110],
+    "heart_rate": [65, 110],
+    "resp_rate": [12, 22],
+    "spo2": [96, 100],
+    "temperature": [36.4, 37.2]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Normal sinus rhythm",
+      "Atrial fibrillation",
+      "Left ventricular hypertrophy"
+    ],
+
+    "troponin_range": [0.0, 0.05],
+
+    "chest_xray": [
+      "No acute abnormality"
+    ],
+
+    "lab_findings": [
+      "Elevated cholesterol",
+      "Elevated glucose",
+      "Normal CBC"
+    ]
+  },
+
+  "hidden_diagnosis": "Transient Ischemic Attack",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "concerned",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "time of onset",
+      "duration of symptoms",
+      "speech difficulty",
+      "weakness",
+      "resolution of symptoms",
+      "stroke risk factors",
+      "previous episodes"
+    ],
+
+    "essential_examinations": [
+      "neurological examination",
+      "cranial nerve examination",
+      "vital signs"
+    ],
+
+    "essential_investigations": [
+      "ct head",
+      "ecg",
+      "carotid imaging"
+    ],
+
+    "critical_actions": [
+      "recognize TIA",
+      "assess stroke risk",
+      "identify vascular risk factors",
+      "arrange urgent stroke workup",
+      "initiate secondary prevention"
+    ],
+
+    "red_flags": [
+      "Transient unilateral weakness",
+      "Speech disturbance",
+      "Atrial fibrillation",
+      "Previous TIA",
+      "Sudden onset symptoms"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "tia",
+      "transient ischemic attack",
+      "mini stroke"
+    ]
+  }
+}

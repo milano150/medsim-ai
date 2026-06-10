@@ -1,0 +1,209 @@
+{
+  "case_id": "pleural_effusion_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Pulmonology",
+    "difficulty": "intermediate",
+    "diagnosis": "Pleural Effusion",
+    "tags": [
+      "pleural effusion",
+      "shortness of breath",
+      "chest pain",
+      "respiratory",
+      "pulmonology"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [40, 85],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "retired teacher",
+      "retired accountant",
+      "shop owner",
+      "office worker",
+      "business owner",
+      "security guard",
+      "retired engineer",
+      "sales representative"
+    ],
+    "pain_score_range": [1, 6],
+    "risk_factor_count_range": [1, 4]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "I've become increasingly short of breath"
+    },
+    {
+      "presenting_complaint": "Breathing feels harder than usual"
+    },
+    {
+      "presenting_complaint": "Chest discomfort and breathlessness"
+    },
+    {
+      "presenting_complaint": "I get winded very easily"
+    },
+    {
+      "presenting_complaint": "Persistent shortness of breath"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient reports progressive shortness of breath over the past two weeks. Symptoms are worse with exertion. Mild pleuritic chest discomfort is present but no severe pain. Exercise tolerance has significantly decreased.",
+
+    "patient_quotes": [
+      "Walking short distances leaves me breathless.",
+      "I can't do as much as I used to.",
+      "Breathing feels heavy.",
+      "The symptoms have gradually worsened.",
+      "I feel pressure on one side of my chest."
+    ],
+
+    "pmh_pool": [
+      "Congestive heart failure",
+      "Recent pneumonia",
+      "Lung cancer",
+      "Breast cancer",
+      "Chronic kidney disease",
+      "Hypertension"
+    ],
+
+    "medications_pool": [
+      "Furosemide",
+      "Lisinopril",
+      "Amlodipine",
+      "Atorvastatin"
+    ],
+
+    "social_history": {
+      "smoking": "Former smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Limited due to breathlessness",
+      "stress": "Normal daily stress"
+    },
+
+    "core_facts": {
+      "shortness_of_breath": true,
+      "gradual_onset": true,
+      "exercise_intolerance": true,
+      "mild_chest_discomfort": true,
+      "duration": "2 weeks"
+    },
+
+    "negative_history": [
+      "No recent trauma",
+      "No severe chest pain",
+      "No hemoptysis"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Mild respiratory distress",
+      "Appears fatigued",
+      "Comfortable at rest"
+    ],
+
+    "cardiovascular": [
+      "Regular rhythm",
+      "Mild tachycardia"
+    ],
+
+    "respiratory": [
+      "Reduced breath sounds at right lung base",
+      "Dullness to percussion",
+      "Reduced chest expansion on affected side"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [105, 165],
+    "diastolic_bp": [60, 95],
+    "heart_rate": [85, 120],
+    "resp_rate": [18, 30],
+    "spo2": [89, 97],
+    "temperature": [36.4, 38.0]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Normal sinus rhythm",
+      "Sinus tachycardia"
+    ],
+
+    "troponin_range": [0.0, 0.05],
+
+    "chest_xray": [
+      "Moderate right pleural effusion",
+      "Large left pleural effusion",
+      "Blunting of the costophrenic angle",
+      "Pleural fluid collection"
+    ],
+
+    "lab_findings": [
+      "Elevated BNP",
+      "Normal CBC",
+      "Mild inflammatory markers elevation"
+    ]
+  },
+
+  "hidden_diagnosis": "Pleural Effusion",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "concerned",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "shortness of breath",
+      "duration",
+      "exercise tolerance",
+      "chest discomfort",
+      "heart failure history",
+      "cancer history",
+      "recent infection"
+    ],
+
+    "essential_examinations": [
+      "respiratory examination",
+      "vital signs",
+      "oxygen saturation"
+    ],
+
+    "essential_investigations": [
+      "chest xray",
+      "ultrasound chest",
+      "pleural fluid analysis"
+    ],
+
+    "critical_actions": [
+      "recognize pleural effusion",
+      "assess respiratory status",
+      "obtain chest imaging",
+      "identify underlying cause",
+      "consider thoracentesis"
+    ],
+
+    "red_flags": [
+      "Large pleural effusion",
+      "Hypoxia",
+      "Respiratory distress",
+      "Underlying malignancy",
+      "Rapid symptom progression"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "pleural effusion",
+      "pleural fluid",
+      "effusion"
+    ]
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "case_id": "stable_angina_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Cardiology",
+    "difficulty": "easy",
+    "diagnosis": "Stable Angina",
+    "tags": [
+      "angina",
+      "chest pain",
+      "coronary artery disease",
+      "cardiology",
+      "exertional chest pain"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [45, 80],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "teacher",
+      "accountant",
+      "retired worker",
+      "shop owner",
+      "office administrator",
+      "bus driver",
+      "sales manager",
+      "electrician"
+    ],
+    "pain_score_range": [3, 7],
+    "risk_factor_count_range": [2, 5]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "Chest tightness when walking uphill"
+    },
+    {
+      "presenting_complaint": "Chest discomfort during exercise"
+    },
+    {
+      "presenting_complaint": "Pressure in my chest when I exert myself"
+    },
+    {
+      "presenting_complaint": "Chest pain that goes away when I rest"
+    },
+    {
+      "presenting_complaint": "Tightness in my chest while climbing stairs"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient reports intermittent central chest pressure for the past several months. Symptoms are triggered by physical exertion such as climbing stairs or brisk walking and consistently improve within a few minutes of rest. No symptoms occur at rest.",
+
+    "patient_quotes": [
+      "It usually happens when I'm active.",
+      "The pain goes away when I stop and rest.",
+      "Walking uphill almost always brings it on.",
+      "I've noticed it getting slightly more frequent.",
+      "I feel completely fine when resting."
+    ],
+
+    "pmh_pool": [
+      "Hypertension",
+      "Hyperlipidemia",
+      "Smoking",
+      "Type 2 diabetes",
+      "Obesity",
+      "Family history of coronary artery disease"
+    ],
+
+    "medications_pool": [
+      "Aspirin 81mg daily",
+      "Atorvastatin 40mg daily",
+      "Metformin 500mg twice daily",
+      "Lisinopril 10mg daily",
+      "Amlodipine 5mg daily"
+    ],
+
+    "social_history": {
+      "smoking": "Former smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Limited regular exercise",
+      "stress": "Moderate work-related stress"
+    },
+
+    "core_facts": {
+      "pain_location": "central chest",
+      "pain_character": "pressure",
+      "trigger": "physical exertion",
+      "relief": "rest",
+      "duration": "5-10 minutes"
+    },
+
+    "negative_history": [
+      "No pain at rest",
+      "No syncope",
+      "No fever",
+      "No recent illness"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Comfortable at rest",
+      "No acute distress",
+      "Appears well"
+    ],
+
+    "cardiovascular": [
+      "Regular rhythm",
+      "Normal heart sounds",
+      "No murmurs"
+    ],
+
+    "respiratory": [
+      "Clear breath sounds bilaterally"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [120, 165],
+    "diastolic_bp": [70, 100],
+    "heart_rate": [70, 95],
+    "resp_rate": [12, 20],
+    "spo2": [96, 100],
+    "temperature": [36.4, 37.1]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Normal sinus rhythm",
+      "Non-specific ST-T changes",
+      "Evidence of previous ischemia",
+      "Normal ECG at rest"
+    ],
+
+    "troponin_range": [0.0, 0.03],
+
+    "chest_xray": [
+      "No acute abnormality",
+      "Normal chest x-ray"
+    ],
+
+    "lab_findings": [
+      "Elevated LDL cholesterol",
+      "Normal troponin",
+      "Elevated HbA1c"
+    ]
+  },
+
+  "hidden_diagnosis": "Stable Angina",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "concerned",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "pain trigger",
+      "pain duration",
+      "pain location",
+      "pain relief",
+      "exercise tolerance",
+      "cardiac risk factors",
+      "associated symptoms"
+    ],
+
+    "essential_examinations": [
+      "vital signs",
+      "cardiovascular examination",
+      "respiratory examination"
+    ],
+
+    "essential_investigations": [
+      "ecg",
+      "troponin",
+      "lipid profile"
+    ],
+
+    "critical_actions": [
+      "recognize stable angina",
+      "identify exertional symptoms",
+      "assess cardiovascular risk factors",
+      "obtain ECG",
+      "consider anti-anginal therapy"
+    ],
+
+    "red_flags": [
+      "Exertional chest pain",
+      "Chest pain relieved by rest",
+      "Multiple cardiac risk factors",
+      "Recurrent symptoms",
+      "Exercise intolerance"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "stable angina",
+      "angina",
+      "chronic stable angina",
+      "coronary artery disease"
+    ]
+  }
+}
