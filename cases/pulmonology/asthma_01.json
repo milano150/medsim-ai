@@ -200,6 +200,42 @@
       "asthma",
       "acute asthma exacerbation",
       "bronchial asthma"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "COPD exacerbation",
+  "Pneumonia",
+  "Pulmonary embolism",
+  "Anaphylaxis",
+  "Heart failure"
+],
+
+"management_actions": [
+  "Assess severity",
+  "Oxygen if hypoxic",
+  "Nebulised salbutamol",
+  "Nebulised ipratropium",
+  "Systemic corticosteroids",
+  "Peak flow monitoring",
+  "Escalate if deteriorating"
+],
+
+"important_investigations": [
+  "Peak Expiratory Flow Rate",
+  "ABG",
+  "Chest X-Ray",
+  "Oxygen Saturation"
+],
+
+"critical_history_questions": [
+  "When did symptoms begin?",
+  "Any previous asthma attacks?",
+  "Any ICU admissions?",
+  "Any triggers?",
+  "Current inhaler use?",
+  "Night symptoms?",
+  "Recent respiratory infection?",
+  "Smoking history?"
+]
   }
 }

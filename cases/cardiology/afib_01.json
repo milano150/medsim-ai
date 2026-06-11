@@ -208,6 +208,32 @@
       "afib",
       "atrial fibrillation with rvr",
       "atrial fibrillation with rapid ventricular response"
+    ],
+
+    "acceptable_differentials": [
+      "Atrial flutter",
+      "Supraventricular tachycardia",
+      "Sinus tachycardia",
+      "Multifocal atrial tachycardia",
+      "Acute coronary syndrome"
+    ],
+
+    "management_actions": [
+      "Cardiac monitoring",
+      "12-lead ECG",
+      "Assess haemodynamic stability",
+      "Rate control with beta blocker or diltiazem",
+      "Anticoagulation assessment",
+      "Investigate underlying causes",
+      "Cardiology review"
+    ],
+
+    "important_investigations": [
+      "ECG",
+      "Electrolytes",
+      "TSH",
+      "Troponin",
+      "Echocardiogram"
     ]
   }
 }

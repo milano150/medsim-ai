@@ -206,6 +206,32 @@
       "angina",
       "chronic stable angina",
       "coronary artery disease"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "NSTEMI",
+  "Unstable angina",
+  "GERD",
+  "Aortic stenosis",
+  "Musculoskeletal chest pain"
+],
+
+"management_actions": [
+  "12-lead ECG",
+  "Cardiovascular risk assessment",
+  "Prescribe GTN",
+  "Initiate aspirin therapy",
+  "Start statin therapy",
+  "Arrange stress testing or CT coronary angiography",
+  "Cardiology follow-up"
+],
+
+"important_investigations": [
+  "ECG",
+  "Troponin",
+  "Lipid Profile",
+  "Stress Test",
+  "CT Coronary Angiography"
+]
   }
 }

@@ -203,6 +203,43 @@
       "tuberculosis",
       "pulmonary tuberculosis",
       "tb"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "Lung cancer",
+  "Pneumonia",
+  "Bronchiectasis",
+  "COPD",
+  "Fungal lung infection"
+],
+
+"management_actions": [
+  "Airborne isolation",
+  "Sputum testing",
+  "Chest X-Ray",
+  "Notify infectious disease team",
+  "Initiate anti-tuberculous therapy",
+  "Contact tracing",
+  "Public health notification"
+],
+
+"important_investigations": [
+  "Chest X-Ray",
+  "Sputum AFB",
+  "TB PCR",
+  "CBC",
+  "CT Chest"
+],
+
+"critical_history_questions": [
+  "Chronic cough duration?",
+  "Weight loss?",
+  "Night sweats?",
+  "Haemoptysis?",
+  "TB exposure?",
+  "Recent travel?",
+  "Immunosuppression?",
+  "Previous TB infection?"
+]
   }
 }

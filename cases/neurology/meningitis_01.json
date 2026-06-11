@@ -202,6 +202,43 @@
       "meningitis",
       "bacterial meningitis",
       "acute meningitis"
+    ],
+
+    "acceptable_differentials": [
+      "Viral encephalitis",
+      "Subarachnoid haemorrhage",
+      "Migraine",
+      "Brain abscess",
+      "Sepsis"
+    ],
+
+    "management_actions": [
+      "Immediate IV access",
+      "Blood cultures",
+      "Empiric IV antibiotics",
+      "Dexamethasone",
+      "Lumbar puncture if safe",
+      "Neurology or infectious disease review",
+      "Close monitoring"
+    ],
+
+    "important_investigations": [
+      "CBC",
+      "CRP",
+      "Blood Cultures",
+      "CT Head",
+      "Lumbar Puncture"
+    ],
+
+    "critical_history_questions": [
+      "When did symptoms begin?",
+      "Do you have fever?",
+      "Do you have neck stiffness?",
+      "Any photophobia?",
+      "Any rash?",
+      "Any recent infections?",
+      "Any immunosuppression?",
+      "Any confusion or altered mental status?"
     ]
   }
 }

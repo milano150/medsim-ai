@@ -206,6 +206,29 @@
       "pericarditis",
       "acute pericarditis",
       "viral pericarditis"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "STEMI",
+  "Pulmonary embolism",
+  "Aortic dissection",
+  "Myocarditis",
+  "Costochondritis"
+],
+
+"management_actions": [
+  "ECG",
+  "NSAID therapy",
+  "Monitor for tamponade",
+  "Echocardiography",
+  "Pain management"
+],
+
+"important_investigations": [
+  "ECG",
+  "Troponin",
+  "Echocardiogram",
+  "Chest X-Ray"
+]
   }
 }

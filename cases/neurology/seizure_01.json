@@ -206,6 +206,43 @@
       "generalized tonic clonic seizure",
       "epileptic seizure",
       "epilepsy"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "Syncope",
+  "Hypoglycaemia",
+  "Stroke",
+  "Brain tumour",
+  "Psychogenic non-epileptic seizure"
+],
+
+"management_actions": [
+  "Airway assessment",
+  "Check glucose",
+  "Cardiac monitoring",
+  "Neurological examination",
+  "Treat active seizure if ongoing",
+  "Identify precipitating cause",
+  "Neurology referral"
+],
+
+"important_investigations": [
+  "Blood Glucose",
+  "Electrolytes",
+  "CT Head",
+  "EEG",
+  "CBC"
+],
+
+"critical_history_questions": [
+  "Was the event witnessed?",
+  "How long did it last?",
+  "Any tongue biting?",
+  "Any urinary incontinence?",
+  "Any post-ictal confusion?",
+  "Previous seizures?",
+  "Recent head trauma?",
+  "Medication compliance?"
+]
   }
 }

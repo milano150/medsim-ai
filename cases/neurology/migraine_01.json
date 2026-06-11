@@ -204,6 +204,40 @@
       "migraine",
       "migraine with aura",
       "classic migraine"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "Tension headache",
+  "Cluster headache",
+  "Subarachnoid haemorrhage",
+  "Meningitis",
+  "Brain tumour"
+],
+
+"management_actions": [
+  "Pain assessment",
+  "NSAID or paracetamol therapy",
+  "Antiemetics",
+  "Hydration",
+  "Neurological assessment",
+  "Migraine-specific therapy",
+  "Outpatient follow-up"
+],
+
+"important_investigations": [
+  "Neurological Examination",
+  "CT Head"
+],
+
+"critical_history_questions": [
+  "When did the headache start?",
+  "Was the onset sudden or gradual?",
+  "Any previous migraines?",
+  "Any visual aura?",
+  "Any nausea or vomiting?",
+  "Any photophobia?",
+  "Any focal neurological symptoms?",
+  "Is this the worst headache of your life?"
+]
   }
 }

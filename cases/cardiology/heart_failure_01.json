@@ -211,6 +211,32 @@
       "congestive heart failure",
       "acute decompensated heart failure",
       "cardiac failure"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "COPD exacerbation",
+  "Pneumonia",
+  "Pulmonary embolism",
+  "Acute coronary syndrome",
+  "Asthma exacerbation"
+],
+
+"management_actions": [
+  "Oxygen if hypoxic",
+  "IV access",
+  "Loop diuretic therapy",
+  "Fluid balance monitoring",
+  "Cardiac monitoring",
+  "Treat precipitating cause",
+  "Cardiology review"
+],
+
+"important_investigations": [
+  "Chest X-Ray",
+  "BNP",
+  "ECG",
+  "Troponin",
+  "Echocardiogram"
+]
   }
 }

@@ -204,6 +204,42 @@
       "pleural effusion",
       "pleural fluid",
       "effusion"
-    ]
+    ],
+    "acceptable_differentials": [
+  "Heart failure",
+  "Pneumonia",
+  "Lung cancer",
+  "Tuberculosis",
+  "Pulmonary embolism"
+],
+
+"management_actions": [
+  "Respiratory assessment",
+  "Chest X-Ray",
+  "Thoracic ultrasound",
+  "Diagnostic thoracentesis",
+  "Treat underlying cause",
+  "Monitor oxygenation",
+  "Respiratory referral"
+],
+
+"important_investigations": [
+  "Chest X-Ray",
+  "Thoracic Ultrasound",
+  "Pleural Fluid Analysis",
+  "CBC",
+  "CT Chest"
+],
+
+"critical_history_questions": [
+  "Shortness of breath?",
+  "Chest pain?",
+  "Duration of symptoms?",
+  "Weight loss?",
+  "Fever?",
+  "History of malignancy?",
+  "Heart failure history?",
+  "Tuberculosis exposure?"
+]
   }
 }

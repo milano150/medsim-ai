@@ -204,6 +204,31 @@
       "supraventricular tachycardia",
       "paroxysmal supraventricular tachycardia",
       "psvt"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "Atrial fibrillation",
+  "Atrial flutter",
+  "Sinus tachycardia",
+  "Ventricular tachycardia",
+  "Panic attack"
+],
+
+"management_actions": [
+  "Cardiac monitoring",
+  "12-lead ECG",
+  "Assess haemodynamic stability",
+  "Attempt vagal manoeuvres",
+  "Administer adenosine if appropriate",
+  "Establish IV access",
+  "Cardiology review if recurrent"
+],
+
+"important_investigations": [
+  "ECG",
+  "Electrolytes",
+  "TSH",
+  "Troponin"
+]
   }
 }

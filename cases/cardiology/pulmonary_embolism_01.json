@@ -208,6 +208,32 @@
       "acute aortic dissection",
       "stanford type a dissection",
       "thoracic aortic dissection"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "Acute coronary syndrome",
+  "Pneumonia",
+  "Aortic dissection",
+  "Heart failure",
+  "Pneumothorax"
+],
+
+"management_actions": [
+  "Assess haemodynamic stability",
+  "Oxygen if hypoxic",
+  "IV access",
+  "CT pulmonary angiography",
+  "Anticoagulation",
+  "Cardiac monitoring",
+  "Escalate for thrombolysis if unstable"
+],
+
+"important_investigations": [
+  "D-dimer",
+  "CT Pulmonary Angiography",
+  "ECG",
+  "Troponin",
+  "Chest X-Ray"
+]
   }
 }

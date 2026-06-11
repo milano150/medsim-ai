@@ -204,6 +204,43 @@
       "copd",
       "copd exacerbation",
       "chronic obstructive pulmonary disease"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "Asthma exacerbation",
+  "Pneumonia",
+  "Heart failure",
+  "Pulmonary embolism",
+  "Pneumothorax"
+],
+
+"management_actions": [
+  "Controlled oxygen therapy",
+  "Nebulised bronchodilators",
+  "Systemic corticosteroids",
+  "Antibiotics if indicated",
+  "ABG monitoring",
+  "Smoking cessation advice",
+  "Respiratory review"
+],
+
+"important_investigations": [
+  "ABG",
+  "Chest X-Ray",
+  "ECG",
+  "CBC",
+  "Oxygen Saturation"
+],
+
+"critical_history_questions": [
+  "Smoking history?",
+  "Baseline exercise tolerance?",
+  "Sputum production?",
+  "Change in sputum colour?",
+  "Previous exacerbations?",
+  "Home oxygen use?",
+  "Fever?",
+  "Recent infections?"
+]
   }
 }

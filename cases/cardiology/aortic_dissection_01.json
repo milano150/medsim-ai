@@ -208,6 +208,31 @@
       "acute aortic dissection",
       "stanford type a dissection",
       "thoracic aortic dissection"
+    ],
+
+
+    "acceptable_differentials": [
+      "STEMI",
+      "Pulmonary embolism",
+      "Acute pericarditis",
+      "Unstable angina",
+      "Tension pneumothorax"
+    ],
+
+    "management_actions": [
+      "IV access and bloods",
+      "Blood pressure control with IV labetalol or esmolol",
+      "Urgent CT aortography",
+      "Activate cardiothoracic surgery",
+      "Nil by mouth",
+      "Pain relief with IV morphine",
+      "Target systolic BP 100-120 mmHg"
+    ],
+
+    "important_investigations": [
+      "Chest X-Ray",
+      "ECG",
+      "Troponin"
     ]
   }
 }

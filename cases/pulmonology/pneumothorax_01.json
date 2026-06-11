@@ -199,6 +199,42 @@
       "pneumothorax",
       "spontaneous pneumothorax",
       "collapsed lung"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "Pulmonary embolism",
+  "Asthma exacerbation",
+  "COPD exacerbation",
+  "Pneumonia",
+  "Acute coronary syndrome"
+],
+
+"management_actions": [
+  "Assess stability",
+  "High-flow oxygen",
+  "Immediate chest X-ray",
+  "Needle decompression if tension pneumothorax",
+  "Chest drain insertion",
+  "Cardiorespiratory monitoring",
+  "Respiratory review"
+],
+
+"important_investigations": [
+  "Chest X-Ray",
+  "ABG",
+  "ECG",
+  "Oxygen Saturation"
+],
+
+"critical_history_questions": [
+  "Sudden onset symptoms?",
+  "Chest pain?",
+  "Shortness of breath?",
+  "Previous pneumothorax?",
+  "Recent trauma?",
+  "Smoking history?",
+  "Underlying lung disease?",
+  "Symptom progression?"
+]
   }
 }

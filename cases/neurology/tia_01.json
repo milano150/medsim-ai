@@ -209,6 +209,43 @@
       "tia",
       "transient ischemic attack",
       "mini stroke"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "Stroke",
+  "Migraine with aura",
+  "Seizure",
+  "Hypoglycaemia",
+  "Bell's palsy"
+],
+
+"management_actions": [
+  "Urgent neurological assessment",
+  "Cardiac monitoring",
+  "Initiate antiplatelet therapy",
+  "Risk factor assessment",
+  "Carotid imaging",
+  "ECG",
+  "Stroke clinic referral"
+],
+
+"important_investigations": [
+  "CT Head",
+  "ECG",
+  "Carotid Doppler",
+  "Blood Glucose",
+  "CBC"
+],
+
+"critical_history_questions": [
+  "What symptoms occurred?",
+  "How long did symptoms last?",
+  "Did symptoms completely resolve?",
+  "Any weakness or numbness?",
+  "Any speech difficulty?",
+  "Any visual loss?",
+  "Previous TIA or stroke?",
+  "History of hypertension or atrial fibrillation?"
+]
   }
 }

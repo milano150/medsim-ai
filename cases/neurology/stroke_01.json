@@ -213,6 +213,43 @@
       "acute ischemic stroke",
       "cerebrovascular accident",
       "cva"
-    ]
+    ],
+
+    "acceptable_differentials": [
+  "Transient ischaemic attack",
+  "Hypoglycaemia",
+  "Seizure with Todd's paralysis",
+  "Brain tumour",
+  "Migraine with aura"
+],
+
+"management_actions": [
+  "Activate stroke pathway",
+  "Immediate CT head",
+  "Check blood glucose",
+  "Neurological assessment",
+  "Cardiac monitoring",
+  "Assess thrombolysis eligibility",
+  "Urgent neurology consultation"
+],
+
+"important_investigations": [
+  "CT Head",
+  "Blood Glucose",
+  "ECG",
+  "CBC",
+  "CT Angiography"
+],
+
+"critical_history_questions": [
+  "When was the patient last known well?",
+  "What symptoms occurred?",
+  "Any weakness or numbness?",
+  "Any speech difficulties?",
+  "Any visual disturbances?",
+  "Any anticoagulant use?",
+  "Previous strokes?",
+  "History of atrial fibrillation?"
+]
   }
 }

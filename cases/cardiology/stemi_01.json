@@ -226,6 +226,30 @@
       "heart attack",
       "anterior wall myocardial infarction",
       "acute coronary syndrome"
+    ],
+
+    "acceptable_differentials": [
+      "NSTEMI",
+      "Aortic dissection",
+      "Pulmonary embolism",
+      "Acute pericarditis",
+      "Unstable angina"
+    ],
+
+    "management_actions": [
+      "Administer aspirin",
+      "Immediate ECG",
+      "Activate cath lab",
+      "Urgent PCI",
+      "Cardiac monitoring",
+      "IV access",
+      "Serial troponins"
+    ],
+
+    "important_investigations": [
+      "ECG",
+      "Troponin",
+      "Chest X-Ray"
     ]
   }
 }

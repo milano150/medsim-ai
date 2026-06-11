@@ -205,6 +205,42 @@
       "bronchogenic carcinoma",
       "pulmonary malignancy",
       "primary lung cancer"
-    ]
+    ],
+    "acceptable_differentials": [
+  "Tuberculosis",
+  "Pneumonia",
+  "COPD",
+  "Pleural effusion",
+  "Metastatic cancer"
+],
+
+"management_actions": [
+  "Smoking cessation advice",
+  "CT chest",
+  "Tissue diagnosis",
+  "Oncology referral",
+  "Respiratory referral",
+  "Staging investigations",
+  "Symptom management"
+],
+
+"important_investigations": [
+  "Chest X-Ray",
+  "CT Chest",
+  "Bronchoscopy",
+  "Biopsy",
+  "PET Scan"
+],
+
+"critical_history_questions": [
+  "Smoking history?",
+  "Weight loss?",
+  "Haemoptysis?",
+  "Duration of cough?",
+  "Shortness of breath?",
+  "Occupational exposure?",
+  "Family history of cancer?",
+  "Previous malignancy?"
+]
   }
 }
