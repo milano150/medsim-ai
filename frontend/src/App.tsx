@@ -23,6 +23,13 @@ const VITALS_CONFIG: { key: string; label: string; icon: string }[] = [
 
 const BASE = "http://127.0.0.1:8000";
 
+// Debug info shape returned from /start
+type DebugInfo = {
+  hidden_diagnosis: string;
+  acceptable_differentials: string[];
+  management_actions: string[];
+};
+
 function App() {
   // ── View state ──────────────────────────────────────────────────────────────
   const [appView, setAppView] = useState<AppView>("landing");
@@ -46,6 +53,10 @@ function App() {
   // ── FR-04 state ─────────────────────────────────────────────────────────────
   const [debriefPayload, setDebriefPayload]     = useState<DebriefPayload | null>(null);
 
+  // ── Debug panel state ───────────────────────────────────────────────────────
+  const [debugInfo, setDebugInfo]   = useState<DebugInfo | null>(null);
+  const [showDebug, setShowDebug]   = useState(false);
+
   // ── Timer ───────────────────────────────────────────────────────────────────
   const [timerSeconds, setTimerSeconds]   = useState(0);
   const [timerRunning, setTimerRunning]   = useState(false);
@@ -66,6 +77,11 @@ function App() {
     if (appView !== "simulation") return;
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, appView]);
+
+  useEffect(() => {
+    if (appView !== "simulation") return;
+    if (!loading) chatInputRef.current?.focus();
+  }, [messages, loading, appView]);
 
   useEffect(() => {
     if (timerRunning) {
@@ -109,6 +125,11 @@ function App() {
       const startRes  = await fetch(`${BASE}/start/${caseData.case_id}`, { method: "POST" });
       const startData = await startRes.json();
       setSessionId(startData.session_id);
+      setDebugInfo({
+        hidden_diagnosis: startData.hidden_diagnosis || "",
+        acceptable_differentials: startData.acceptable_differentials || [],
+        management_actions: startData.management_actions || [],
+      });
 
       const llmRes  = await fetch(`${BASE}/llm/${caseData.case_id}`);
       const llmData = await llmRes.json();
@@ -120,6 +141,7 @@ function App() {
       setDiagnosisForm(null);
       setDiagnosisResult(null);
       setDebriefPayload(null);
+      setShowDebug(false);
       setTimerSeconds(0);
       setTimerRunning(true);
       setAppView("simulation");
@@ -163,30 +185,42 @@ function App() {
     setVisibleInvestigations((prev) => prev.includes(key) ? prev : [...prev, key]);
 
   // ── FR-03: diagnosis submitted ───────────────────────────────────────────────
+  // ── FR-03: diagnosis submitted ───────────────────────────────────────────────
   const handleDiagnosisSubmitted = (form: DiagnosisForm, result: DiagnosisResult) => {
     setDiagnosisForm(form);
     setDiagnosisResult(result);
     setTimerRunning(false);
 
-    // Add patient reaction to chat
-    setMessages((prev) => [...prev, { role: "patient", text: result.patientReaction }]);
+    setMessages((prevMessages) => {
+      const updatedMessages = prevMessages.concat([
+        { role: "patient" as const, text: result.patientReaction },
+      ]);
 
-    // Build debrief payload immediately so we have it ready
-    const payload: DebriefPayload = {
-      session_id: sessionId,
-      time_taken: formatTime(timerSeconds),
-      primary_diagnosis: form.primaryDiagnosis,
-      differential_1: form.differential1 || undefined,
-      differential_2: form.differential2 || undefined,
-      management_plan: form.managementPlan || undefined,
-      ordered_investigations: visibleInvestigations,
-      transcript: messages.concat([{ role: "patient", text: result.patientReaction }]),
-    };
-    setDebriefPayload(payload);
+      const payload: DebriefPayload = {
+        session_id: sessionId,
+        time_taken: formatTime(timerSeconds),
+
+        primary_diagnosis: form.primaryDiagnosis,
+        differential_1: form.differential1 || undefined,
+        differential_2: form.differential2 || undefined,
+        management_plan: form.managementPlan || undefined,
+
+        ordered_investigations: visibleInvestigations,
+
+        transcript: updatedMessages,
+
+        diagnosis_score: result.score,
+        management_score: result.management_score ?? 0,
+        management_matched: result.management_matched ?? [],
+        management_missed: result.management_missed ?? [],
+      };
+      setDebriefPayload(payload);
+
+      return updatedMessages;
+    });
+
+    setAppView("debrief");
   };
-
-  // ── FR-04: go to debrief ─────────────────────────────────────────────────────
-  const goToDebrief = () => setAppView("debrief");
 
   // ── Reset ────────────────────────────────────────────────────────────────────
   const resetSimulation = () => {
@@ -200,6 +234,8 @@ function App() {
     setDiagnosisForm(null);
     setDiagnosisResult(null);
     setDebriefPayload(null);
+    setDebugInfo(null);
+    setShowDebug(false);
     setTimerSeconds(0);
     setTimerRunning(false);
     setAppView("landing");
@@ -221,6 +257,15 @@ function App() {
           </div>
           {appView !== "landing" && (
             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              {debugInfo && (
+                <button
+                  className="btn-ghost"
+                  onClick={() => setShowDebug((p) => !p)}
+                  style={{ borderColor: "#a855f7", color: "#a855f7" }}
+                >
+                  temporary answer key😝
+                </button>
+              )}
               <div className={`timer-badge ${diagnosisResult ? "stopped" : "running"}`}>
                 <span className="timer-icon">⏱</span>
                 <span className="timer-value">{formatTime(timerSeconds)}</span>
@@ -232,6 +277,56 @@ function App() {
           )}
         </div>
       </header>
+
+      {/* ── Debug panel ── */}
+      {showDebug && debugInfo && (
+        <div
+          style={{
+            position: "fixed",
+            top: 64,
+            right: 16,
+            zIndex: 1000,
+            background: "#1e1b2e",
+            border: "1px solid #a855f7",
+            borderRadius: 8,
+            padding: "12px 16px",
+            maxWidth: 360,
+            color: "#e5e7eb",
+            fontSize: 13,
+            boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+            <strong style={{ color: "#a855f7" }}>Debug — Answer Key</strong>
+            <button
+              className="btn-ghost"
+              style={{ padding: "2px 8px", fontSize: 12 }}
+              onClick={() => setShowDebug(false)}
+            >
+              ✕
+            </button>
+          </div>
+          <div style={{ marginBottom: 6 }}>
+            <strong>Hidden diagnosis:</strong> {debugInfo.hidden_diagnosis || "—"}
+          </div>
+          <div style={{ marginBottom: 6 }}>
+            <strong>Acceptable differentials:</strong>
+            {debugInfo.acceptable_differentials.length ? (
+              <ul style={{ margin: "4px 0 0 18px" }}>
+                {debugInfo.acceptable_differentials.map((d, i) => <li key={i}>{d}</li>)}
+              </ul>
+            ) : " —"}
+          </div>
+          <div>
+            <strong>Expected management:</strong>
+            {debugInfo.management_actions.length ? (
+              <ul style={{ margin: "4px 0 0 18px" }}>
+                {debugInfo.management_actions.map((m, i) => <li key={i}>{m}</li>)}
+              </ul>
+            ) : " —"}
+          </div>
+        </div>
+      )}
 
       <main className="app-main">
 
@@ -327,48 +422,26 @@ function App() {
                   <div ref={chatEndRef} />
                 </div>
 
-                {suggestions.length > 0 && (
-                  <div className="suggestions-bar">
-                    <span className="suggestions-label">💡 Suggested:</span>
-                    {suggestions.map((s, i) => (
-                      <span key={i} className="suggestion-chip">{s}</span>
-                    ))}
-                  </div>
-                )}
+                
 
-                {/* Hide input after diagnosis submitted */}
-                {!diagnosisResult && (
-                  <div className="chat-input-row">
-                    <input
-                      ref={chatInputRef}
-                      className="chat-input"
-                      value={chatInput}
-                      onChange={(e) => setChatInput(e.target.value)}
-                      placeholder="Ask about symptoms, history…"
-                      onKeyDown={(e) => { if (e.key === "Enter") sendChat(); }}
-                      disabled={loading}
-                    />
-                    <button
-                      className={`btn-send ${loading || !chatInput.trim() ? "disabled" : ""}`}
-                      onClick={sendChat}
-                      disabled={loading || !chatInput.trim()}
-                    >
-                      {loading ? <span className="spinner sm" /> : "Send"}
-                    </button>
-                  </div>
-                )}
-
-                {/* FR-04: View Debrief button after diagnosis is done */}
-                {diagnosisResult && debriefPayload && (
-                  <div className="post-diagnosis-bar">
-                    <span className="post-diagnosis-score" style={{ color: getScoreColor(diagnosisResult.score) }}>
-                      Score: {diagnosisResult.score}/100 — {getScoreLabel(diagnosisResult.score)}
-                    </span>
-                    <button className="btn-primary" onClick={goToDebrief}>
-                      View Full Debrief →
-                    </button>
-                  </div>
-                )}
+                <div className="chat-input-row">
+                  <input
+                    ref={chatInputRef}
+                    className="chat-input"
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    placeholder="Ask about symptoms, history…"
+                    onKeyDown={(e) => { if (e.key === "Enter") sendChat(); }}
+                    disabled={loading}
+                  />
+                  <button
+                    className={`btn-send ${loading || !chatInput.trim() ? "disabled" : ""}`}
+                    onClick={sendChat}
+                    disabled={loading || !chatInput.trim()}
+                  >
+                    {loading ? <span className="spinner sm" /> : "Send"}
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -442,50 +515,14 @@ function App() {
                   <span className="sidebar-icon">🩺</span> Diagnosis
                 </div>
 
-                {!diagnosisResult ? (
-                  <DiagnosePanel
-                    caseId={caseId}
-                    sessionId={sessionId}
-                    timerSeconds={timerSeconds}
-                    formatTime={formatTime}
-                    onSubmitted={handleDiagnosisSubmitted}
-                    onTimerStop={() => setTimerRunning(false)}
-                  />
-                ) : (
-                  <div className="diagnosis-result">
-                    <div className="score-ring-wrap">
-                      <svg viewBox="0 0 80 80" className="score-ring">
-                        <circle cx="40" cy="40" r="34" fill="none" stroke="var(--border)" strokeWidth="8" />
-                        <circle
-                          cx="40" cy="40" r="34" fill="none"
-                          stroke={getScoreColor(diagnosisResult.score)} strokeWidth="8"
-                          strokeDasharray={`${(diagnosisResult.score / 100) * 213.6} 213.6`}
-                          strokeLinecap="round" transform="rotate(-90 40 40)"
-                          style={{ transition: "stroke-dasharray 1s ease" }}
-                        />
-                      </svg>
-                      <div className="score-ring-text">
-                        <span className="score-number" style={{ color: getScoreColor(diagnosisResult.score) }}>
-                          {diagnosisResult.score}
-                        </span>
-                        <span className="score-denom">/100</span>
-                      </div>
-                    </div>
-                    <div className="score-label" style={{ color: getScoreColor(diagnosisResult.score) }}>
-                      {getScoreLabel(diagnosisResult.score)}
-                    </div>
-                    <div className="time-taken">
-                      ⏱ Completed in <strong>{formatTime(timerSeconds)}</strong>
-                    </div>
-                    <div className="score-feedback">
-                      <div className="score-feedback-title">Feedback</div>
-                      <p>{diagnosisResult.feedback}</p>
-                    </div>
-                    <button className="btn-primary" style={{ width: "100%", marginTop: 12 }} onClick={goToDebrief}>
-                      View Full Debrief →
-                    </button>
-                  </div>
-                )}
+                <DiagnosePanel
+                  caseId={caseId}
+                  sessionId={sessionId}
+                  timerSeconds={timerSeconds}
+                  formatTime={formatTime}
+                  onSubmitted={handleDiagnosisSubmitted}
+                  onTimerStop={() => setTimerRunning(false)}
+                />
               </div>
               <button className="btn-new-sim" onClick={resetSimulation}>← New Simulation</button>
             </div>

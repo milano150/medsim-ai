@@ -50,7 +50,11 @@ export type DebriefPayload = {
   differential_2?: string;
   management_plan?: string;
   ordered_investigations: string[];
-  transcript: Message[];
+  transcript: { role: string; text: string }[];
+  diagnosis_score: number;
+  management_score: number;
+  management_matched: string[];
+  management_missed: string[];
 };
 
 // FR-04: full debrief response from /debrief/{case_id}

@@ -41,7 +41,7 @@ if not GROQ_API_KEY:
 client = Groq(api_key=GROQ_API_KEY)
 
 # --------------------------------------------------
-# CASE LOADING & GENERATION  (unchanged)
+# CASE LOADING & GENERATION
 # --------------------------------------------------
 
 def generate_patient_persona(case: dict) -> dict:
@@ -170,34 +170,33 @@ class ChatRequest(BaseModel):
     question: str
 
 
-# FR-03: Extended diagnosis submission with differentials + management
 class DiagnoseRequest(BaseModel):
     session_id: str
-    diagnosis: str          # primary diagnosis (kept for backward compat)
+    diagnosis: str
     time_taken: str
-    # FR-03 new fields (optional so existing callers don't break)
     differential_1: Optional[str] = None
     differential_2: Optional[str] = None
     management_plan: Optional[str] = None
 
 
-# FR-04: Debrief request
 class DebriefRequest(BaseModel):
     session_id: str
     time_taken: str
-    # mirrors what was submitted during diagnose
     primary_diagnosis: str
     differential_1: Optional[str] = None
     differential_2: Optional[str] = None
     management_plan: Optional[str] = None
-    # investigations that were ordered (keys from patient.investigations)
     ordered_investigations: List[str] = []
-    # full chat transcript for session review
-    transcript: List[dict] = []   # [{role, text}]
+    transcript: List[dict] = []
+    # Passed from /diagnose so debrief doesn't re-score independently
+    diagnosis_score: int = 0
+    management_score: int = 0
+    management_matched: List[str] = []
+    management_missed: List[str] = []
 
 
 # --------------------------------------------------
-# HELPERS  (unchanged)
+# HELPERS
 # --------------------------------------------------
 
 def normalize_text(text: str) -> str:
@@ -326,7 +325,6 @@ def call_llm(prompt: str, max_tokens: int = 250) -> str:
 def safe_parse_json(raw: str) -> dict:
     """Strip markdown fences and parse JSON, with fallback."""
     clean = raw.replace("```json", "").replace("```", "").strip()
-    # Find first { ... } block in case the model added preamble
     match = re.search(r"\{.*\}", clean, re.DOTALL)
     if match:
         clean = match.group(0)
@@ -334,7 +332,7 @@ def safe_parse_json(raw: str) -> dict:
 
 
 # --------------------------------------------------
-# ROUTES  (unchanged originals)
+# ROUTES
 # --------------------------------------------------
 
 @app.get("/")
@@ -355,6 +353,10 @@ def start_case(case_id: str):
             "sex": case["patient_persona"]["sex"],
             "occupation": case["patient_persona"]["occupation"],
         },
+        # Debug: expose hidden answer so frontend can show it. Remove in prod.
+        "hidden_diagnosis": case.get("hidden_diagnosis", ""),
+        "acceptable_differentials": case.get("scoring_rubric", {}).get("acceptable_differentials", []),
+        "management_actions": case.get("scoring_rubric", {}).get("management_actions", []),
     }
 
 
@@ -395,7 +397,7 @@ def chat_patient(body: ChatRequest):
 
 
 # --------------------------------------------------
-# FR-03: EXTENDED DIAGNOSIS SCORING
+# DIAGNOSIS SCORING
 # --------------------------------------------------
 
 @app.post("/diagnose/{case_id}")
@@ -413,11 +415,12 @@ def score_diagnosis(case_id: str, body: DiagnoseRequest):
     management_actions = case.get("scoring_rubric", {}).get("management_actions", [])
     persona = case.get("patient_persona", {})
 
-    # Build a richer prompt when differential / management data is supplied
     has_extended = any([body.differential_1, body.differential_2, body.management_plan])
 
     if has_extended:
-        prompt = f"""You are a supportive medical education scoring assistant for MEDICAL STUDENTS (not consultants). Be fair and generous — students are learning.
+        prompt = f"""You are a fair and encouraging medical education scorer for MEDICAL STUDENTS who are still learning. Your job is to reward correct thinking, not penalise imperfect recall.
+
+Always address the student directly in second person: "You identified...", "You correctly...", "Your diagnosis...", "You missed..." — never say "The student...".
 
 Hidden correct diagnosis: "{hidden_diagnosis}"
 Correct diagnosis keywords: {json.dumps(keywords)}
@@ -431,56 +434,67 @@ Student's submission:
 - Management plan: "{body.management_plan or 'not provided'}"
 - Time taken: {body.time_taken}
 
-PRIMARY DIAGNOSIS scoring (0-100) — be generous:
-  90-100: exact match or correct with correct subtype
-  75-89:  correct disease category, missing subtype/specificity (e.g. "meningitis" vs "bacterial meningitis" = 75)
-  55-74:  closely related condition in the right organ system
-  30-54:  some correct clinical reasoning but wrong diagnosis
-  0-29:   completely unrelated
+PRIMARY DIAGNOSIS scoring (0-100):
+  90-100: Exact match or correct with correct subtype/severity qualifier
+  80-89:  Correct disease, missing minor subtype detail (e.g. "MI" vs "STEMI" = 82)
+  65-79:  Correct organ system and mechanism, wrong specific label
+  45-64:  Related condition, partially correct clinical reasoning
+  20-44:  Some relevant thinking but wrong diagnosis
+  0-19:   Completely unrelated
 
-DIFFERENTIAL scoring — mark "accepted" if the differential is clinically reasonable for the presentation, even if not on the list. Only mark "incorrect" if it is unrelated. Be generous.
+DIFFERENTIAL scoring:
+Mark "accepted" if the differential is a clinically reasonable alternative for this presentation, even if not on the list. Only mark "incorrect" if it is completely unrelated to the presentation. Be generous — students are exploring.
 
-MANAGEMENT scoring (0-100) — partial credit is important:
-  - The student is a student, not a consultant. Do not expect a complete treatment protocol.
-  - Award 25 points per correct action mentioned (e.g. IV access alone = 25, not 0).
-  - Give full credit if the general intent matches (e.g. "IV antibiotics" matches "administer IV ceftriaxone").
-  - Only penalise for missing CRITICAL life-saving actions, not procedural details.
-  - A single relevant action mentioned should score at LEAST 20/100.
+MANAGEMENT scoring (0-100) — this is the most important section to be generous in:
+  - Students are not consultants. Do not expect a complete protocol.
+  - Score based on the INTENT and DIRECTION of their plan, not exact wording.
+  - Award points per correct action category mentioned:
+      * Immediate stabilisation (O2, IV access, monitoring) = 25 pts
+      * Correct drug class or specific drug = 25 pts
+      * Correct investigations or referral = 25 pts
+      * Any other relevant action = 25 pts
+  - "Aspirin and refer to cardiology" for an MI = at least 60/100, not 20.
+  - "IV access, oxygen, aspirin" = at least 70/100.
+  - Only score below 30 if the plan is completely wrong or dangerous.
+  - A partial plan with correct intent should score 50-70.
 
 Patient name: {persona.get('name', 'the patient')}
 
 Respond ONLY with a valid JSON object, no markdown, no backticks:
 {{
   "score": <0-100 primary diagnosis score>,
-  "feedback": "<2-3 sentence constructive feedback, acknowledge what was correct before noting gaps>",
-  "patientReaction": "<1-2 sentence in-character reaction from {persona.get('name', 'the patient')}, thankful if score > 65, worried if <= 65>",
+  "feedback": "<2-3 sentences in second person. Start by acknowledging what you got right, then note any gaps. Be encouraging.>",
+  "patientReaction": "<1-2 sentences in character as {persona.get('name', 'the patient')}. Thankful/relieved if score >= 65, worried/uncertain if < 65.>",
   "differential_1_result": "<accepted|partial|incorrect>",
   "differential_2_result": "<accepted|partial|incorrect>",
-  "differential_1_feedback": "<one sentence>",
-  "differential_2_feedback": "<one sentence>",
+  "differential_1_feedback": "<one sentence in second person>",
+  "differential_2_feedback": "<one sentence in second person>",
   "management_score": <0-100>,
-  "management_feedback": "<2-3 sentences, acknowledge what was right>",
-  "management_matched": [<list of matched action strings>],
-  "management_missed": [<list of only the most critical missed actions, max 3>]
+  "management_feedback": "<2-3 sentences in second person. Acknowledge what you got right first.>",
+  "management_matched": [<list of matched action strings from the student's plan>],
+  "management_missed": [<list of the most critical missed actions, max 3>]
 }}"""
+
     else:
-        # Backward-compatible prompt (original behaviour)
-        prompt = f"""You are a medical education scoring assistant. A medical student submitted a diagnosis for a simulated patient case.
+        prompt = f"""You are a fair and encouraging medical education scorer for MEDICAL STUDENTS who are still learning.
+
+Always address the student directly in second person: "You identified...", "Your diagnosis...", "You missed..." — never say "The student...".
 
 Hidden correct diagnosis: "{hidden_diagnosis}"
 Correct diagnosis keywords: {json.dumps(keywords)}
 Student's diagnosis: "{body.diagnosis}"
 Time taken: {body.time_taken}
 
-Evaluate the student's diagnosis and respond ONLY with a valid JSON object (no markdown, no backticks, no extra text) in this exact format:
-{{"score": <number 0-100>, "feedback": "<2-3 sentence constructive feedback explaining the score, what was right and what was missed>", "patientReaction": "<a short in-character message the patient named {persona.get('name', 'the patient')} would say, thankful if score > 75, disappointed if score <= 75>"}}
+Score generously — reward correct thinking:
+  90-100: Exact or near-exact match
+  80-89:  Correct disease, missing minor subtype
+  65-79:  Correct organ system and mechanism
+  45-64:  Related condition, partially correct
+  20-44:  Some relevant thinking but wrong
+  0-19:   Completely unrelated
 
-Scoring criteria:
-- 90-100: Exact or near-exact match with correct diagnosis
-- 70-89: Correct general diagnosis but missing specifics
-- 50-69: Partially correct, related condition identified
-- 25-49: Some relevant medical thinking but wrong diagnosis
-- 0-24: Completely incorrect or unrelated diagnosis"""
+Respond ONLY with a valid JSON object (no markdown, no backticks):
+{{"score": <0-100>, "feedback": "<2-3 sentences in second person, acknowledge what was right before noting gaps>", "patientReaction": "<short in-character message from {persona.get('name', 'the patient')}. Thankful if score >= 65, uncertain if < 65>"}}"""
 
     raw = call_llm(prompt, max_tokens=600)
 
@@ -491,7 +505,6 @@ Scoring criteria:
             "feedback": parsed.get("feedback", ""),
             "patientReaction": parsed.get("patientReaction", ""),
         }
-        # Include extended fields if present
         if has_extended:
             result.update({
                 "differential_1_result": parsed.get("differential_1_result", "incorrect"),
@@ -509,19 +522,11 @@ Scoring criteria:
 
 
 # --------------------------------------------------
-# FR-04: POST-SESSION DEBRIEF
+# POST-SESSION DEBRIEF
 # --------------------------------------------------
 
 @app.post("/debrief/{case_id}")
 def generate_debrief(case_id: str, body: DebriefRequest):
-    """
-    Full post-session debrief. Analyses:
-    - Investigation selection (ordered vs expected vs missed)
-    - Competency scores (history, investigations, reasoning, management)
-    - Annotated session review (good questions, missed questions, key findings)
-
-    Reuses active_cases session state and call_llm.
-    """
     case = active_cases.get(body.session_id)
     if not case:
         raise HTTPException(status_code=404, detail="Session not found")
@@ -533,7 +538,7 @@ def generate_debrief(case_id: str, body: DebriefRequest):
     management_actions = rubric.get("management_actions", [])
     differentials = rubric.get("acceptable_differentials", [])
 
-    # --- Investigation review (pure logic, no LLM needed) ---
+    # Investigation score — pure logic, no LLM
     ordered = body.ordered_investigations
     important_ordered = [i for i in ordered if i in important_investigations]
     important_missed = [i for i in important_investigations if i not in ordered]
@@ -542,14 +547,20 @@ def generate_debrief(case_id: str, body: DebriefRequest):
         if important_investigations else 100
     )
 
-    # --- Build transcript string for LLM ---
     transcript_text = "\n".join(
         f"{'Doctor' if m.get('role') == 'user' else 'Patient'}: {m.get('text', '')}"
         for m in body.transcript
     )
 
-    # --- Single LLM call for competency scoring + session review ---
-    debrief_prompt = f"""You are a senior medical education assessor debriefing a student after a simulated patient case.
+    # Pass through scores already computed by /diagnose so we never re-score them
+    diagnosis_score = body.diagnosis_score
+    management_score = body.management_score
+    management_matched = body.management_matched
+    management_missed = body.management_missed
+
+    debrief_prompt = f"""You are a senior medical education assessor giving a post-session debrief to a medical student.
+
+Always address the student in second person: "You asked...", "You identified...", "You missed...", "Your management plan..." — never say "The student...".
 
 CASE DETAILS:
 - Correct diagnosis: {hidden_diagnosis}
@@ -564,37 +575,39 @@ STUDENT SUBMISSION:
 - Management plan: "{body.management_plan or 'not provided'}"
 - Time taken: {body.time_taken}
 
+SCORES ALREADY COMPUTED (use these exact values — do not re-score):
+- Diagnosis score: {diagnosis_score}/100
+- Investigation score: {investigation_score}/100
+- Management score: {management_score}/100
+
 TRANSCRIPT:
 {transcript_text}
 
-INVESTIGATION DATA:
-- All ordered: {json.dumps(ordered)}
-- Important ones ordered: {json.dumps(important_ordered)}
-- Important ones missed: {json.dumps(important_missed)}
+Your task: score history-taking and reasoning, then produce the session review.
 
-Your task: produce a structured debrief. Score each competency 0-100.
+HISTORY score (0-100): How thoroughly did the student explore the history vs the key_history_questions list?
+  - Award 20 pts per key category explored (onset, character, associated symptoms, PMH, medications, social)
+  - Be generous — brief but relevant questions still count
+  - Score 70+ if they covered the main areas even without perfect depth
 
-Competency scoring:
-- history_score: How thoroughly did the student explore the history? Award based on key questions asked vs key_history_questions list.
-- investigation_score: Already computed as {investigation_score} — use this exact value.
-- reasoning_score: How logical was the diagnostic reasoning based on the full transcript and submission?
-- management_score: How complete was the management plan vs expected_management_actions?
+REASONING score (0-100): How logical was the diagnostic process shown in the transcript?
+  - This score should be WITHIN 15 points of the diagnosis score ({diagnosis_score})
+  - If they reached the right diagnosis, reasoning was clearly good — score accordingly
+  - Only go lower than the diagnosis score if the transcript shows they guessed without reasoning
 
-For session review, analyse the transcript carefully.
+For session review, analyse the transcript carefully and identify specific questions and findings.
 
 Respond ONLY with a valid JSON object, no markdown, no backticks:
 {{
   "history_score": <0-100>,
-  "investigation_score": {investigation_score},
-  "reasoning_score": <0-100>,
-  "management_score": <0-100>,
-  "history_feedback": "<2 sentences>",
-  "reasoning_feedback": "<2 sentences>",
-  "management_feedback": "<2 sentences>",
-  "good_questions": [<list of up to 5 actual questions from transcript that were clinically strong>],
-  "missed_questions": [<list of up to 5 key questions the student did not ask, from key_history_questions>],
-  "key_findings_discovered": [<list of up to 5 important clinical findings the student uncovered>],
-  "key_findings_missed": [<list of up to 5 important findings not explored>]
+  "reasoning_score": <0-100, must be within 15 pts of {diagnosis_score}>,
+  "history_feedback": "<2 sentences in second person>",
+  "reasoning_feedback": "<2 sentences in second person>",
+  "management_feedback": "<2-3 sentences in second person acknowledging what you got right>",
+  "good_questions": [<up to 5 actual questions from the transcript that were clinically strong>],
+  "missed_questions": [<up to 5 key questions from key_history_questions that were not asked>],
+  "key_findings_discovered": [<up to 5 important clinical findings the student uncovered>],
+  "key_findings_missed": [<up to 5 important findings that were not explored>]
 }}"""
 
     raw = call_llm(debrief_prompt, max_tokens=1200)
@@ -604,22 +617,22 @@ Respond ONLY with a valid JSON object, no markdown, no backticks:
     except Exception:
         raise HTTPException(status_code=502, detail=f"Failed to parse debrief response: {raw}")
 
+    history_score = parsed.get("history_score", 0)
+    reasoning_score = parsed.get("reasoning_score", 0)
+
     overall_score = round(
-        (parsed.get("history_score", 0) +
-         parsed.get("investigation_score", investigation_score) +
-         parsed.get("reasoning_score", 0) +
-         parsed.get("management_score", 0)) / 4
+        (history_score + investigation_score + reasoning_score + management_score) / 4
     )
 
     return {
-        # Competency scores
-        "history_score": parsed.get("history_score", 0),
-        "investigation_score": parsed.get("investigation_score", investigation_score),
-        "reasoning_score": parsed.get("reasoning_score", 0),
-        "management_score": parsed.get("management_score", 0),
+        # Competency scores — diagnosis and management come from /diagnose, never re-computed
+        "history_score": history_score,
+        "investigation_score": investigation_score,
+        "reasoning_score": reasoning_score,
+        "management_score": management_score,
         "overall_score": overall_score,
 
-        # Feedback per competency
+        # Feedback
         "history_feedback": parsed.get("history_feedback", ""),
         "reasoning_feedback": parsed.get("reasoning_feedback", ""),
         "management_feedback": parsed.get("management_feedback", ""),
@@ -635,7 +648,7 @@ Respond ONLY with a valid JSON object, no markdown, no backticks:
         "key_findings_discovered": parsed.get("key_findings_discovered", []),
         "key_findings_missed": parsed.get("key_findings_missed", []),
 
-        # Pass-through submission for display
+        # Pass-through for display
         "primary_diagnosis": body.primary_diagnosis,
         "correct_diagnosis": hidden_diagnosis,
         "differential_1": body.differential_1,
@@ -643,4 +656,8 @@ Respond ONLY with a valid JSON object, no markdown, no backticks:
         "management_plan": body.management_plan,
         "acceptable_differentials": differentials,
         "expected_management": management_actions,
+
+        # Pass-through management details from /diagnose
+        "management_matched": management_matched,
+        "management_missed_actions": management_missed,
     }
