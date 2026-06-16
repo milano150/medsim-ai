@@ -1,0 +1,234 @@
+{
+  "case_id": "svt_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Cardiology",
+    "difficulty": "intermediate",
+    "diagnosis": "Supraventricular Tachycardia",
+    "tags": [
+      "svt",
+      "palpitations",
+      "tachycardia",
+      "arrhythmia",
+      "cardiology"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [18, 65],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "student",
+      "teacher",
+      "software engineer",
+      "sales representative",
+      "nurse",
+      "office worker",
+      "retail worker",
+      "fitness trainer"
+    ],
+    "pain_score_range": [0, 4],
+    "risk_factor_count_range": [0, 2]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "My heart suddenly started racing"
+    },
+    {
+      "presenting_complaint": "Rapid heartbeat that won't stop"
+    },
+    {
+      "presenting_complaint": "Sudden palpitations and dizziness"
+    },
+    {
+      "presenting_complaint": "My chest feels like it's fluttering rapidly"
+    },
+    {
+      "presenting_complaint": "Fast heartbeat that began out of nowhere"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient experienced sudden onset palpitations approximately 30 minutes ago while sitting at work. Reports a rapid regular heartbeat associated with mild dizziness and anxiety. Similar episodes have occurred previously but resolved spontaneously.",
+
+    "patient_quotes": [
+      "It started all of a sudden.",
+      "My heart feels like it's beating out of my chest.",
+      "I've had this happen before.",
+      "I feel lightheaded.",
+      "The heartbeat feels very fast but regular."
+    ],
+
+    "pmh_pool": [
+      "Previous SVT episodes",
+      "Anxiety",
+      "Excess caffeine intake",
+      "No significant medical history"
+    ],
+
+    "medications_pool": [
+      "No regular medications",
+      "Propranolol as needed",
+      "Sertraline"
+    ],
+
+    "social_history": {
+      "smoking": "Non-smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Regular exercise",
+      "stress": "Increased work stress recently"
+    },
+
+    "core_facts": {
+      "symptom_duration": "30 minutes",
+      "palpitations": true,
+      "onset": "sudden",
+      "heartbeat": "fast and regular",
+      "associated_symptoms": [
+        "dizziness",
+        "anxiety"
+      ]
+    },
+
+    "negative_history": [
+      "No chest trauma",
+      "No fever",
+      "No loss of consciousness"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Appears anxious",
+      "Alert and oriented",
+      "Mild distress"
+    ],
+
+    "cardiovascular": [
+      "Regular tachycardia",
+      "Rapid pulse",
+      "No murmurs"
+    ],
+
+    "respiratory": [
+      "Clear breath sounds bilaterally"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [90, 140],
+    "diastolic_bp": [55, 90],
+    "heart_rate": [170, 230],
+    "resp_rate": [16, 28],
+    "spo2": [96, 100],
+    "temperature": [36.4, 37.2]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Narrow complex tachycardia at 190 bpm",
+      "Regular narrow complex tachycardia at 210 bpm",
+      "SVT with heart rate of 180 bpm",
+      "Regular narrow QRS tachycardia",
+      "Paroxysmal supraventricular tachycardia"
+    ],
+
+    "troponin_range": [0.0, 0.05],
+
+    "chest_xray": [
+      "No acute abnormality"
+    ],
+
+    "lab_findings": [
+      "Normal electrolytes",
+      "Normal troponin",
+      "Normal CBC"
+    ]
+  },
+
+  "hidden_diagnosis": "Paroxysmal Supraventricular Tachycardia",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "anxious",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "palpitations",
+      "onset of symptoms",
+      "previous episodes",
+      "dizziness",
+      "chest pain",
+      "syncope",
+      "caffeine intake"
+    ],
+
+    "essential_examinations": [
+      "pulse assessment",
+      "vital signs",
+      "cardiovascular examination"
+    ],
+
+    "essential_investigations": [
+      "ecg",
+      "electrolytes",
+      "troponin"
+    ],
+
+    "critical_actions": [
+      "recognize SVT",
+      "obtain ECG",
+      "assess hemodynamic stability",
+      "attempt vagal maneuvers",
+      "consider adenosine"
+    ],
+
+    "red_flags": [
+      "Heart rate above 180 bpm",
+      "Sudden onset palpitations",
+      "Dizziness",
+      "Persistent tachycardia",
+      "Narrow complex tachycardia on ECG"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "svt",
+      "supraventricular tachycardia",
+      "paroxysmal supraventricular tachycardia",
+      "psvt"
+    ],
+
+    "acceptable_differentials": [
+  "Atrial fibrillation",
+  "Atrial flutter",
+  "Sinus tachycardia",
+  "Ventricular tachycardia",
+  "Panic attack"
+],
+
+"management_actions": [
+  "Cardiac monitoring",
+  "12-lead ECG",
+  "Assess haemodynamic stability",
+  "Attempt vagal manoeuvres",
+  "Administer adenosine if appropriate",
+  "Establish IV access",
+  "Cardiology review if recurrent"
+],
+
+"important_investigations": [
+  "ECG",
+  "Electrolytes",
+  "TSH",
+  "Troponin"
+]
+  }
+}

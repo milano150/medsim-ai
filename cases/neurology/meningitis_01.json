@@ -1,0 +1,244 @@
+{
+  "case_id": "meningitis_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Neurology",
+    "difficulty": "advanced",
+    "diagnosis": "Acute Bacterial Meningitis",
+    "tags": [
+      "meningitis",
+      "neurology",
+      "headache",
+      "fever",
+      "neck stiffness"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [18, 70],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "student",
+      "teacher",
+      "software engineer",
+      "accountant",
+      "sales representative",
+      "nurse",
+      "office worker",
+      "retail worker"
+    ],
+    "pain_score_range": [7, 10],
+    "risk_factor_count_range": [0, 3]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "Severe headache and fever"
+    },
+    {
+      "presenting_complaint": "Headache with a stiff neck"
+    },
+    {
+      "presenting_complaint": "I can't look down because my neck hurts"
+    },
+    {
+      "presenting_complaint": "High fever and a terrible headache"
+    },
+    {
+      "presenting_complaint": "Headache, fever and sensitivity to light"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient developed a severe generalized headache 24 hours ago followed by fever, neck stiffness and photophobia. Symptoms have progressively worsened. Reports nausea and several episodes of vomiting.",
+
+    "patient_quotes": [
+      "This is the worst headache I've had in years.",
+      "My neck feels extremely stiff.",
+      "Bright lights make everything worse.",
+      "I've been feeling feverish all day.",
+      "I feel incredibly sick."
+    ],
+
+    "pmh_pool": [
+      "Recent upper respiratory infection",
+      "College dormitory residence",
+      "No significant medical history",
+      "Recent viral illness"
+    ],
+
+    "medications_pool": [
+      "Paracetamol as needed",
+      "Ibuprofen as needed",
+      "No regular medications"
+    ],
+
+    "social_history": {
+      "smoking": "Non-smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Regular exercise",
+      "stress": "Normal daily stress"
+    },
+
+    "core_facts": {
+      "headache": true,
+      "fever": true,
+      "neck_stiffness": true,
+      "photophobia": true,
+      "vomiting": true
+    },
+
+    "negative_history": [
+      "No recent head trauma",
+      "No known stroke history",
+      "No chronic neurological disease"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Appears acutely ill",
+      "Uncomfortable",
+      "Avoiding bright light"
+    ],
+
+    "cardiovascular": [
+      "Tachycardia",
+      "Regular rhythm"
+    ],
+
+    "respiratory": [
+      "Clear breath sounds bilaterally"
+    ],
+
+    "neurological": [
+      "Neck stiffness present",
+      "Photophobia present",
+      "Positive meningeal signs"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [100, 150],
+    "diastolic_bp": [60, 95],
+    "heart_rate": [100, 140],
+    "resp_rate": [18, 30],
+    "spo2": [95, 100],
+    "temperature": [38.0, 40.0]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Sinus tachycardia"
+    ],
+
+    "troponin_range": [0.0, 0.05],
+
+    "chest_xray": [
+      "No acute abnormality"
+    ],
+
+    "lab_findings": [
+      "Elevated white blood cell count",
+      "Elevated CRP",
+      "Elevated ESR"
+    ]
+  },
+
+  "hidden_diagnosis": "Acute Bacterial Meningitis",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "ill",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "headache",
+      "fever",
+      "neck stiffness",
+      "photophobia",
+      "vomiting",
+      "onset of symptoms",
+      "recent infection"
+    ],
+
+    "essential_examinations": [
+      "neurological examination",
+      "meningeal signs",
+      "vital signs"
+    ],
+
+    "essential_investigations": [
+      "blood cultures",
+      "lumbar puncture",
+      "ct head"
+    ],
+
+    "critical_actions": [
+      "recognize meningitis",
+      "obtain blood cultures",
+      "start empiric antibiotics",
+      "perform neurological assessment",
+      "consider lumbar puncture"
+    ],
+
+    "red_flags": [
+      "Fever",
+      "Neck stiffness",
+      "Photophobia",
+      "Altered mental status",
+      "Severe headache",
+      "Positive meningeal signs"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "meningitis",
+      "bacterial meningitis",
+      "acute meningitis"
+    ],
+
+    "acceptable_differentials": [
+      "Viral encephalitis",
+      "Subarachnoid haemorrhage",
+      "Migraine",
+      "Brain abscess",
+      "Sepsis"
+    ],
+
+    "management_actions": [
+      "Immediate IV access",
+      "Blood cultures",
+      "Empiric IV antibiotics",
+      "Dexamethasone",
+      "Lumbar puncture if safe",
+      "Neurology or infectious disease review",
+      "Close monitoring"
+    ],
+
+    "important_investigations": [
+      "CBC",
+      "CRP",
+      "Blood Cultures",
+      "CT Head",
+      "Lumbar Puncture"
+    ],
+
+    "critical_history_questions": [
+      "When did symptoms begin?",
+      "Do you have fever?",
+      "Do you have neck stiffness?",
+      "Any photophobia?",
+      "Any rash?",
+      "Any recent infections?",
+      "Any immunosuppression?",
+      "Any confusion or altered mental status?"
+    ]
+  }
+}

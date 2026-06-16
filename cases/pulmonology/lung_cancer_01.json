@@ -1,0 +1,246 @@
+{
+  "case_id": "lung_cancer_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Pulmonology",
+    "difficulty": "intermediate",
+    "diagnosis": "Primary Lung Cancer",
+    "tags": [
+      "lung cancer",
+      "hemoptysis",
+      "weight loss",
+      "smoking",
+      "pulmonology"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [50, 85],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "retired factory worker",
+      "retired mechanic",
+      "retired bus driver",
+      "construction worker",
+      "shop owner",
+      "security guard",
+      "warehouse worker",
+      "business owner"
+    ],
+    "pain_score_range": [1, 6],
+    "risk_factor_count_range": [2, 5]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "I've had a cough for months"
+    },
+    {
+      "presenting_complaint": "I'm coughing up blood"
+    },
+    {
+      "presenting_complaint": "I've lost a lot of weight recently"
+    },
+    {
+      "presenting_complaint": "Persistent cough and breathlessness"
+    },
+    {
+      "presenting_complaint": "My cough just won't go away"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient reports a chronic cough for the past 4 months. Over the last 6 weeks, there has been progressive weight loss, worsening fatigue, and occasional hemoptysis. Shortness of breath has gradually increased.",
+
+    "patient_quotes": [
+      "I've lost weight without trying.",
+      "The cough never really goes away.",
+      "I've noticed blood in my sputum.",
+      "I feel exhausted all the time.",
+      "Breathing has become harder recently."
+    ],
+
+    "pmh_pool": [
+      "Smoking",
+      "COPD",
+      "Hypertension",
+      "Hyperlipidemia",
+      "Previous pneumonia"
+    ],
+
+    "medications_pool": [
+      "Salbutamol inhaler",
+      "Tiotropium inhaler",
+      "Amlodipine",
+      "Atorvastatin"
+    ],
+
+    "social_history": {
+      "smoking": "50 pack-year smoking history",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Minimal exercise",
+      "stress": "Moderate stress"
+    },
+
+    "core_facts": {
+      "chronic_cough": true,
+      "weight_loss": true,
+      "hemoptysis": true,
+      "fatigue": true,
+      "duration": "4 months"
+    },
+
+    "negative_history": [
+      "No recent trauma",
+      "No recent surgery",
+      "No acute infection symptoms"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Appears thin",
+      "Looks fatigued",
+      "Mild respiratory distress"
+    ],
+
+    "cardiovascular": [
+      "Regular rhythm",
+      "Mild tachycardia"
+    ],
+
+    "respiratory": [
+      "Reduced breath sounds over right upper lung",
+      "Localized wheeze",
+      "Mild crackles"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [105, 160],
+    "diastolic_bp": [60, 95],
+    "heart_rate": [80, 120],
+    "resp_rate": [16, 28],
+    "spo2": [90, 97],
+    "temperature": [36.4, 38.0]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Normal sinus rhythm",
+      "Sinus tachycardia"
+    ],
+
+    "troponin_range": [0.0, 0.05],
+
+    "chest_xray": [
+      "Right upper lobe mass",
+      "Left hilar mass",
+      "Suspicious pulmonary lesion",
+      "Lung mass with hilar enlargement"
+    ],
+
+    "lab_findings": [
+      "Mild anemia",
+      "Elevated ESR",
+      "Elevated calcium"
+    ]
+  },
+
+  "hidden_diagnosis": "Primary Lung Cancer",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "worried",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "cough duration",
+      "hemoptysis",
+      "weight loss",
+      "smoking history",
+      "fatigue",
+      "shortness of breath",
+      "appetite changes"
+    ],
+
+    "essential_examinations": [
+      "respiratory examination",
+      "lymph node examination",
+      "vital signs"
+    ],
+
+    "essential_investigations": [
+      "chest xray",
+      "ct chest",
+      "bronchoscopy"
+    ],
+
+    "critical_actions": [
+      "recognize possible lung cancer",
+      "identify red flag symptoms",
+      "obtain chest imaging",
+      "arrange tissue diagnosis",
+      "refer to oncology"
+    ],
+
+    "red_flags": [
+      "Hemoptysis",
+      "Unintentional weight loss",
+      "Chronic cough",
+      "Heavy smoking history",
+      "Lung mass on imaging",
+      "Progressive symptoms"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "lung cancer",
+      "bronchogenic carcinoma",
+      "pulmonary malignancy",
+      "primary lung cancer"
+    ],
+    "acceptable_differentials": [
+  "Tuberculosis",
+  "Pneumonia",
+  "COPD",
+  "Pleural effusion",
+  "Metastatic cancer"
+],
+
+"management_actions": [
+  "Smoking cessation advice",
+  "CT chest",
+  "Tissue diagnosis",
+  "Oncology referral",
+  "Respiratory referral",
+  "Staging investigations",
+  "Symptom management"
+],
+
+"important_investigations": [
+  "Chest X-Ray",
+  "CT Chest",
+  "Bronchoscopy",
+  "Biopsy",
+  "PET Scan"
+],
+
+"critical_history_questions": [
+  "Smoking history?",
+  "Weight loss?",
+  "Haemoptysis?",
+  "Duration of cough?",
+  "Shortness of breath?",
+  "Occupational exposure?",
+  "Family history of cancer?",
+  "Previous malignancy?"
+]
+  }
+}

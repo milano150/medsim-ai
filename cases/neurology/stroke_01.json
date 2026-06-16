@@ -1,0 +1,255 @@
+{
+  "case_id": "stroke_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Neurology",
+    "difficulty": "advanced",
+    "diagnosis": "Acute Ischemic Stroke",
+    "tags": [
+      "stroke",
+      "neurology",
+      "weakness",
+      "speech difficulty",
+      "cva"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [50, 90],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "retired teacher",
+      "retired accountant",
+      "retired engineer",
+      "shop owner",
+      "office administrator",
+      "retired bus driver",
+      "security guard",
+      "business owner"
+    ],
+    "pain_score_range": [0, 3],
+    "risk_factor_count_range": [2, 5]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "Sudden weakness in my arm"
+    },
+    {
+      "presenting_complaint": "I can't move the right side of my body properly"
+    },
+    {
+      "presenting_complaint": "My speech suddenly became slurred"
+    },
+    {
+      "presenting_complaint": "Sudden facial drooping"
+    },
+    {
+      "presenting_complaint": "Weakness and difficulty speaking"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient developed sudden onset right-sided weakness approximately 90 minutes ago. Family members noticed facial drooping and slurred speech. Symptoms started abruptly while watching television.",
+
+    "patient_quotes": [
+      "My arm suddenly felt weak.",
+      "I can't speak properly.",
+      "My face feels strange.",
+      "Everything happened very suddenly.",
+      "I was completely normal before this."
+    ],
+
+    "pmh_pool": [
+      "Hypertension",
+      "Atrial fibrillation",
+      "Type 2 diabetes",
+      "Previous TIA",
+      "Hyperlipidemia",
+      "Smoking",
+      "Coronary artery disease"
+    ],
+
+    "medications_pool": [
+      "Amlodipine 5mg daily",
+      "Apixaban",
+      "Metformin 500mg twice daily",
+      "Atorvastatin 40mg daily",
+      "Aspirin 81mg daily"
+    ],
+
+    "social_history": {
+      "smoking": "Former smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Limited exercise",
+      "stress": "Normal daily stress"
+    },
+
+    "core_facts": {
+      "symptom_duration": "90 minutes",
+      "facial_droop": true,
+      "speech_difficulty": true,
+      "right_arm_weakness": true,
+      "sudden_onset": true
+    },
+
+    "negative_history": [
+      "No recent trauma",
+      "No fever",
+      "No seizure activity",
+      "No severe headache"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Alert",
+      "Anxious",
+      "Difficulty speaking"
+    ],
+
+    "cardiovascular": [
+      "Regular rhythm",
+      "No murmurs"
+    ],
+
+    "respiratory": [
+      "Clear breath sounds bilaterally"
+    ],
+
+    "neurological": [
+      "Right facial droop",
+      "Right arm weakness",
+      "Right leg weakness",
+      "Slurred speech",
+      "Pronator drift present"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [140, 220],
+    "diastolic_bp": [80, 120],
+    "heart_rate": [70, 120],
+    "resp_rate": [12, 24],
+    "spo2": [95, 100],
+    "temperature": [36.4, 37.3]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Normal sinus rhythm",
+      "Atrial fibrillation",
+      "Left ventricular hypertrophy"
+    ],
+
+    "troponin_range": [0.0, 0.05],
+
+    "chest_xray": [
+      "No acute abnormality"
+    ],
+
+    "lab_findings": [
+      "Normal CBC",
+      "Elevated glucose",
+      "Elevated cholesterol"
+    ]
+  },
+
+  "hidden_diagnosis": "Acute Ischemic Stroke",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "worried",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "time of onset",
+      "speech difficulty",
+      "weakness",
+      "facial droop",
+      "previous stroke",
+      "anticoagulant use",
+      "risk factors"
+    ],
+
+    "essential_examinations": [
+      "neurological examination",
+      "cranial nerve examination",
+      "vital signs"
+    ],
+
+    "essential_investigations": [
+      "ct head",
+      "blood glucose",
+      "ecg"
+    ],
+
+    "critical_actions": [
+      "recognize stroke",
+      "establish onset time",
+      "perform neurological assessment",
+      "activate stroke pathway",
+      "consider thrombolysis eligibility"
+    ],
+
+    "red_flags": [
+      "Sudden neurological deficit",
+      "Facial droop",
+      "Speech difficulty",
+      "Unilateral weakness",
+      "Atrial fibrillation",
+      "Acute onset symptoms"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "stroke",
+      "acute ischemic stroke",
+      "cerebrovascular accident",
+      "cva"
+    ],
+
+    "acceptable_differentials": [
+  "Transient ischaemic attack",
+  "Hypoglycaemia",
+  "Seizure with Todd's paralysis",
+  "Brain tumour",
+  "Migraine with aura"
+],
+
+"management_actions": [
+  "Activate stroke pathway",
+  "Immediate CT head",
+  "Check blood glucose",
+  "Neurological assessment",
+  "Cardiac monitoring",
+  "Assess thrombolysis eligibility",
+  "Urgent neurology consultation"
+],
+
+"important_investigations": [
+  "CT Head",
+  "Blood Glucose",
+  "ECG",
+  "CBC",
+  "CT Angiography"
+],
+
+"critical_history_questions": [
+  "When was the patient last known well?",
+  "What symptoms occurred?",
+  "Any weakness or numbness?",
+  "Any speech difficulties?",
+  "Any visual disturbances?",
+  "Any anticoagulant use?",
+  "Previous strokes?",
+  "History of atrial fibrillation?"
+]
+  }
+}

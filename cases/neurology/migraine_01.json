@@ -1,0 +1,243 @@
+{
+  "case_id": "migraine_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Neurology",
+    "difficulty": "easy",
+    "diagnosis": "Migraine With Aura",
+    "tags": [
+      "migraine",
+      "headache",
+      "aura",
+      "photophobia",
+      "neurology"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [18, 50],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "student",
+      "teacher",
+      "software engineer",
+      "graphic designer",
+      "nurse",
+      "accountant",
+      "office worker",
+      "sales representative"
+    ],
+    "pain_score_range": [6, 10],
+    "risk_factor_count_range": [0, 2]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "Severe headache with flashing lights"
+    },
+    {
+      "presenting_complaint": "Throbbing headache and nausea"
+    },
+    {
+      "presenting_complaint": "Recurring headaches with visual changes"
+    },
+    {
+      "presenting_complaint": "One-sided headache and sensitivity to light"
+    },
+    {
+      "presenting_complaint": "Headache that started after seeing zig-zag lines"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient developed a gradual onset throbbing headache approximately 4 hours ago. Pain is located on one side of the head and is associated with nausea, photophobia, and visual aura consisting of flashing lights and zig-zag lines. Similar episodes have occurred previously.",
+
+    "patient_quotes": [
+      "I saw flashing lights before the headache started.",
+      "Bright lights make it much worse.",
+      "I feel nauseated.",
+      "The pain is pounding on one side of my head.",
+      "I've had headaches like this before."
+    ],
+
+    "pmh_pool": [
+      "Migraine history",
+      "Family history of migraine",
+      "Anxiety",
+      "No significant medical history"
+    ],
+
+    "medications_pool": [
+      "Sumatriptan as needed",
+      "Ibuprofen as needed",
+      "Paracetamol as needed",
+      "Topiramate"
+    ],
+
+    "social_history": {
+      "smoking": "Non-smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Regular exercise",
+      "stress": "Recent work-related stress"
+    },
+
+    "core_facts": {
+      "headache_location": "right temporal region",
+      "headache_character": "throbbing",
+      "duration": "4 hours",
+      "aura": true,
+      "associated_symptoms": [
+        "nausea",
+        "photophobia",
+        "phonophobia"
+      ]
+    },
+
+    "negative_history": [
+      "No fever",
+      "No neck stiffness",
+      "No recent head trauma",
+      "No loss of consciousness"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Appears uncomfortable",
+      "Prefers dark room",
+      "Alert and oriented"
+    ],
+
+    "cardiovascular": [
+      "Normal heart sounds",
+      "Regular rhythm"
+    ],
+
+    "respiratory": [
+      "Clear breath sounds bilaterally"
+    ],
+
+    "neurological": [
+      "No focal neurological deficits",
+      "Normal cranial nerves",
+      "Normal motor examination"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [110, 145],
+    "diastolic_bp": [65, 90],
+    "heart_rate": [70, 105],
+    "resp_rate": [12, 20],
+    "spo2": [97, 100],
+    "temperature": [36.4, 37.2]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Normal sinus rhythm"
+    ],
+
+    "troponin_range": [0.0, 0.02],
+
+    "chest_xray": [
+      "No acute abnormality"
+    ],
+
+    "lab_findings": [
+      "Normal CBC",
+      "Normal electrolytes"
+    ]
+  },
+
+  "hidden_diagnosis": "Migraine With Aura",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "uncomfortable",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "headache onset",
+      "headache location",
+      "visual symptoms",
+      "nausea",
+      "photophobia",
+      "previous episodes",
+      "family history"
+    ],
+
+    "essential_examinations": [
+      "neurological examination",
+      "vital signs"
+    ],
+
+    "essential_investigations": [
+      "neurological assessment",
+      "ct head if red flags present"
+    ],
+
+    "critical_actions": [
+      "recognize migraine",
+      "identify aura",
+      "exclude neurological emergency",
+      "assess red flags",
+      "provide symptomatic treatment"
+    ],
+
+    "red_flags": [
+      "First severe headache",
+      "Neurological deficits",
+      "Altered consciousness",
+      "Neck stiffness",
+      "Thunderclap headache"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "migraine",
+      "migraine with aura",
+      "classic migraine"
+    ],
+
+    "acceptable_differentials": [
+  "Tension headache",
+  "Cluster headache",
+  "Subarachnoid haemorrhage",
+  "Meningitis",
+  "Brain tumour"
+],
+
+"management_actions": [
+  "Pain assessment",
+  "NSAID or paracetamol therapy",
+  "Antiemetics",
+  "Hydration",
+  "Neurological assessment",
+  "Migraine-specific therapy",
+  "Outpatient follow-up"
+],
+
+"important_investigations": [
+  "Neurological Examination",
+  "CT Head"
+],
+
+"critical_history_questions": [
+  "When did the headache start?",
+  "Was the onset sudden or gradual?",
+  "Any previous migraines?",
+  "Any visual aura?",
+  "Any nausea or vomiting?",
+  "Any photophobia?",
+  "Any focal neurological symptoms?",
+  "Is this the worst headache of your life?"
+]
+  }
+}

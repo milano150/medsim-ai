@@ -1,0 +1,240 @@
+{
+  "case_id": "pneumothorax_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Pulmonology",
+    "difficulty": "intermediate",
+    "diagnosis": "Spontaneous Pneumothorax",
+    "tags": [
+      "pneumothorax",
+      "chest pain",
+      "shortness of breath",
+      "respiratory emergency",
+      "pulmonology"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [18, 45],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "student",
+      "software engineer",
+      "teacher",
+      "sales representative",
+      "office worker",
+      "electrician",
+      "fitness trainer",
+      "retail worker"
+    ],
+    "pain_score_range": [5, 9],
+    "risk_factor_count_range": [0, 2]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "Sudden sharp chest pain"
+    },
+    {
+      "presenting_complaint": "Chest pain and shortness of breath"
+    },
+    {
+      "presenting_complaint": "I suddenly couldn't breathe properly"
+    },
+    {
+      "presenting_complaint": "Sharp pain on one side of my chest"
+    },
+    {
+      "presenting_complaint": "Breathing became painful all of a sudden"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient developed sudden onset left-sided pleuritic chest pain approximately one hour ago while resting. This was immediately followed by shortness of breath. Pain worsens with deep inspiration.",
+
+    "patient_quotes": [
+      "The pain started out of nowhere.",
+      "It hurts when I take a deep breath.",
+      "I suddenly felt short of breath.",
+      "The pain is mostly on one side.",
+      "I was completely fine before this happened."
+    ],
+
+    "pmh_pool": [
+      "Smoking",
+      "Previous pneumothorax",
+      "Tall thin body habitus",
+      "No significant medical history"
+    ],
+
+    "medications_pool": [
+      "No regular medications"
+    ],
+
+    "social_history": {
+      "smoking": "Current smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Regular exercise",
+      "stress": "Normal daily stress"
+    },
+
+    "core_facts": {
+      "sudden_onset": true,
+      "pleuritic_chest_pain": true,
+      "shortness_of_breath": true,
+      "pain_location": "left chest",
+      "duration": "1 hour"
+    },
+
+    "negative_history": [
+      "No fever",
+      "No productive cough",
+      "No recent surgery",
+      "No trauma"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Appears uncomfortable",
+      "Mild respiratory distress",
+      "Anxious"
+    ],
+
+    "cardiovascular": [
+      "Tachycardia",
+      "Regular rhythm"
+    ],
+
+    "respiratory": [
+      "Reduced breath sounds on the left",
+      "Reduced chest expansion on the left",
+      "Hyperresonance on percussion"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [100, 145],
+    "diastolic_bp": [60, 90],
+    "heart_rate": [95, 135],
+    "resp_rate": [20, 32],
+    "spo2": [88, 96],
+    "temperature": [36.4, 37.2]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Sinus tachycardia",
+      "Normal sinus rhythm"
+    ],
+
+    "troponin_range": [0.0, 0.05],
+
+    "chest_xray": [
+      "Large left pneumothorax",
+      "Moderate right pneumothorax",
+      "Visible pleural line with absent peripheral lung markings",
+      "Spontaneous pneumothorax"
+    ],
+
+    "lab_findings": [
+      "Normal CBC",
+      "Normal electrolytes"
+    ]
+  },
+
+  "hidden_diagnosis": "Spontaneous Pneumothorax",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "anxious",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "chest pain",
+      "onset",
+      "shortness of breath",
+      "smoking history",
+      "previous pneumothorax",
+      "trauma history",
+      "pain with breathing"
+    ],
+
+    "essential_examinations": [
+      "respiratory examination",
+      "vital signs",
+      "oxygen saturation"
+    ],
+
+    "essential_investigations": [
+      "chest xray",
+      "oxygen saturation"
+    ],
+
+    "critical_actions": [
+      "recognize pneumothorax",
+      "assess respiratory status",
+      "obtain chest xray",
+      "administer oxygen",
+      "consider chest decompression"
+    ],
+
+    "red_flags": [
+      "Sudden chest pain",
+      "Sudden shortness of breath",
+      "Unilateral reduced breath sounds",
+      "Hypoxia",
+      "Tachycardia",
+      "Large pneumothorax"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "pneumothorax",
+      "spontaneous pneumothorax",
+      "collapsed lung"
+    ],
+
+    "acceptable_differentials": [
+  "Pulmonary embolism",
+  "Asthma exacerbation",
+  "COPD exacerbation",
+  "Pneumonia",
+  "Acute coronary syndrome"
+],
+
+"management_actions": [
+  "Assess stability",
+  "High-flow oxygen",
+  "Immediate chest X-ray",
+  "Needle decompression if tension pneumothorax",
+  "Chest drain insertion",
+  "Cardiorespiratory monitoring",
+  "Respiratory review"
+],
+
+"important_investigations": [
+  "Chest X-Ray",
+  "ABG",
+  "ECG",
+  "Oxygen Saturation"
+],
+
+"critical_history_questions": [
+  "Sudden onset symptoms?",
+  "Chest pain?",
+  "Shortness of breath?",
+  "Previous pneumothorax?",
+  "Recent trauma?",
+  "Smoking history?",
+  "Underlying lung disease?",
+  "Symptom progression?"
+]
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "case_id": "pericarditis_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Cardiology",
+    "difficulty": "intermediate",
+    "diagnosis": "Acute Pericarditis",
+    "tags": [
+      "chest pain",
+      "pericarditis",
+      "cardiology",
+      "ecg changes",
+      "viral illness"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [18, 65],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "teacher",
+      "student",
+      "software engineer",
+      "nurse",
+      "accountant",
+      "sales manager",
+      "office worker",
+      "electrician"
+    ],
+    "pain_score_range": [5, 9],
+    "risk_factor_count_range": [0, 2]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "Sharp chest pain that gets worse when I lie down"
+    },
+    {
+      "presenting_complaint": "Chest pain that improves when I sit forward"
+    },
+    {
+      "presenting_complaint": "Severe chest pain after a recent flu"
+    },
+    {
+      "presenting_complaint": "Pain in my chest when taking deep breaths"
+    },
+    {
+      "presenting_complaint": "Persistent sharp chest discomfort"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient developed sharp central chest pain 2 days ago. Pain is worse when lying flat, coughing, or taking deep breaths and improves when sitting up and leaning forward. Reports a viral upper respiratory infection approximately one week ago.",
+
+    "patient_quotes": [
+      "It hurts more when I lie down.",
+      "Sitting forward seems to help.",
+      "Taking a deep breath makes it worse.",
+      "I had a bad cold last week.",
+      "The pain feels sharp rather than heavy."
+    ],
+
+    "pmh_pool": [
+      "Recent viral illness",
+      "Seasonal allergies",
+      "Mild asthma",
+      "No significant medical history"
+    ],
+
+    "medications_pool": [
+      "Ibuprofen as needed",
+      "Paracetamol as needed",
+      "Cetirizine"
+    ],
+
+    "social_history": {
+      "smoking": "Non-smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Exercises regularly",
+      "stress": "Normal daily stress"
+    },
+
+    "core_facts": {
+      "pain_location": "central chest",
+      "pain_character": "sharp",
+      "pain_duration": "2 days",
+      "worse_with": [
+        "lying flat",
+        "deep inspiration",
+        "coughing"
+      ],
+      "better_with": [
+        "sitting forward"
+      ]
+    },
+
+    "negative_history": [
+      "No radiation to left arm",
+      "No syncope",
+      "No recent trauma"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Appears uncomfortable",
+      "Holding chest",
+      "Prefers sitting upright"
+    ],
+
+    "cardiovascular": [
+      "Pericardial friction rub",
+      "Regular rhythm",
+      "No murmurs"
+    ],
+
+    "respiratory": [
+      "Clear breath sounds bilaterally"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [105, 140],
+    "diastolic_bp": [65, 90],
+    "heart_rate": [85, 115],
+    "resp_rate": [16, 24],
+    "spo2": [96, 100],
+    "temperature": [37.0, 38.3]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Diffuse ST elevation with PR depression",
+      "Widespread concave ST elevation",
+      "Diffuse ST segment elevation across multiple leads",
+      "Pericarditis ECG pattern with PR depression"
+    ],
+
+    "troponin_range": [0.0, 0.20],
+
+    "chest_xray": [
+      "No acute abnormality",
+      "Normal chest x-ray"
+    ],
+
+    "lab_findings": [
+      "Elevated CRP",
+      "Elevated ESR",
+      "Mild leukocytosis"
+    ]
+  },
+
+  "hidden_diagnosis": "Acute Pericarditis",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "uncomfortable",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "pain character",
+      "pain duration",
+      "pain position changes",
+      "pain with breathing",
+      "recent viral illness",
+      "associated symptoms"
+    ],
+
+    "essential_examinations": [
+      "cardiovascular examination",
+      "vital signs",
+      "respiratory examination"
+    ],
+
+    "essential_investigations": [
+      "ecg",
+      "inflammatory markers",
+      "troponin"
+    ],
+
+    "critical_actions": [
+      "recognize pericarditis",
+      "obtain ECG",
+      "identify positional chest pain",
+      "exclude STEMI",
+      "consider anti-inflammatory treatment"
+    ],
+
+    "red_flags": [
+      "Chest pain worse lying flat",
+      "Chest pain improved sitting forward",
+      "Recent viral illness",
+      "Pericardial friction rub",
+      "Diffuse ST elevation",
+      "PR depression"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "pericarditis",
+      "acute pericarditis",
+      "viral pericarditis"
+    ],
+
+    "acceptable_differentials": [
+  "STEMI",
+  "Pulmonary embolism",
+  "Aortic dissection",
+  "Myocarditis",
+  "Costochondritis"
+],
+
+"management_actions": [
+  "ECG",
+  "NSAID therapy",
+  "Monitor for tamponade",
+  "Echocardiography",
+  "Pain management"
+],
+
+"important_investigations": [
+  "ECG",
+  "Troponin",
+  "Echocardiogram",
+  "Chest X-Ray"
+]
+  }
+}

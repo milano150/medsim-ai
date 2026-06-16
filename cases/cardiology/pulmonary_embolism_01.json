@@ -1,0 +1,239 @@
+{
+  "case_id": "aortic_dissection_01",
+  "version": "3.1",
+
+  "metadata": {
+    "specialty": "Cardiology",
+    "difficulty": "advanced",
+    "diagnosis": "Acute Aortic Dissection",
+    "tags": [
+      "aortic dissection",
+      "chest pain",
+      "vascular emergency",
+      "hypertension",
+      "cardiology"
+    ]
+  },
+
+  "patient_generator": {
+    "age_range": [50, 85],
+    "sexes": [
+      "male",
+      "female"
+    ],
+    "occupations": [
+      "retired engineer",
+      "business owner",
+      "teacher",
+      "retired factory worker",
+      "accountant",
+      "sales manager",
+      "retired bus driver",
+      "shop owner"
+    ],
+    "pain_score_range": [9, 10],
+    "risk_factor_count_range": [1, 4]
+  },
+
+  "presentation_variants": [
+    {
+      "presenting_complaint": "Sudden tearing chest pain"
+    },
+    {
+      "presenting_complaint": "Severe chest pain radiating to my back"
+    },
+    {
+      "presenting_complaint": "Worst chest pain of my life"
+    },
+    {
+      "presenting_complaint": "Sudden chest and upper back pain"
+    },
+    {
+      "presenting_complaint": "Sharp pain that moved into my back"
+    }
+  ],
+
+  "history_data": {
+    "hpi": "Patient experienced sudden onset severe chest pain approximately 45 minutes ago while resting. The pain was maximal at onset, described as tearing, and radiates between the shoulder blades. Associated with sweating and severe anxiety.",
+
+    "patient_quotes": [
+      "It felt like something ripped inside my chest.",
+      "The pain shot straight through to my back.",
+      "This is the worst pain I've ever felt.",
+      "It came on instantly.",
+      "I honestly thought I was dying."
+    ],
+
+    "pmh_pool": [
+      "Hypertension",
+      "Poorly controlled hypertension",
+      "Smoking",
+      "Hyperlipidemia",
+      "Known thoracic aortic aneurysm",
+      "Family history of aortic disease",
+      "Marfan syndrome"
+    ],
+
+    "medications_pool": [
+      "Amlodipine 10mg daily",
+      "Lisinopril 20mg daily",
+      "Metoprolol 50mg daily",
+      "Atorvastatin 40mg daily"
+    ],
+
+    "social_history": {
+      "smoking": "Former smoker",
+      "alcohol": "Occasional alcohol use",
+      "exercise": "Minimal exercise",
+      "stress": "Moderate stress"
+    },
+
+    "core_facts": {
+      "pain_location": "central chest",
+      "pain_character": "tearing",
+      "pain_duration": "45 minutes",
+      "radiation": "between shoulder blades",
+      "onset": "sudden"
+    },
+
+    "negative_history": [
+      "No fever",
+      "No recent trauma",
+      "No productive cough"
+    ]
+  },
+
+  "physical_exam": {
+    "general_appearance": [
+      "Appears severely distressed",
+      "Clutching chest",
+      "Diaphoretic",
+      "Restless"
+    ],
+
+    "cardiovascular": [
+      "Tachycardia",
+      "Blood pressure difference between arms",
+      "Early diastolic murmur",
+      "Cool extremities"
+    ],
+
+    "respiratory": [
+      "Clear breath sounds bilaterally"
+    ]
+  },
+
+  "vitals_ranges": {
+    "systolic_bp": [160, 230],
+    "diastolic_bp": [90, 130],
+    "heart_rate": [100, 140],
+    "resp_rate": [20, 34],
+    "spo2": [94, 99],
+    "temperature": [36.5, 37.3]
+  },
+
+  "investigations": {
+    "ecg_variants": [
+      "Sinus tachycardia",
+      "Non-specific ST-T changes",
+      "Normal ECG",
+      "Left ventricular hypertrophy"
+    ],
+
+    "troponin_range": [0.0, 0.10],
+
+    "chest_xray": [
+      "Widened mediastinum",
+      "Mediastinal widening with enlarged aortic silhouette",
+      "Abnormal aortic contour"
+    ],
+
+    "lab_findings": [
+      "Elevated D-dimer",
+      "Mild leukocytosis"
+    ]
+  },
+
+  "hidden_diagnosis": "Acute Stanford Type A Aortic Dissection",
+
+  "patient_rules": {
+    "never_reveal_diagnosis": true,
+    "only_answer_if_asked": true,
+    "emotional_state": "terrified",
+    "allow_small_talk": false
+  },
+
+  "scoring_rubric": {
+    "essential_questions": [
+      "pain onset",
+      "pain character",
+      "pain radiation",
+      "hypertension history",
+      "severity of pain",
+      "associated symptoms",
+      "family history"
+    ],
+
+    "essential_examinations": [
+      "vital signs",
+      "blood pressure both arms",
+      "cardiovascular examination"
+    ],
+
+    "essential_investigations": [
+      "chest xray",
+      "ct angiography",
+      "ecg"
+    ],
+
+    "critical_actions": [
+      "recognize aortic dissection",
+      "measure blood pressure in both arms",
+      "obtain urgent imaging",
+      "control blood pressure",
+      "activate cardiothoracic surgery"
+    ],
+
+    "red_flags": [
+      "Sudden onset severe pain",
+      "Tearing chest pain",
+      "Pain radiating to back",
+      "Blood pressure difference between arms",
+      "Widened mediastinum",
+      "Severe hypertension"
+    ],
+
+    "correct_diagnosis_keywords": [
+      "aortic dissection",
+      "acute aortic dissection",
+      "stanford type a dissection",
+      "thoracic aortic dissection"
+    ],
+
+    "acceptable_differentials": [
+  "Acute coronary syndrome",
+  "Pneumonia",
+  "Aortic dissection",
+  "Heart failure",
+  "Pneumothorax"
+],
+
+"management_actions": [
+  "Assess haemodynamic stability",
+  "Oxygen if hypoxic",
+  "IV access",
+  "CT pulmonary angiography",
+  "Anticoagulation",
+  "Cardiac monitoring",
+  "Escalate for thrombolysis if unstable"
+],
+
+"important_investigations": [
+  "D-dimer",
+  "CT Pulmonary Angiography",
+  "ECG",
+  "Troponin",
+  "Chest X-Ray"
+]
+  }
+}
