@@ -85,13 +85,18 @@
     },
 
     "core_facts": {
+      "primary_symptom": "palpitations",
       "symptom_duration": "30 minutes",
-      "palpitations": true,
       "onset": "sudden",
-      "heartbeat": "fast and regular",
-      "associated_symptoms": [
-        "dizziness",
-        "anxiety"
+      "heartbeat_character": "fast and regular",
+      "worse_with": [
+        "anxiety",
+        "exertion",
+        "caffeine intake"
+      ],
+      "better_with": [
+        "rest",
+        "vagal manoeuvres in previous episodes"
       ]
     },
 
@@ -111,7 +116,7 @@
 
     "cardiovascular": [
       "Regular tachycardia",
-      "Rapid pulse",
+      "Rapid bounding pulse",
       "No murmurs"
     ],
 
@@ -129,26 +134,19 @@
     "temperature": [36.4, 37.2]
   },
 
-  "investigations": {
-    "ecg_variants": [
-      "Narrow complex tachycardia at 190 bpm",
-      "Regular narrow complex tachycardia at 210 bpm",
-      "SVT with heart rate of 180 bpm",
-      "Regular narrow QRS tachycardia",
-      "Paroxysmal supraventricular tachycardia"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "No acute abnormality"
-    ],
-
-    "lab_findings": [
-      "Normal electrolytes",
-      "Normal troponin",
-      "Normal CBC"
-    ]
+  "abnormal_investigations": {
+    "ECG (during tachycardia)": "Regular narrow complex tachycardia at 196 bpm. No visible P waves. Retrograde P waves seen in ST segment of inferior leads. No delta waves. Pattern consistent with AVNRT.",
+    "ECG (post-termination)": "Normal sinus rhythm at 72 bpm. No delta waves or pre-excitation. No ST changes or ischaemia. PR interval normal.",
+    "Troponin": "0.01 ng/mL (within normal limits — no myocardial injury; troponin can be mildly elevated in sustained SVT but normal here)",
+    "Chest X-Ray": "No acute cardiopulmonary abnormality. Normal cardiac silhouette.",
+    "Urea & Electrolytes": "Na 140 mmol/L, K 3.7 mmol/L, Creatinine 74 µmol/L — normal; hypokalaemia and hypomagnesaemia excluded as precipitants",
+    "Magnesium": "0.82 mmol/L — normal",
+    "TSH (Thyroid Function)": "1.8 mIU/L — normal; hyperthyroidism excluded as underlying cause",
+    "FBC (Full Blood Count)": "WBC 8.1 × 10⁹/L, Hb 13.8 g/dL, Platelets 254 × 10⁹/L — normal",
+    "Blood Glucose": "5.4 mmol/L — normal",
+    "LFTs (Liver Function Tests)": "Within normal limits",
+    "Coagulation Screen (PT/APTT/INR)": "PT 12s, APTT 26s, INR 1.0 — normal",
+    "Echocardiogram": "Normal LV size and systolic function, EF 65%. No structural heart disease. No accessory pathway features identified on imaging."
   },
 
   "hidden_diagnosis": "Paroxysmal Supraventricular Tachycardia",
@@ -164,11 +162,11 @@
     "essential_questions": [
       "palpitations",
       "onset of symptoms",
-      "previous episodes",
+      "previous similar episodes",
       "dizziness",
       "chest pain",
       "syncope",
-      "caffeine intake"
+      "caffeine or stimulant intake"
     ],
 
     "essential_examinations": [
@@ -185,50 +183,52 @@
 
     "critical_actions": [
       "recognize SVT",
-      "obtain ECG",
-      "assess hemodynamic stability",
-      "attempt vagal maneuvers",
-      "consider adenosine"
+      "obtain ECG during tachycardia",
+      "assess haemodynamic stability",
+      "attempt vagal manoeuvres",
+      "administer adenosine if vagal manoeuvres fail"
     ],
 
     "red_flags": [
       "Heart rate above 180 bpm",
-      "Sudden onset palpitations",
-      "Dizziness",
-      "Persistent tachycardia",
-      "Narrow complex tachycardia on ECG"
+      "Sudden onset regular palpitations",
+      "Dizziness or pre-syncope",
+      "Persistent narrow complex tachycardia on ECG",
+      "Haemodynamic compromise"
     ],
 
     "correct_diagnosis_keywords": [
       "svt",
       "supraventricular tachycardia",
       "paroxysmal supraventricular tachycardia",
-      "psvt"
+      "psvt",
+      "avnrt"
     ],
 
     "acceptable_differentials": [
-  "Atrial fibrillation",
-  "Atrial flutter",
-  "Sinus tachycardia",
-  "Ventricular tachycardia",
-  "Panic attack"
-],
+      "Atrial fibrillation",
+      "Atrial flutter",
+      "Sinus tachycardia",
+      "Ventricular tachycardia",
+      "Panic attack"
+    ],
 
-"management_actions": [
-  "Cardiac monitoring",
-  "12-lead ECG",
-  "Assess haemodynamic stability",
-  "Attempt vagal manoeuvres",
-  "Administer adenosine if appropriate",
-  "Establish IV access",
-  "Cardiology review if recurrent"
-],
+    "management_actions": [
+      "12-lead ECG during tachycardia",
+      "Cardiac monitoring and IV access",
+      "Assess haemodynamic stability",
+      "Valsalva manoeuvre or carotid sinus massage",
+      "Administer adenosine 6mg IV rapid bolus if vagal manoeuvres fail",
+      "Repeat adenosine 12mg if no response",
+      "Cardiology review for recurrent episodes — consider electrophysiology study and ablation"
+    ],
 
-"important_investigations": [
-  "ECG",
-  "Electrolytes",
-  "TSH",
-  "Troponin"
-]
+    "important_investigations": [
+      "ECG",
+      "Electrolytes",
+      "TSH",
+      "Troponin",
+      "Echocardiogram"
+    ]
   }
 }

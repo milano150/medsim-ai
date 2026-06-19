@@ -93,4 +93,4 @@ export type DebriefResult = {
 };
 
 // View states for the app
-export type AppView = "landing" | "simulation" | "debrief";
+export type AppView = "landing" | "simulation" | "debrief" | "history";

@@ -4,12 +4,17 @@ import random
 import re
 from pathlib import Path
 from typing import List, Optional
+import uuid
 
 from dotenv import load_dotenv
 from groq import Groq
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import databases
+
+
+
 
 active_cases = {}
 
@@ -20,7 +25,7 @@ app = FastAPI(title="MedSim Backend")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -29,6 +34,17 @@ app.add_middleware(
 # --------------------------------------------------
 # CONFIG
 # --------------------------------------------------
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+db = databases.Database(DATABASE_URL)
+
+@app.on_event("startup")
+async def startup():
+    await db.connect()
+
+@app.on_event("shutdown")
+async def shutdown():
+    await db.disconnect()
 
 BASE_CASES_PATH = Path(__file__).resolve().parent.parent / "cases"
 
@@ -97,22 +113,6 @@ def generate_vitals(case: dict) -> dict:
     return vitals
 
 
-def generate_investigations(case: dict) -> dict:
-    inv = case.get("investigations", {})
-    investigations = {}
-    if "ecg_variants" in inv:
-        investigations["ECG"] = random.choice(inv["ecg_variants"])
-    if "troponin_range" in inv:
-        troponin = round(random.uniform(inv["troponin_range"][0], inv["troponin_range"][1]), 2)
-        investigations["Troponin"] = f"{troponin} ng/mL"
-    if "chest_xray" in inv:
-        investigations["Chest X-Ray"] = random.choice(inv["chest_xray"])
-    if "lab_findings" in inv:
-        findings = inv["lab_findings"]
-        count = random.randint(1, len(findings))
-        investigations["Lab Findings"] = ", ".join(random.sample(findings, count))
-    return investigations
-
 
 def generate_case_data(case: dict) -> dict:
     case["patient_persona"] = generate_patient_persona(case)
@@ -121,7 +121,6 @@ def generate_case_data(case: dict) -> dict:
     if variants:
         case["presenting_complaint"] = random.choice(variants).get("presenting_complaint", case.get("presenting_complaint"))
     case["vitals"] = generate_vitals(case)
-    case["investigations"] = generate_investigations(case)
     pain_range = case.get("patient_generator", {}).get("pain_score_range", [1, 10])
     case["patient_response_rules"] = {"pain_score": random.randint(pain_range[0], pain_range[1])}
     history = case.get("history_data", {})
@@ -341,10 +340,27 @@ def home():
 
 
 @app.post("/start/{case_id}")
-def start_case(case_id: str):
+async def start_case(case_id: str):
     case = load_case_by_id(case_id)
-    session_id = str(random.randint(100000, 999999))
+    session_id = str(uuid.uuid4())
     active_cases[session_id] = case
+
+    await db.execute(
+        """
+        INSERT INTO sessions (session_id, case_id, specialty, patient_name, patient_age, patient_sex, hidden_diagnosis)
+        VALUES (:session_id, :case_id, :specialty, :patient_name, :patient_age, :patient_sex, :hidden_diagnosis)
+        """,
+        {
+            "session_id":       session_id,
+            "case_id":          case_id,
+            "specialty":        case["metadata"]["specialty"],
+            "patient_name":     case["patient_persona"]["name"],
+            "patient_age":      case["patient_persona"]["age"],
+            "patient_sex":      case["patient_persona"]["sex"],
+            "hidden_diagnosis": case.get("hidden_diagnosis", ""),
+        }
+    )
+
     return {
         "session_id": session_id,
         "patient": {
@@ -353,10 +369,10 @@ def start_case(case_id: str):
             "sex": case["patient_persona"]["sex"],
             "occupation": case["patient_persona"]["occupation"],
         },
-        # Debug: expose hidden answer so frontend can show it. Remove in prod.
         "hidden_diagnosis": case.get("hidden_diagnosis", ""),
         "acceptable_differentials": case.get("scoring_rubric", {}).get("acceptable_differentials", []),
         "management_actions": case.get("scoring_rubric", {}).get("management_actions", []),
+        "abnormal_investigations": case.get("abnormal_investigations", {}),
     }
 
 
@@ -374,6 +390,7 @@ def get_random_case(specialty: str):
         "vitals": case.get("vitals", {}),
         "investigations": case.get("investigations", {}),
         "red_flags": case.get("scoring_rubric", {}).get("red_flags", []),
+        "abnormal_investigations": case.get("abnormal_investigations", {}),
     }
 
 
@@ -526,7 +543,7 @@ Respond ONLY with a valid JSON object (no markdown, no backticks):
 # --------------------------------------------------
 
 @app.post("/debrief/{case_id}")
-def generate_debrief(case_id: str, body: DebriefRequest):
+async def generate_debrief(case_id: str, body: DebriefRequest):
     case = active_cases.get(body.session_id)
     if not case:
         raise HTTPException(status_code=404, detail="Session not found")
@@ -624,6 +641,75 @@ Respond ONLY with a valid JSON object, no markdown, no backticks:
         (history_score + investigation_score + reasoning_score + management_score) / 4
     )
 
+    await db.execute(
+        """
+        INSERT INTO debrief_results (
+            session_id, primary_diagnosis, differential_1, differential_2,
+            management_plan, diagnosis_score, management_score, history_score,
+            investigation_score, reasoning_score, overall_score,
+            management_matched, management_missed, ordered_investigations,
+            transcript, full_debrief
+        ) VALUES (
+            :session_id, :primary_diagnosis, :differential_1, :differential_2,
+            :management_plan, :diagnosis_score, :management_score, :history_score,
+            :investigation_score, :reasoning_score, :overall_score,
+            :management_matched, :management_missed, :ordered_investigations,
+            :transcript, :full_debrief
+        )
+        """,
+        {
+            "session_id":             body.session_id,
+            "primary_diagnosis":      body.primary_diagnosis,
+            "differential_1":         body.differential_1,
+            "differential_2":         body.differential_2,
+            "management_plan":        body.management_plan,
+            "diagnosis_score":        body.diagnosis_score,
+            "management_score":       body.management_score,
+            "history_score":          parsed.get("history_score", 0),
+            "investigation_score":    investigation_score,
+            "reasoning_score":        parsed.get("reasoning_score", 0),
+            "overall_score":          overall_score,
+            "management_matched":     json.dumps(body.management_matched),
+            "management_missed":      json.dumps(body.management_missed),
+            "ordered_investigations": json.dumps(body.ordered_investigations),
+            "transcript":             json.dumps(body.transcript),
+            "full_debrief":           json.dumps({
+                "history_score":            parsed.get("history_score", 0),
+                "investigation_score":      investigation_score,
+                "reasoning_score":          parsed.get("reasoning_score", 0),
+                "management_score":         body.management_score,
+                "overall_score":            overall_score,
+                "diagnosis_score":          body.diagnosis_score,
+                "history_feedback":         parsed.get("history_feedback", ""),
+                "reasoning_feedback":       parsed.get("reasoning_feedback", ""),
+                "management_feedback":      parsed.get("management_feedback", ""),
+                "primary_diagnosis":        body.primary_diagnosis,
+                "correct_diagnosis":        hidden_diagnosis,
+                "differential_1":          body.differential_1,
+                "differential_2":          body.differential_2,
+                "management_plan":         body.management_plan,
+                "management_matched":      body.management_matched,
+                "management_missed":       body.management_missed,
+                "ordered_investigations":  body.ordered_investigations,
+                "important_ordered":       important_ordered,
+                "important_missed":        important_missed,
+                "good_questions":          parsed.get("good_questions", []),
+                "missed_questions":        parsed.get("missed_questions", []),
+                "key_findings_discovered": parsed.get("key_findings_discovered", []),
+                "key_findings_missed":     parsed.get("key_findings_missed", []),
+                "acceptable_differentials":differentials,
+                "expected_management":     management_actions,
+                "transcript":              body.transcript,
+                "time_taken":              body.time_taken,
+            }),
+        }
+    )
+
+    await db.execute("""
+        UPDATE sessions SET completed_at = NOW(), time_taken = :time_taken
+        WHERE session_id = :session_id
+    """, {"time_taken": body.time_taken, "session_id": body.session_id})
+
     return {
         # Competency scores — diagnosis and management come from /diagnose, never re-computed
         "history_score": history_score,
@@ -661,3 +747,43 @@ Respond ONLY with a valid JSON object, no markdown, no backticks:
         "management_matched": management_matched,
         "management_missed_actions": management_missed,
     }
+
+@app.get("/history")
+async def get_history(limit: int = 20, offset: int = 0):
+    rows = await db.fetch_all("""
+        SELECT s.session_id, s.case_id, s.specialty, s.patient_name,
+               s.patient_age, s.patient_sex, s.hidden_diagnosis,
+               s.started_at, s.time_taken,
+               d.overall_score, d.diagnosis_score, d.primary_diagnosis
+        FROM sessions s
+        LEFT JOIN debrief_results d ON s.session_id = d.session_id
+        WHERE s.completed_at IS NOT NULL
+        ORDER BY s.started_at DESC
+        LIMIT :limit OFFSET :offset
+    """, {"limit": limit, "offset": offset})
+    return [dict(row) for row in rows]
+
+
+@app.get("/history/{session_id}")
+async def get_session_detail(session_id: str):
+    session = await db.fetch_one(
+        "SELECT * FROM sessions WHERE session_id = :sid",
+        {"sid": session_id}
+    )
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+    debrief = await db.fetch_one(
+        "SELECT * FROM debrief_results WHERE session_id = :sid",
+        {"sid": session_id}
+    )
+    if not debrief:
+        return {"session": dict(session), "debrief": None}
+
+    debrief_dict = dict(debrief)
+    # Parse JSONB fields that come back as strings
+    for field in ["full_debrief", "transcript", "management_matched",
+                  "management_missed", "ordered_investigations"]:
+        if isinstance(debrief_dict.get(field), str):
+            debrief_dict[field] = json.loads(debrief_dict[field])
+
+    return {"session": dict(session), "debrief": debrief_dict}

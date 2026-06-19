@@ -90,11 +90,18 @@
     },
 
     "core_facts": {
+      "primary_symptom": "palpitations",
       "symptom_duration": "8 hours",
-      "palpitations": true,
-      "irregular_heartbeat": true,
-      "shortness_of_breath": true,
-      "dizziness": true
+      "onset": "sudden",
+      "worse_with": [
+        "exertion",
+        "anxiety",
+        "standing"
+      ],
+      "better_with": [
+        "rest",
+        "lying still"
+      ]
     },
 
     "negative_history": [
@@ -132,27 +139,19 @@
     "temperature": [36.5, 37.2]
   },
 
-  "investigations": {
-    "ecg_variants": [
-      "Atrial fibrillation with ventricular rate of 140 bpm",
-      "Atrial fibrillation with rapid ventricular response",
-      "Irregularly irregular rhythm without visible P waves",
-      "AF with ventricular rate of 160 bpm",
-      "Atrial fibrillation with uncontrolled ventricular response"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "No acute abnormality",
-      "Mild cardiomegaly"
-    ],
-
-    "lab_findings": [
-      "Normal troponin",
-      "Normal CBC",
-      "Normal electrolytes"
-    ]
+  "abnormal_investigations": {
+    "ECG": "Atrial fibrillation with rapid ventricular response at 148 bpm. Irregularly irregular rhythm. No visible P waves. No ST changes to suggest ischaemia.",
+    "Troponin": "0.02 ng/mL (within normal limits — no evidence of myocardial injury)",
+    "Chest X-Ray": "Mild cardiomegaly. No pulmonary oedema. No pleural effusion.",
+    "Echocardiogram": "Mildly dilated left atrium. Preserved LV systolic function, EF 58%. No valvular pathology identified.",
+    "TSH (Thyroid Function)": "0.3 mIU/L (low — hyperthyroidism as possible precipitant; further thyroid workup indicated)",
+    "FBC (Full Blood Count)": "WBC 9.2 × 10⁹/L, Hb 13.4 g/dL, Platelets 241 × 10⁹/L — normal",
+    "Urea & Electrolytes": "Na 139 mmol/L, K 3.4 mmol/L (mild hypokalaemia — possible precipitant), Creatinine 88 µmol/L — otherwise normal",
+    "Magnesium": "0.68 mmol/L (low-normal — may contribute to arrhythmia; consider replacement)",
+    "CRP": "8 mg/L (normal — no evidence of acute infection or inflammation)",
+    "Coagulation Screen (PT/APTT/INR)": "PT 13s, APTT 28s, INR 1.1 — normal (patient not on warfarin at this episode)",
+    "LFTs (Liver Function Tests)": "Within normal limits",
+    "Blood Glucose": "6.8 mmol/L — mildly elevated, consistent with known type 2 diabetes"
   },
 
   "hidden_diagnosis": "Atrial Fibrillation with Rapid Ventricular Response",
@@ -190,7 +189,7 @@
     "critical_actions": [
       "recognize atrial fibrillation",
       "obtain ECG",
-      "assess hemodynamic stability",
+      "assess haemodynamic stability",
       "consider rate control",
       "evaluate anticoagulation need"
     ],
@@ -200,7 +199,9 @@
       "Irregularly irregular pulse",
       "Shortness of breath",
       "Dizziness",
-      "History of atrial fibrillation"
+      "History of atrial fibrillation",
+      "Hypokalaemia",
+      "Low TSH"
     ],
 
     "correct_diagnosis_keywords": [
@@ -223,14 +224,14 @@
       "12-lead ECG",
       "Assess haemodynamic stability",
       "Rate control with beta blocker or diltiazem",
-      "Anticoagulation assessment",
-      "Investigate underlying causes",
+      "Anticoagulation assessment using CHA2DS2-VASc",
+      "Investigate and treat underlying precipitants",
       "Cardiology review"
     ],
 
     "important_investigations": [
       "ECG",
-      "Electrolytes",
+      "Urea & Electrolytes",
       "TSH",
       "Troponin",
       "Echocardiogram"

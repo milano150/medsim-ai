@@ -91,9 +91,17 @@
     "core_facts": {
       "pain_location": "central chest",
       "pain_character": "pressure",
-      "trigger": "physical exertion",
-      "relief": "rest",
-      "duration": "5-10 minutes"
+      "pain_duration": "5–10 minutes per episode",
+      "worse_with": [
+        "physical exertion",
+        "climbing stairs",
+        "brisk walking",
+        "cold weather"
+      ],
+      "better_with": [
+        "rest",
+        "GTN spray"
+      ]
     },
 
     "negative_history": [
@@ -131,26 +139,19 @@
     "temperature": [36.4, 37.1]
   },
 
-  "investigations": {
-    "ecg_variants": [
-      "Normal sinus rhythm",
-      "Non-specific ST-T changes",
-      "Evidence of previous ischemia",
-      "Normal ECG at rest"
-    ],
-
-    "troponin_range": [0.0, 0.03],
-
-    "chest_xray": [
-      "No acute abnormality",
-      "Normal chest x-ray"
-    ],
-
-    "lab_findings": [
-      "Elevated LDL cholesterol",
-      "Normal troponin",
-      "Elevated HbA1c"
-    ]
+  "abnormal_investigations": {
+    "ECG": "Normal sinus rhythm. Non-specific ST-T changes in lateral leads. No acute ischaemia. No Q waves.",
+    "Troponin": "0.01 ng/mL (within normal limits — no evidence of myocardial necrosis; consistent with stable rather than acute coronary syndrome)",
+    "Chest X-Ray": "No acute cardiopulmonary abnormality. Normal cardiac silhouette. No pulmonary oedema.",
+    "Lipid Profile": "Total cholesterol 6.2 mmol/L (elevated). LDL 4.1 mmol/L (elevated). HDL 0.9 mmol/L (low). Triglycerides 2.4 mmol/L (elevated).",
+    "HbA1c": "58 mmol/mol (7.5%) — suboptimal glycaemic control in setting of known type 2 diabetes",
+    "Fasting Blood Glucose": "8.1 mmol/L (elevated — consistent with known type 2 diabetes)",
+    "FBC (Full Blood Count)": "WBC 7.8 × 10⁹/L, Hb 13.6 g/dL, Platelets 262 × 10⁹/L — normal",
+    "Urea & Electrolytes": "Na 138 mmol/L, K 4.1 mmol/L, Creatinine 91 µmol/L — normal",
+    "LFTs (Liver Function Tests)": "Within normal limits — important prior to statin initiation or dose escalation",
+    "CRP": "5 mg/L (normal — no acute inflammatory process)",
+    "Exercise Stress Test": "ST depression of 1.5mm in leads V4–V6 at 75% maximum predicted heart rate. Symptoms reproduced. Test terminated at Stage 3 Bruce protocol. Positive for inducible ischaemia.",
+    "CT Coronary Angiography": "Moderate stenosis of the left anterior descending artery (60–70%). Mild disease in right coronary artery. No critical lesions identified."
   },
 
   "hidden_diagnosis": "Stable Angina",
@@ -187,18 +188,19 @@
 
     "critical_actions": [
       "recognize stable angina",
-      "identify exertional symptoms",
+      "identify exertional pattern",
       "assess cardiovascular risk factors",
       "obtain ECG",
-      "consider anti-anginal therapy"
+      "arrange stress testing or CT coronary angiography"
     ],
 
     "red_flags": [
       "Exertional chest pain",
-      "Chest pain relieved by rest",
-      "Multiple cardiac risk factors",
-      "Recurrent symptoms",
-      "Exercise intolerance"
+      "Chest pain consistently relieved by rest",
+      "Multiple cardiovascular risk factors",
+      "Increasing frequency of symptoms",
+      "Reduced exercise tolerance",
+      "ST changes on stress testing"
     ],
 
     "correct_diagnosis_keywords": [
@@ -209,29 +211,29 @@
     ],
 
     "acceptable_differentials": [
-  "NSTEMI",
-  "Unstable angina",
-  "GERD",
-  "Aortic stenosis",
-  "Musculoskeletal chest pain"
-],
+      "NSTEMI",
+      "Unstable angina",
+      "GERD",
+      "Aortic stenosis",
+      "Musculoskeletal chest pain"
+    ],
 
-"management_actions": [
-  "12-lead ECG",
-  "Cardiovascular risk assessment",
-  "Prescribe GTN",
-  "Initiate aspirin therapy",
-  "Start statin therapy",
-  "Arrange stress testing or CT coronary angiography",
-  "Cardiology follow-up"
-],
+    "management_actions": [
+      "12-lead ECG",
+      "Cardiovascular risk assessment",
+      "Prescribe GTN spray",
+      "Initiate or optimise aspirin therapy",
+      "Optimise statin therapy",
+      "Arrange stress testing or CT coronary angiography",
+      "Cardiology follow-up"
+    ],
 
-"important_investigations": [
-  "ECG",
-  "Troponin",
-  "Lipid Profile",
-  "Stress Test",
-  "CT Coronary Angiography"
-]
+    "important_investigations": [
+      "ECG",
+      "Troponin",
+      "Lipid Profile",
+      "Exercise Stress Test",
+      "CT Coronary Angiography"
+    ]
   }
 }

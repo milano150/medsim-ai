@@ -23,12 +23,15 @@ const VITALS_CONFIG: { key: string; label: string; icon: string }[] = [
 
 const BASE = "http://127.0.0.1:8000";
 
+
 // Debug info shape returned from /start
 type DebugInfo = {
   hidden_diagnosis: string;
   acceptable_differentials: string[];
   management_actions: string[];
 };
+
+
 
 function App() {
   // ── View state ──────────────────────────────────────────────────────────────
@@ -56,6 +59,8 @@ function App() {
   // ── Debug panel state ───────────────────────────────────────────────────────
   const [debugInfo, setDebugInfo]   = useState<DebugInfo | null>(null);
   const [showDebug, setShowDebug]   = useState(false);
+  const [history, setHistory] = useState<any[]>([]);
+  const [historyDetail, setHistoryDetail] = useState<any>(null);
 
   // ── Timer ───────────────────────────────────────────────────────────────────
   const [timerSeconds, setTimerSeconds]   = useState(0);
@@ -92,11 +97,38 @@ function App() {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [timerRunning]);
 
+
+  useEffect(() => {
+  if (appView !== "landing") return;
+  fetch(`${BASE}/history`)
+    .then(r => r.json())
+    .then((data) => {
+      const seen = new Set<string>();
+      const unique = data.filter((s: any) => {
+        if (seen.has(s.session_id)) return false;
+        seen.add(s.session_id);
+        return true;
+      });
+      setHistory(unique);
+    })
+    .catch(console.error);
+}, [appView]);
+
+
   // ── Helpers ──────────────────────────────────────────────────────────────────
+
+
   const formatTime = (secs: number) => {
     const m = Math.floor(secs / 60).toString().padStart(2, "0");
     const s = (secs % 60).toString().padStart(2, "0");
     return `${m}:${s}`;
+  };
+
+  const loadHistoryDetail = async (sessionId: string) => {
+    const res = await fetch(`${BASE}/history/${sessionId}`);
+    const data = await res.json();
+    setHistoryDetail(data);
+    setAppView("history");
   };
 
   const getScoreColor = (score: number) => {
@@ -120,7 +152,7 @@ function App() {
       const caseRes  = await fetch(`${BASE}/specialty/${selectedSpecialty.toLowerCase()}`);
       const caseData = await caseRes.json();
       setCaseId(caseData.case_id);
-      setPatient(caseData);
+      setPatient({ ...caseData, abnormal_investigations: caseData.abnormal_investigations || {} });
 
       const startRes  = await fetch(`${BASE}/start/${caseData.case_id}`, { method: "POST" });
       const startData = await startRes.json();
@@ -241,6 +273,8 @@ function App() {
     setSelectedInvestigation("");
     setInvestigationSearch("");
     setInvestigationDropdownOpen(false);
+    setHistory([]);
+    setHistoryDetail(null);
     setAppView("landing");
   };
 
@@ -367,9 +401,8 @@ function App() {
 
   // Get result for any ordered investigation
   const getInvestigationResult = (testName: string): string => {
-    const caseKey = CATALOGUE_TO_CASE_KEY[testName];
-    if (caseKey && patient?.investigations?.[caseKey]) {
-      return patient.investigations[caseKey];
+    if (patient?.abnormal_investigations?.[testName]) {
+      return patient.abnormal_investigations[testName];
     }
     return getNormalResult(testName, patient?.age ?? 40);
   };
@@ -494,6 +527,52 @@ function App() {
                 >
                   {loading ? <><span className="spinner" /> Generating Case…</> : "Start Simulation →"}
                 </button>
+              </div>
+            )}
+            {history.length > 0 && (
+              <div style={{ marginTop: 48, width: "100%", maxWidth: 720 }}>
+                <h2 style={{ fontSize: 18, fontWeight: 500, marginBottom: 16 }}>
+                  Past Simulations
+                </h2>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {history.map((s, i) => (
+                    <div
+                      key={`${s.session_id}-${i}`}
+                      onClick={() => loadHistoryDetail(s.session_id)}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        padding: "12px 16px",
+                        background: "var(--surface-elevated, #1a1a2e)",
+                        border: "1px solid var(--border, #2d2d44)",
+                        borderRadius: 8,
+                        cursor: "pointer",
+                      }}
+                    >
+                      <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                        <span style={{ fontSize: 14, fontWeight: 500 }}>
+                          {s.specialty} — {s.patient_name}, {s.patient_age} {s.patient_sex}
+                        </span>
+                        <span style={{ fontSize: 12, color: "var(--text-secondary, #9ca3af)" }}>
+                          {s.hidden_diagnosis}
+                        </span>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                        <span style={{ fontSize: 13, color: "var(--text-secondary, #9ca3af)" }}>
+                          {new Date(s.started_at).toLocaleDateString()}
+                        </span>
+                        <span style={{
+                          fontSize: 15,
+                          fontWeight: 500,
+                          color: getScoreColor(s.overall_score ?? 0),
+                        }}>
+                          {s.overall_score ?? "—"}%
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
@@ -844,6 +923,171 @@ function App() {
             debriefPayload={debriefPayload}
             onNewSimulation={resetSimulation}
           />
+        )}
+        {appView === "history" && historyDetail && (
+          <div style={{ maxWidth: 760, margin: "0 auto", padding: "32px 16px" }}>
+            <button className="btn-ghost" onClick={() => setAppView("landing")} style={{ marginBottom: 24 }}>
+              ← Back to History
+            </button>
+
+            <h2 style={{ fontSize: 20, fontWeight: 500, marginBottom: 4 }}>
+              {historyDetail.session?.specialty} — {historyDetail.session?.patient_name}
+            </h2>
+            <p style={{ fontSize: 13, color: "var(--text-secondary, #9ca3af)", marginBottom: 24 }}>
+              {new Date(historyDetail.session?.started_at).toLocaleString()} · {historyDetail.session?.time_taken}
+            </p>
+
+            {historyDetail.debrief?.full_debrief ? (() => {
+              const d = historyDetail.debrief.full_debrief;
+              return (
+                <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+
+                  {/* Score grid */}
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+                    {[
+                      ["Overall",       d.overall_score],
+                      ["Diagnosis",     d.diagnosis_score],
+                      ["Management",    d.management_score],
+                      ["History",       d.history_score],
+                      ["Investigation", d.investigation_score],
+                      ["Reasoning",     d.reasoning_score],
+                    ].map(([label, score]) => (
+                      <div key={label} style={{
+                        padding: "12px 16px",
+                        background: "var(--surface-elevated, #1a1a2e)",
+                        border: "1px solid var(--border, #2d2d44)",
+                        borderRadius: 8,
+                        textAlign: "center",
+                      }}>
+                        <div style={{ fontSize: 22, fontWeight: 500, color: getScoreColor(Number(score)) }}>
+                          {score}%
+                        </div>
+                        <div style={{ fontSize: 12, color: "var(--text-secondary, #9ca3af)", marginTop: 4 }}>
+                          {label}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Diagnosis comparison */}
+                  <div style={{ padding: "14px 16px", background: "var(--surface-elevated, #1a1a2e)", border: "1px solid var(--border, #2d2d44)", borderRadius: 8 }}>
+                    <div style={{ fontSize: 12, color: "var(--text-secondary, #9ca3af)", marginBottom: 4 }}>Correct diagnosis</div>
+                    <div style={{ fontSize: 15, fontWeight: 500, marginBottom: 12 }}>{d.correct_diagnosis}</div>
+                    <div style={{ fontSize: 12, color: "var(--text-secondary, #9ca3af)", marginBottom: 4 }}>Your diagnosis</div>
+                    <div style={{ fontSize: 14 }}>{d.primary_diagnosis}</div>
+                    {d.differential_1 && <>
+                      <div style={{ fontSize: 12, color: "var(--text-secondary, #9ca3af)", marginTop: 10, marginBottom: 4 }}>Differentials</div>
+                      <div style={{ fontSize: 13 }}>{d.differential_1}{d.differential_2 ? ` · ${d.differential_2}` : ""}</div>
+                    </>}
+                    {d.management_plan && <>
+                      <div style={{ fontSize: 12, color: "var(--text-secondary, #9ca3af)", marginTop: 10, marginBottom: 4 }}>Management plan</div>
+                      <div style={{ fontSize: 13 }}>{d.management_plan}</div>
+                    </>}
+                  </div>
+
+                  {/* Feedback blocks */}
+                  {[
+                    ["History feedback",     d.history_feedback],
+                    ["Reasoning feedback",   d.reasoning_feedback],
+                    ["Management feedback",  d.management_feedback],
+                  ].map(([label, text]) => text && (
+                    <div key={label} style={{ padding: "14px 16px", background: "var(--surface-elevated, #1a1a2e)", border: "1px solid var(--border, #2d2d44)", borderRadius: 8 }}>
+                      <div style={{ fontSize: 12, color: "var(--text-secondary, #9ca3af)", marginBottom: 6 }}>{label}</div>
+                      <div style={{ fontSize: 14, lineHeight: 1.6 }}>{text}</div>
+                    </div>
+                  ))}
+
+                  {/* Good vs missed questions */}
+                  {(d.good_questions?.length > 0 || d.missed_questions?.length > 0) && (
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                      {d.good_questions?.length > 0 && (
+                        <div style={{ padding: "14px 16px", background: "var(--surface-elevated, #1a1a2e)", border: "1px solid #22c55e44", borderRadius: 8 }}>
+                          <div style={{ fontSize: 12, color: "#22c55e", marginBottom: 8 }}>Strong questions</div>
+                          {d.good_questions.map((q: string, i: number) => (
+                            <div key={i} style={{ fontSize: 13, marginBottom: 6, paddingLeft: 8, borderLeft: "2px solid #22c55e44" }}>{q}</div>
+                          ))}
+                        </div>
+                      )}
+                      {d.missed_questions?.length > 0 && (
+                        <div style={{ padding: "14px 16px", background: "var(--surface-elevated, #1a1a2e)", border: "1px solid #ef444444", borderRadius: 8 }}>
+                          <div style={{ fontSize: 12, color: "#ef4444", marginBottom: 8 }}>Missed questions</div>
+                          {d.missed_questions.map((q: string, i: number) => (
+                            <div key={i} style={{ fontSize: 13, marginBottom: 6, paddingLeft: 8, borderLeft: "2px solid #ef444444" }}>{q}</div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Key findings */}
+                  {(d.key_findings_discovered?.length > 0 || d.key_findings_missed?.length > 0) && (
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                      {d.key_findings_discovered?.length > 0 && (
+                        <div style={{ padding: "14px 16px", background: "var(--surface-elevated, #1a1a2e)", border: "1px solid #22c55e44", borderRadius: 8 }}>
+                          <div style={{ fontSize: 12, color: "#22c55e", marginBottom: 8 }}>Findings discovered</div>
+                          {d.key_findings_discovered.map((f: string, i: number) => (
+                            <div key={i} style={{ fontSize: 13, marginBottom: 6, paddingLeft: 8, borderLeft: "2px solid #22c55e44" }}>{f}</div>
+                          ))}
+                        </div>
+                      )}
+                      {d.key_findings_missed?.length > 0 && (
+                        <div style={{ padding: "14px 16px", background: "var(--surface-elevated, #1a1a2e)", border: "1px solid #ef444444", borderRadius: 8 }}>
+                          <div style={{ fontSize: 12, color: "#ef4444", marginBottom: 8 }}>Findings missed</div>
+                          {d.key_findings_missed.map((f: string, i: number) => (
+                            <div key={i} style={{ fontSize: 13, marginBottom: 6, paddingLeft: 8, borderLeft: "2px solid #ef444444" }}>{f}</div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Investigations */}
+                  {(d.important_ordered?.length > 0 || d.important_missed?.length > 0) && (
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                      {d.important_ordered?.length > 0 && (
+                        <div style={{ padding: "14px 16px", background: "var(--surface-elevated, #1a1a2e)", border: "1px solid #22c55e44", borderRadius: 8 }}>
+                          <div style={{ fontSize: 12, color: "#22c55e", marginBottom: 8 }}>Key investigations ordered</div>
+                          {d.important_ordered.map((inv: string, i: number) => (
+                            <div key={i} style={{ fontSize: 13, marginBottom: 4 }}>✓ {inv}</div>
+                          ))}
+                        </div>
+                      )}
+                      {d.important_missed?.length > 0 && (
+                        <div style={{ padding: "14px 16px", background: "var(--surface-elevated, #1a1a2e)", border: "1px solid #ef444444", borderRadius: 8 }}>
+                          <div style={{ fontSize: 12, color: "#ef4444", marginBottom: 8 }}>Key investigations missed</div>
+                          {d.important_missed.map((inv: string, i: number) => (
+                            <div key={i} style={{ fontSize: 13, marginBottom: 4 }}>✗ {inv}</div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Transcript */}
+                  {d.transcript?.length > 0 && (
+                    <div style={{ padding: "14px 16px", background: "var(--surface-elevated, #1a1a2e)", border: "1px solid var(--border, #2d2d44)", borderRadius: 8 }}>
+                      <div style={{ fontSize: 12, color: "var(--text-secondary, #9ca3af)", marginBottom: 12 }}>Full transcript</div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 8, maxHeight: 400, overflowY: "auto" }}>
+                        {d.transcript.map((msg: any, i: number) => (
+                          <div key={i} style={{ fontSize: 13, lineHeight: 1.5 }}>
+                            <span style={{ color: msg.role === "user" ? "var(--accent, #06b6d4)" : "var(--text-secondary, #9ca3af)", fontWeight: 500, marginRight: 8 }}>
+                              {msg.role === "user" ? "Doctor" : "Patient"}
+                            </span>
+                            {msg.text}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+              );
+            })() : (
+              <div style={{ color: "var(--text-secondary, #9ca3af)", fontSize: 14 }}>
+                No debrief data available for this session.
+              </div>
+            )}
+          </div>
         )}
 
       </main>

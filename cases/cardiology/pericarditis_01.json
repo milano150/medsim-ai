@@ -132,26 +132,22 @@
     "temperature": [37.0, 38.3]
   },
 
-  "investigations": {
-    "ecg_variants": [
-      "Diffuse ST elevation with PR depression",
-      "Widespread concave ST elevation",
-      "Diffuse ST segment elevation across multiple leads",
-      "Pericarditis ECG pattern with PR depression"
-    ],
 
-    "troponin_range": [0.0, 0.20],
-
-    "chest_xray": [
-      "No acute abnormality",
-      "Normal chest x-ray"
-    ],
-
-    "lab_findings": [
-      "Elevated CRP",
-      "Elevated ESR",
-      "Mild leukocytosis"
-    ]
+  "abnormal_investigations": {
+    "ECG": "Diffuse ST elevation with PR depression — classic pericarditis pattern",
+    "Troponin": "0.08 ng/mL (mildly elevated — possible myopericarditis)",
+    "Chest X-Ray": "Normal cardiac silhouette, no pleural effusion or consolidation",
+    "Echocardiogram": "Small pericardial effusion. Normal LV function, EF 62%.",
+    "CRP": "68 mg/L (elevated, normal < 10 mg/L)",
+    "ESR": "54 mm/hr (elevated, normal < 20 mm/hr)",
+    "FBC (Full Blood Count)": "WBC 11.2 × 10⁹/L (mild leukocytosis), Hb 13.8 g/dL, Platelets 310 × 10⁹/L",
+    "D-Dimer": "0.4 mg/L FEU (normal — PE less likely)",
+    "CT Chest": "No aortic dissection. Small pericardial effusion noted.",
+    "CTPA": "No pulmonary embolism. Incidental small pericardial effusion.",
+    "LFTs (Liver Function Tests)": "Within normal limits",
+    "Urea & Electrolytes": "Na 138 mmol/L, K 4.0 mmol/L, Creatinine 78 µmol/L — normal",
+    "Blood Culture": "No growth at 48 hours — bacterial cause unlikely",
+    "Coagulation Screen (PT/APTT/INR)": "PT 12s, APTT 27s, INR 1.0 — normal"
   },
 
   "hidden_diagnosis": "Acute Pericarditis",

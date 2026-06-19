@@ -93,7 +93,14 @@
       "pain_character": "tearing",
       "pain_duration": "45 minutes",
       "radiation": "between shoulder blades",
-      "onset": "sudden"
+      "onset": "sudden",
+      "worse_with": [
+        "movement",
+        "any exertion"
+      ],
+      "better_with": [
+        "nothing — pain is constant and severe"
+      ]
     },
 
     "negative_history": [
@@ -113,8 +120,8 @@
 
     "cardiovascular": [
       "Tachycardia",
-      "Blood pressure difference between arms",
-      "Early diastolic murmur",
+      "Blood pressure difference between arms (>20 mmHg)",
+      "Early diastolic murmur — aortic regurgitation",
       "Cool extremities"
     ],
 
@@ -132,26 +139,19 @@
     "temperature": [36.5, 37.3]
   },
 
-  "investigations": {
-    "ecg_variants": [
-      "Sinus tachycardia",
-      "Non-specific ST-T changes",
-      "Normal ECG",
-      "Left ventricular hypertrophy"
-    ],
-
-    "troponin_range": [0.0, 0.10],
-
-    "chest_xray": [
-      "Widened mediastinum",
-      "Mediastinal widening with enlarged aortic silhouette",
-      "Abnormal aortic contour"
-    ],
-
-    "lab_findings": [
-      "Elevated D-dimer",
-      "Mild leukocytosis"
-    ]
+  "abnormal_investigations": {
+    "ECG": "Sinus tachycardia. Left ventricular hypertrophy. Non-specific ST-T changes. No STEMI pattern.",
+    "Troponin": "0.06 ng/mL (mildly elevated — myocardial ischaemia secondary to coronary ostial involvement)",
+    "Chest X-Ray": "Widened mediastinum. Enlarged aortic silhouette. Abnormal aortic contour. No pneumothorax.",
+    "CT Aortogram": "Stanford Type A aortic dissection. Intimal flap identified in ascending aorta extending to descending thoracic aorta. No pericardial tamponade.",
+    "D-Dimer": "3.8 mg/L FEU (markedly elevated — supports aortic dissection; PE also possible but clinical picture favours dissection)",
+    "FBC (Full Blood Count)": "WBC 13.6 × 10⁹/L (leukocytosis — stress response), Hb 12.9 g/dL, Platelets 198 × 10⁹/L",
+    "Urea & Electrolytes": "Na 140 mmol/L, K 4.2 mmol/L, Creatinine 104 µmol/L — mildly elevated, possible renal artery involvement",
+    "LFTs (Liver Function Tests)": "Within normal limits",
+    "Coagulation Screen (PT/APTT/INR)": "PT 13s, APTT 29s, INR 1.1 — normal",
+    "Blood Group & Crossmatch": "Group O positive. 4 units packed red cells crossmatched and held.",
+    "Echocardiogram (Transthoracic)": "Aortic root dilatation. Moderate aortic regurgitation. Hyperdynamic LV function. No pericardial effusion.",
+    "CRP": "22 mg/L (mildly elevated — acute inflammatory response)"
   },
 
   "hidden_diagnosis": "Acute Stanford Type A Aortic Dissection",
@@ -182,25 +182,26 @@
 
     "essential_investigations": [
       "chest xray",
-      "ct angiography",
+      "ct aortogram",
       "ecg"
     ],
 
     "critical_actions": [
       "recognize aortic dissection",
       "measure blood pressure in both arms",
-      "obtain urgent imaging",
+      "obtain urgent CT aortogram",
       "control blood pressure",
       "activate cardiothoracic surgery"
     ],
 
     "red_flags": [
-      "Sudden onset severe pain",
-      "Tearing chest pain",
-      "Pain radiating to back",
+      "Sudden maximal onset pain",
+      "Tearing or ripping character",
+      "Pain radiating to interscapular region",
       "Blood pressure difference between arms",
-      "Widened mediastinum",
-      "Severe hypertension"
+      "Widened mediastinum on chest X-ray",
+      "Severe hypertension",
+      "Aortic regurgitation murmur"
     ],
 
     "correct_diagnosis_keywords": [
@@ -210,29 +211,31 @@
       "thoracic aortic dissection"
     ],
 
-
     "acceptable_differentials": [
-      "STEMI",
+      "Acute coronary syndrome",
       "Pulmonary embolism",
-      "Acute pericarditis",
-      "Unstable angina",
-      "Tension pneumothorax"
+      "Pericarditis",
+      "Pneumothorax",
+      "Myocardial infarction"
     ],
 
     "management_actions": [
-      "IV access and bloods",
-      "Blood pressure control with IV labetalol or esmolol",
-      "Urgent CT aortography",
-      "Activate cardiothoracic surgery",
-      "Nil by mouth",
-      "Pain relief with IV morphine",
-      "Target systolic BP 100-120 mmHg"
+      "Urgent CT aortogram",
+      "IV access and blood crossmatch",
+      "Heart rate and blood pressure control (target SBP 100–120 mmHg)",
+      "Cardiothoracic surgery activation",
+      "Cardiac monitoring",
+      "Avoid anticoagulation",
+      "Pain management"
     ],
 
     "important_investigations": [
+      "CT Aortogram",
       "Chest X-Ray",
       "ECG",
-      "Troponin"
+      "Troponin",
+      "D-Dimer",
+      "Echocardiogram"
     ]
   }
 }

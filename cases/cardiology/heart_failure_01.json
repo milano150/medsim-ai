@@ -90,11 +90,19 @@
     },
 
     "core_facts": {
+      "primary_symptom": "progressive dyspnea",
       "symptom_duration": "1 week",
       "orthopnea": true,
       "paroxysmal_nocturnal_dyspnea": true,
-      "leg_swelling": true,
-      "exercise_tolerance": "markedly reduced"
+      "worse_with": [
+        "lying flat",
+        "exertion",
+        "minimal activity"
+      ],
+      "better_with": [
+        "sitting upright",
+        "using multiple pillows"
+      ]
     },
 
     "negative_history": [
@@ -133,27 +141,21 @@
     "temperature": [36.5, 37.2]
   },
 
-  "investigations": {
-    "ecg_variants": [
-      "Left ventricular hypertrophy",
-      "Old anterior infarct changes",
-      "Atrial fibrillation",
-      "Non-specific ST-T abnormalities"
-    ],
-
-    "troponin_range": [0.0, 0.20],
-
-    "chest_xray": [
-      "Pulmonary edema",
-      "Cardiomegaly with pulmonary vascular congestion",
-      "Bilateral pleural effusions",
-      "Congestive heart failure changes"
-    ],
-
-    "lab_findings": [
-      "Elevated BNP",
-      "Elevated NT-proBNP"
-    ]
+  "abnormal_investigations": {
+    "ECG": "Atrial fibrillation with rapid ventricular response. Left ventricular hypertrophy. Non-specific ST-T changes.",
+    "Troponin": "0.12 ng/mL (mildly elevated — demand ischaemia in setting of decompensation)",
+    "Chest X-Ray": "Cardiomegaly. Bilateral pulmonary vascular congestion. Bilateral pleural effusions.",
+    "Echocardiogram": "Dilated left ventricle. Severely impaired systolic function, EF 28%. Moderate mitral regurgitation.",
+    "BNP": "1420 pg/mL (markedly elevated, normal < 100 pg/mL)",
+    "NT-proBNP": "5800 pg/mL (markedly elevated, normal < 300 pg/mL)",
+    "FBC (Full Blood Count)": "WBC 9.4 × 10⁹/L, Hb 11.2 g/dL (mild anaemia), Platelets 224 × 10⁹/L",
+    "Urea & Electrolytes": "Na 132 mmol/L (hyponatraemia), K 3.6 mmol/L, Creatinine 118 µmol/L (mildly elevated), Urea 9.2 mmol/L",
+    "LFTs (Liver Function Tests)": "Mildly elevated ALT 52 U/L and bilirubin 28 µmol/L — congestive hepatopathy",
+    "CRP": "18 mg/L (mildly elevated, normal < 10 mg/L)",
+    "D-Dimer": "0.6 mg/L FEU (borderline — PE less likely in clinical context)",
+    "Coagulation Screen (PT/APTT/INR)": "PT 14s, APTT 30s, INR 1.3 — mildly prolonged, consistent with congestive hepatopathy",
+    "Blood Glucose": "8.4 mmol/L (mildly elevated — known type 2 diabetes)",
+    "Thyroid Function (TFTs)": "TSH 2.1 mIU/L — normal, hypothyroidism excluded as precipitant"
   },
 
   "hidden_diagnosis": "Acute Decompensated Heart Failure",
@@ -200,10 +202,11 @@
       "Orthopnea",
       "Paroxysmal nocturnal dyspnea",
       "Low oxygen saturation",
-      "Pulmonary edema",
+      "Pulmonary edema on chest X-ray",
       "Bibasal crackles",
       "Elevated JVP",
-      "Peripheral edema"
+      "Peripheral oedema",
+      "Markedly elevated BNP"
     ],
 
     "correct_diagnosis_keywords": [
@@ -214,29 +217,29 @@
     ],
 
     "acceptable_differentials": [
-  "COPD exacerbation",
-  "Pneumonia",
-  "Pulmonary embolism",
-  "Acute coronary syndrome",
-  "Asthma exacerbation"
-],
+      "COPD exacerbation",
+      "Pneumonia",
+      "Pulmonary embolism",
+      "Acute coronary syndrome",
+      "Asthma exacerbation"
+    ],
 
-"management_actions": [
-  "Oxygen if hypoxic",
-  "IV access",
-  "Loop diuretic therapy",
-  "Fluid balance monitoring",
-  "Cardiac monitoring",
-  "Treat precipitating cause",
-  "Cardiology review"
-],
+    "management_actions": [
+      "Oxygen if hypoxic",
+      "IV access",
+      "Loop diuretic therapy",
+      "Fluid balance monitoring",
+      "Cardiac monitoring",
+      "Treat precipitating cause",
+      "Cardiology review"
+    ],
 
-"important_investigations": [
-  "Chest X-Ray",
-  "BNP",
-  "ECG",
-  "Troponin",
-  "Echocardiogram"
-]
+    "important_investigations": [
+      "Chest X-Ray",
+      "BNP",
+      "ECG",
+      "Troponin",
+      "Echocardiogram"
+    ]
   }
 }
