@@ -150,7 +150,7 @@
     "temperature": [36.8, 37.4]
   },
 
-  "abnormal_investigations": {
+  "investigations": {
     "ECG": "ST elevation 2–3mm in V1–V4 with reciprocal ST depression in inferior leads (II, III, aVF). Evolving Q waves in V2–V3. Pattern consistent with acute anterior STEMI — LAD occlusion.",
     "Troponin (serial)": "Initial troponin I 3.8 ng/mL (markedly elevated). Repeat at 3 hours: 18.4 ng/mL (rising — confirms ongoing myocardial necrosis).",
     "Chest X-Ray": "No acute cardiopulmonary abnormality on initial film. Normal cardiac silhouette. No pulmonary oedema at time of presentation.",
@@ -192,11 +192,6 @@
       "respiratory examination"
     ],
 
-    "essential_investigations": [
-      "ecg",
-      "troponin",
-      "chest xray"
-    ],
 
     "critical_actions": [
       "recognize STEMI",

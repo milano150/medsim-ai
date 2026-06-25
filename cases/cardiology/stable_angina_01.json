@@ -139,7 +139,7 @@
     "temperature": [36.4, 37.1]
   },
 
-  "abnormal_investigations": {
+  "investigations": {
     "ECG": "Normal sinus rhythm. Non-specific ST-T changes in lateral leads. No acute ischaemia. No Q waves.",
     "Troponin": "0.01 ng/mL (within normal limits — no evidence of myocardial necrosis; consistent with stable rather than acute coronary syndrome)",
     "Chest X-Ray": "No acute cardiopulmonary abnormality. Normal cardiac silhouette. No pulmonary oedema.",
@@ -180,11 +180,7 @@
       "respiratory examination"
     ],
 
-    "essential_investigations": [
-      "ecg",
-      "troponin",
-      "lipid profile"
-    ],
+    
 
     "critical_actions": [
       "recognize stable angina",

@@ -139,7 +139,7 @@
     "temperature": [36.5, 37.2]
   },
 
-  "abnormal_investigations": {
+  "investigations": {
     "ECG": "Atrial fibrillation with rapid ventricular response at 148 bpm. Irregularly irregular rhythm. No visible P waves. No ST changes to suggest ischaemia.",
     "Troponin": "0.02 ng/mL (within normal limits — no evidence of myocardial injury)",
     "Chest X-Ray": "Mild cardiomegaly. No pulmonary oedema. No pleural effusion.",
@@ -180,11 +180,7 @@
       "cardiovascular examination"
     ],
 
-    "essential_investigations": [
-      "ecg",
-      "electrolytes",
-      "troponin"
-    ],
+
 
     "critical_actions": [
       "recognize atrial fibrillation",

@@ -134,7 +134,7 @@
     "temperature": [36.4, 37.2]
   },
 
-  "abnormal_investigations": {
+  "investigations": {
     "ECG (during tachycardia)": "Regular narrow complex tachycardia at 196 bpm. No visible P waves. Retrograde P waves seen in ST segment of inferior leads. No delta waves. Pattern consistent with AVNRT.",
     "ECG (post-termination)": "Normal sinus rhythm at 72 bpm. No delta waves or pre-excitation. No ST changes or ischaemia. PR interval normal.",
     "Troponin": "0.01 ng/mL (within normal limits — no myocardial injury; troponin can be mildly elevated in sustained SVT but normal here)",
@@ -169,11 +169,7 @@
       "caffeine or stimulant intake"
     ],
 
-    "essential_examinations": [
-      "pulse assessment",
-      "vital signs",
-      "cardiovascular examination"
-    ],
+    
 
     "essential_investigations": [
       "ecg",

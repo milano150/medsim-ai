@@ -31,6 +31,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+INVESTIGATION_ALIASES = {
+    "cxr": "chestxray",
+    "chest xray": "chestxray",
+    "chest x-ray": "chestxray",
+    "chest radiograph": "chestxray",
+
+    "cbc": "fbc",
+    "full blood count": "fbc",
+    "fbc": "fbc",
+
+    "ecg": "ecg",
+    "ekg": "ecg",
+
+    "bnp": "bnp",
+    "brain natriuretic peptide": "bnp",
+
+    "ntprobnp": "ntprobnp",
+    "nt-probnp": "ntprobnp",
+
+    "echo": "echocardiogram",
+    "echo cardiogram": "echocardiogram",
+    "echocardiogram": "echocardiogram",
+}
 # --------------------------------------------------
 # CONFIG
 # --------------------------------------------------
@@ -209,6 +232,17 @@ def answer_for_field(value) -> str:
         return ", ".join(f"{key}: {val}" for key, val in value.items() if val)
     return str(value)
 
+def normalize_investigation(name: str) -> str:
+    key = (
+        name.lower()
+        .replace("-", "")
+        .replace("_", "")
+        .replace("(", "")
+        .replace(")", "")
+        .replace("/", "")
+        .strip()
+    )
+    return INVESTIGATION_ALIASES.get(key, key)
 
 def find_direct_case_answer(question: str, case: dict) -> Optional[str]:
     q = normalize_text(question)
@@ -551,14 +585,26 @@ async def generate_debrief(case_id: str, body: DebriefRequest):
     rubric = case.get("scoring_rubric", {})
     hidden_diagnosis = case.get("hidden_diagnosis", "")
     important_investigations = rubric.get("important_investigations", list(case.get("investigations", {}).keys()))
-    key_history_questions = rubric.get("key_history_questions", [])
+    key_history_questions = rubric.get("essential_questions", [])
     management_actions = rubric.get("management_actions", [])
     differentials = rubric.get("acceptable_differentials", [])
 
     # Investigation score — pure logic, no LLM
     ordered = body.ordered_investigations
-    important_ordered = [i for i in ordered if i in important_investigations]
-    important_missed = [i for i in important_investigations if i not in ordered]
+
+    normalized_ordered = {
+        normalize_investigation(x): x
+        for x in ordered
+    }
+
+    important_ordered = []
+    important_missed = []
+
+    for inv in important_investigations:
+        if normalize_investigation(inv) in normalized_ordered:
+            important_ordered.append(inv)
+        else:
+            important_missed.append(inv)
     investigation_score = (
         round(len(important_ordered) / len(important_investigations) * 100)
         if important_investigations else 100

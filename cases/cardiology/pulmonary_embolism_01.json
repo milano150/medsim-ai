@@ -141,7 +141,7 @@
     "temperature": [36.8, 37.5]
   },
 
-  "abnormal_investigations": {
+  "investigations": {
     "ECG": "Sinus tachycardia. S1Q3T3 pattern. Right heart strain. T-wave inversions in V1–V4.",
     "Troponin": "0.09 ng/mL (mildly elevated — right ventricular strain; indicates higher-risk PE)",
     "Chest X-Ray": "Wedge-shaped opacity right lower lobe (Hampton's hump). Focal oligaemia right lower zone (Westermark's sign). No pneumothorax.",
@@ -177,12 +177,7 @@
       "previous DVT or PE"
     ],
 
-    "essential_examinations": [
-      "vital signs",
-      "respiratory examination",
-      "cardiovascular examination",
-      "leg examination for DVT"
-    ],
+    
 
     "essential_investigations": [
       "d-dimer",

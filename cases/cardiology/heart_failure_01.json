@@ -141,7 +141,7 @@
     "temperature": [36.5, 37.2]
   },
 
-  "abnormal_investigations": {
+  "investigations": {
     "ECG": "Atrial fibrillation with rapid ventricular response. Left ventricular hypertrophy. Non-specific ST-T changes.",
     "Troponin": "0.12 ng/mL (mildly elevated — demand ischaemia in setting of decompensation)",
     "Chest X-Ray": "Cardiomegaly. Bilateral pulmonary vascular congestion. Bilateral pleural effusions.",
@@ -184,11 +184,7 @@
       "peripheral edema assessment"
     ],
 
-    "essential_investigations": [
-      "chest xray",
-      "ecg",
-      "bnp"
-    ],
+  
 
     "critical_actions": [
       "recognize heart failure",

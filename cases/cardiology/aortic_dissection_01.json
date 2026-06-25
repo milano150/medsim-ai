@@ -139,7 +139,7 @@
     "temperature": [36.5, 37.3]
   },
 
-  "abnormal_investigations": {
+  "investigations": {
     "ECG": "Sinus tachycardia. Left ventricular hypertrophy. Non-specific ST-T changes. No STEMI pattern.",
     "Troponin": "0.06 ng/mL (mildly elevated — myocardial ischaemia secondary to coronary ostial involvement)",
     "Chest X-Ray": "Widened mediastinum. Enlarged aortic silhouette. Abnormal aortic contour. No pneumothorax.",
@@ -180,11 +180,6 @@
       "cardiovascular examination"
     ],
 
-    "essential_investigations": [
-      "chest xray",
-      "ct aortogram",
-      "ecg"
-    ],
 
     "critical_actions": [
       "recognize aortic dissection",

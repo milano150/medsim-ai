@@ -133,7 +133,7 @@
   },
 
 
-  "abnormal_investigations": {
+  "investigations": {
     "ECG": "Diffuse ST elevation with PR depression — classic pericarditis pattern",
     "Troponin": "0.08 ng/mL (mildly elevated — possible myopericarditis)",
     "Chest X-Ray": "Normal cardiac silhouette, no pleural effusion or consolidation",
@@ -175,11 +175,7 @@
       "respiratory examination"
     ],
 
-    "essential_investigations": [
-      "ecg",
-      "inflammatory markers",
-      "troponin"
-    ],
+   
 
     "critical_actions": [
       "recognize pericarditis",

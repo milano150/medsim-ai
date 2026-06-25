@@ -307,7 +307,7 @@ function App() {
   const INVESTIGATION_CATALOGUE: { group: string; items: string[] }[] = [
     {
       group: "Cardiac",
-      items: ["ECG", "Troponin", "BNP / NT-proBNP", "CK-MB", "Echocardiogram", "Holter Monitor", "Cardiac Catheterisation"],
+      items: ["ECG", "Troponin", "BNP", "CK-MB", "Echocardiogram", "Holter Monitor", "Cardiac Catheterisation"],
     },
     {
       group: "Imaging",
@@ -347,7 +347,7 @@ function App() {
     const normalMap: Record<string, string> = {
       "ECG":                         "Normal sinus rhythm, rate 72 bpm, no ST changes",
       "Troponin":                     isPaediatric ? "0.01 ng/mL (< 0.04 ng/mL normal)" : "0.02 ng/mL (< 0.04 ng/mL normal)",
-      "BNP / NT-proBNP":             isElderly ? "88 pg/mL (normal < 100 pg/mL for age ≥ 75)" : "42 pg/mL (normal < 100 pg/mL)",
+      "BNP":             isElderly ? "88 pg/mL (normal < 100 pg/mL for age ≥ 75)" : "42 pg/mL (normal < 100 pg/mL)",
       "CK-MB":                        "3.2 ng/mL (normal < 5.0 ng/mL)",
       "Echocardiogram":               "Normal LV size and function. EF 60%. No valvular abnormality.",
       "Holter Monitor":               "24-hr monitor: normal sinus rhythm throughout. No significant arrhythmia.",
