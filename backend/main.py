@@ -54,6 +54,7 @@ INVESTIGATION_ALIASES = {
     "echo cardiogram": "echocardiogram",
     "echocardiogram": "echocardiogram",
 }
+
 # --------------------------------------------------
 # CONFIG
 # --------------------------------------------------
@@ -91,15 +92,19 @@ def generate_patient_persona(case: dict) -> dict:
     occupation = random.choice(generator.get("occupations", ["teacher"]))
 
     prompt = f"""
-Generate a realistic full human name.
+Generate a realistic full human name for a medical patient.
 Sex: {sex}
 Age: {age}
 Occupation: {occupation}
+
 Rules:
-- Return ONLY the full name
-- No explanations
-- No quotation marks
-- Realistic modern name
+- Return ONLY the full name — nothing else
+- Must include a first name AND a last name (exactly 2 words)
+- No middle names, no titles (no Mr, Mrs, Dr)
+- No quotation marks, no punctuation, no explanation
+- Draw from a wide range of cultural backgrounds: British, South Asian, East Asian, African, Middle Eastern, Eastern European, Irish, Caribbean, Latin American
+- The name must feel like a real person, not a fictional character
+
 """
     try:
         name = call_llm(prompt).strip()
@@ -107,6 +112,7 @@ Rules:
         name = "Unknown Patient"
 
     return {"name": name, "age": age, "sex": sex, "occupation": occupation}
+
 
 
 def generate_physical_exam(case: dict) -> dict:
@@ -406,7 +412,7 @@ async def start_case(case_id: str):
         "hidden_diagnosis": case.get("hidden_diagnosis", ""),
         "acceptable_differentials": case.get("scoring_rubric", {}).get("acceptable_differentials", []),
         "management_actions": case.get("scoring_rubric", {}).get("management_actions", []),
-        "abnormal_investigations": case.get("abnormal_investigations", {}),
+        "investigations": case.get("investigations", {}),
     }
 
 
@@ -424,7 +430,7 @@ def get_random_case(specialty: str):
         "vitals": case.get("vitals", {}),
         "investigations": case.get("investigations", {}),
         "red_flags": case.get("scoring_rubric", {}).get("red_flags", []),
-        "abnormal_investigations": case.get("abnormal_investigations", {}),
+        "investigations": case.get("investigations", {}),
     }
 
 
@@ -684,7 +690,10 @@ Respond ONLY with a valid JSON object, no markdown, no backticks:
     reasoning_score = parsed.get("reasoning_score", 0)
 
     overall_score = round(
-        (history_score + investigation_score + reasoning_score + management_score) / 4
+        (diagnosis_score * 0.40) +
+        (management_score * 0.40) +
+        (history_score * 0.10) +
+        (investigation_score * 0.10)
     )
 
     await db.execute(

@@ -11,12 +11,13 @@
       "headache",
       "aura",
       "photophobia",
-      "neurology"
+      "neurology",
+      "primary headache disorder"
     ]
   },
 
   "patient_generator": {
-    "age_range": [18, 50],
+    "age_range": [18, 55],
     "sexes": [
       "male",
       "female"
@@ -29,129 +30,134 @@
       "nurse",
       "accountant",
       "office worker",
-      "sales representative"
+      "sales representative",
+      "administrator"
     ],
-    "pain_score_range": [6, 10],
+    "pain_score_range": [7, 9],
     "risk_factor_count_range": [0, 2]
   },
 
   "presentation_variants": [
     {
-      "presenting_complaint": "Severe headache with flashing lights"
+      "presenting_complaint": "Severe headache with flashing lights and nausea"
     },
     {
-      "presenting_complaint": "Throbbing headache and nausea"
+      "presenting_complaint": "Throbbing one-sided headache after seeing zig-zag lines"
     },
     {
-      "presenting_complaint": "Recurring headaches with visual changes"
+      "presenting_complaint": "Migraine headache with visual aura and light sensitivity"
     },
     {
-      "presenting_complaint": "One-sided headache and sensitivity to light"
+      "presenting_complaint": "Pounding headache and visual disturbance starting with aura"
     },
     {
-      "presenting_complaint": "Headache that started after seeing zig-zag lines"
+      "presenting_complaint": "Recurring migraine with visual changes and photophobia"
     }
   ],
 
   "history_data": {
-    "hpi": "Patient developed a gradual onset throbbing headache approximately 4 hours ago. Pain is located on one side of the head and is associated with nausea, photophobia, and visual aura consisting of flashing lights and zig-zag lines. Similar episodes have occurred previously.",
+    "hpi": "Patient developed a gradual onset throbbing headache approximately 3 hours ago, preceded by 20 minutes of visual aura consisting of flashing lights and zig-zag lines in the peripheral vision. Pain is located on the right side of the head and is associated with significant nausea, photophobia, and phonophobia. Patient has had similar episodes approximately 2–3 times per month for the past 2 years. No fever, neck stiffness, or focal neurological symptoms.",
 
     "patient_quotes": [
-      "I saw flashing lights before the headache started.",
-      "Bright lights make it much worse.",
-      "I feel nauseated.",
-      "The pain is pounding on one side of my head.",
-      "I've had headaches like this before."
+      "I always see flashing lights before the headache starts.",
+      "Bright light makes everything so much worse.",
+      "I feel nauseated and need to lie down in a dark room.",
+      "The pain is throbbing on one side of my head.",
+      "I've had these headaches for years now — this is typical for me."
     ],
 
     "pmh_pool": [
-      "Migraine history",
+      "Migraine with aura — recurrent, 2–3 episodes monthly",
       "Family history of migraine",
-      "Anxiety",
-      "No significant medical history"
+      "Anxiety disorder",
+      "No significant past medical history"
     ],
 
     "medications_pool": [
-      "Sumatriptan as needed",
-      "Ibuprofen as needed",
-      "Paracetamol as needed",
-      "Topiramate"
+      "Sumatriptan 50mg as needed for migraine",
+      "Paracetamol 500mg as needed",
+      "Ibuprofen 400mg as needed",
+      "Propranolol 40mg daily for migraine prophylaxis"
     ],
 
     "social_history": {
       "smoking": "Non-smoker",
-      "alcohol": "Occasional alcohol use",
-      "exercise": "Regular exercise",
-      "stress": "Recent work-related stress"
+      "alcohol": "Occasional alcohol use, aware it triggers migraines",
+      "exercise": "Regular exercise — sometimes triggers migraines if intense",
+      "stress": "Recent work-related stress",
+      "sleep": "Adequate sleep; lack of sleep is a known trigger"
     },
 
     "core_facts": {
-      "headache_location": "right temporal region",
-      "headache_character": "throbbing",
-      "duration": "4 hours",
-      "aura": true,
+      "headache_location": "right temporal and frontal region",
+      "headache_character": "throbbing/pulsating",
+      "headache_duration": "3 hours",
+      "aura_present": true,
+      "aura_type": "visual — flashing lights and zig-zag lines",
+      "aura_duration": "20 minutes before headache onset",
       "associated_symptoms": [
         "nausea",
         "photophobia",
         "phonophobia"
-      ]
+      ],
+      "no_vomiting": true,
+      "episode_frequency": "2–3 times per month"
     },
 
     "negative_history": [
       "No fever",
       "No neck stiffness",
       "No recent head trauma",
-      "No loss of consciousness"
+      "No loss of consciousness",
+      "No focal neurological deficits",
+      "No numbness or weakness"
     ]
   },
 
   "physical_exam": {
     "general_appearance": [
       "Appears uncomfortable",
-      "Prefers dark room",
-      "Alert and oriented"
+      "Prefers dark, quiet environment",
+      "Alert and oriented",
+      "Cooperating fully with examination"
     ],
 
     "cardiovascular": [
+      "Heart rate regular",
       "Normal heart sounds",
-      "Regular rhythm"
+      "No cardiac murmurs"
     ],
 
     "respiratory": [
-      "Clear breath sounds bilaterally"
+      "Clear breath sounds bilaterally",
+      "No respiratory distress"
     ],
 
     "neurological": [
+      "Alert and oriented to person, place, and time",
+      "Cranial nerves II–XII intact",
+      "Motor strength 5/5 throughout",
+      "Sensation intact to light touch",
+      "Reflexes normal",
       "No focal neurological deficits",
-      "Normal cranial nerves",
-      "Normal motor examination"
+      "Fundoscopy: optic discs normal"
     ]
   },
 
   "vitals_ranges": {
-    "systolic_bp": [110, 145],
-    "diastolic_bp": [65, 90],
-    "heart_rate": [70, 105],
-    "resp_rate": [12, 20],
-    "spo2": [97, 100],
-    "temperature": [36.4, 37.2]
+    "systolic_bp": [115, 140],
+    "diastolic_bp": [70, 85],
+    "heart_rate": [75, 100],
+    "resp_rate": [14, 20],
+    "spo2": [98, 100],
+    "temperature": [36.5, 37.0]
   },
 
   "investigations": {
-    "ecg_variants": [
-      "Normal sinus rhythm"
-    ],
-
-    "troponin_range": [0.0, 0.02],
-
-    "chest_xray": [
-      "No acute abnormality"
-    ],
-
-    "lab_findings": [
-      "Normal CBC",
-      "Normal electrolytes"
-    ]
+    "FBC (Full Blood Count)": "WBC 7.2 × 10⁹/L, Hb 13.5 g/dL, Platelets 265 × 10⁹/L — all within normal limits. No anaemia or infection.",
+    "Urea & Electrolytes": "Na 140 mmol/L, K 4.0 mmol/L, Creatinine 82 µmol/L, Urea 5.1 mmol/L — all normal. Adequate hydration status.",
+    "Blood Glucose": "5.3 mmol/L — normal. Hypoglycaemia excluded as trigger.",
+    "Thyroid Function (TSH/T4)": "TSH 2.1 mIU/L, Free T4 15 pmol/L — normal. Hyperthyroidism excluded."
   },
 
   "hidden_diagnosis": "Migraine With Aura",
@@ -159,85 +165,99 @@
   "patient_rules": {
     "never_reveal_diagnosis": true,
     "only_answer_if_asked": true,
-    "emotional_state": "uncomfortable",
+    "emotional_state": "uncomfortable but stable",
     "allow_small_talk": false
   },
 
   "scoring_rubric": {
     "essential_questions": [
-      "headache onset",
+      "headache onset and timing",
       "headache location",
-      "visual symptoms",
-      "nausea",
-      "photophobia",
-      "previous episodes",
-      "family history"
+      "visual aura — did you see anything unusual before headache?",
+      "nausea or vomiting",
+      "photophobia — is light bothering you?",
+      "phonophobia — is sound bothering you?",
+      "previous similar episodes",
+      "frequency of episodes",
+      "family history of migraine"
     ],
 
     "essential_examinations": [
-      "neurological examination",
-      "vital signs"
-    ],
-
-    "essential_investigations": [
-      "neurological assessment",
-      "ct head if red flags present"
+      "comprehensive neurological examination",
+      "vital signs",
+      "fundoscopy",
+      "assessment for focal deficits or red flags"
     ],
 
     "critical_actions": [
-      "recognize migraine",
-      "identify aura",
-      "exclude neurological emergency",
-      "assess red flags",
-      "provide symptomatic treatment"
+      "recognize migraine from clinical presentation",
+      "obtain detailed history of aura and headache characteristics",
+      "perform focused neurological examination to exclude red flags",
+      "assess for red flag features — if absent, imaging not required for typical migraine",
+      "provide acute treatment — triptan or NSAID",
+      "offer supportive measures — dark room, rest, fluids",
+      "consider preventive therapy if frequent episodes"
     ],
 
     "red_flags": [
-      "First severe headache",
-      "Neurological deficits",
-      "Altered consciousness",
-      "Neck stiffness",
-      "Thunderclap headache"
+      "First severe headache ever",
+      "Sudden thunderclap onset",
+      "Headache with fever and neck stiffness",
+      "Focal neurological deficits",
+      "Altered consciousness or confusion",
+      "Papilloedema on fundoscopy",
+      "Progressive change in migraine pattern"
     ],
 
     "correct_diagnosis_keywords": [
       "migraine",
       "migraine with aura",
-      "classic migraine"
+      "classic migraine",
+      "migraine with visual aura"
     ],
 
     "acceptable_differentials": [
-  "Tension headache",
-  "Cluster headache",
-  "Subarachnoid haemorrhage",
-  "Meningitis",
-  "Brain tumour"
-],
+      "Tension headache",
+      "Cluster headache",
+      "Medication overuse headache",
+      "Subarachnoid haemorrhage",
+      "Meningitis",
+      "Idiopathic intracranial hypertension"
+    ],
 
-"management_actions": [
-  "Pain assessment",
-  "NSAID or paracetamol therapy",
-  "Antiemetics",
-  "Hydration",
-  "Neurological assessment",
-  "Migraine-specific therapy",
-  "Outpatient follow-up"
-],
+    "management_actions": [
+      "Acute treatment: Sumatriptan 50mg or NSAID (ibuprofen 400–600mg, naproxen 500–750mg)",
+      "Antiemetic if nausea present — metoclopramide or domperidone",
+      "Supportive measures: rest in dark, quiet environment, hydration, ice pack",
+      "Avoid light and noise triggers during episode",
+      "Prophylactic therapy for frequent migraines (>4 per month): Propranolol, Topiramate, or Amitriptyline",
+      "Lifestyle modification: identify and avoid triggers (stress, lack of sleep, certain foods, alcohol)",
+      "Outpatient neurology referral if migraines worsening or concern about pattern change",
+      "Patient education on migraine management and trigger avoidance"
+    ],
 
-"important_investigations": [
-  "Neurological Examination",
-  "CT Head"
-],
+    "important_investigations": [
+      "FBC (Full Blood Count)",
+      "Urea & Electrolytes",
+      "Blood Glucose",
+      "Thyroid Function (TSH/T4)",
+      "CT Head — only if red flags present"
+    ],
 
-"critical_history_questions": [
-  "When did the headache start?",
-  "Was the onset sudden or gradual?",
-  "Any previous migraines?",
-  "Any visual aura?",
-  "Any nausea or vomiting?",
-  "Any photophobia?",
-  "Any focal neurological symptoms?",
-  "Is this the worst headache of your life?"
-]
+    "critical_history_questions": [
+      "When did the headache start?",
+      "Was there any warning before the headache — like visual changes or aura?",
+      "Describe the aura: what did you see? How long did it last?",
+      "Where exactly is the pain? Just one side or both sides?",
+      "How severe is the pain on a scale of 0–10?",
+      "Are you nauseated? Have you vomited?",
+      "Does bright light make it worse?",
+      "Does sound make it worse?",
+      "Have you had headaches like this before?",
+      "How often do these headaches happen?",
+      "Anyone in your family have migraines?",
+      "What usually triggers your migraines — stress, lack of sleep, certain foods, alcohol?",
+      "Is this the worst headache of your life? (red flag question)"
+    ]
   }
 }

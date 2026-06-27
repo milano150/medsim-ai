@@ -5,18 +5,20 @@
   "metadata": {
     "specialty": "Neurology",
     "difficulty": "advanced",
-    "diagnosis": "Acute Ischemic Stroke",
+    "diagnosis": "Acute Ischemic Stroke (Within Thrombolysis Window)",
     "tags": [
       "stroke",
       "neurology",
+      "acute ischemic stroke",
       "weakness",
       "speech difficulty",
-      "cva"
+      "cva",
+      "time-critical"
     ]
   },
 
   "patient_generator": {
-    "age_range": [50, 90],
+    "age_range": [55, 85],
     "sexes": [
       "male",
       "female"
@@ -25,231 +27,288 @@
       "retired teacher",
       "retired accountant",
       "retired engineer",
+      "retired nurse",
       "shop owner",
       "office administrator",
       "retired bus driver",
-      "security guard",
-      "business owner"
+      "business owner",
+      "security guard"
     ],
-    "pain_score_range": [0, 3],
-    "risk_factor_count_range": [2, 5]
+    "pain_score_range": [0, 2],
+    "risk_factor_count_range": [3, 5]
   },
 
   "presentation_variants": [
     {
-      "presenting_complaint": "Sudden weakness in my arm"
+      "presenting_complaint": "Sudden weakness in my right arm and leg"
     },
     {
-      "presenting_complaint": "I can't move the right side of my body properly"
+      "presenting_complaint": "I can't speak properly and my face is drooping"
     },
     {
-      "presenting_complaint": "My speech suddenly became slurred"
+      "presenting_complaint": "Right-sided weakness and difficulty speaking"
     },
     {
-      "presenting_complaint": "Sudden facial drooping"
+      "presenting_complaint": "Sudden facial drooping with arm weakness"
     },
     {
-      "presenting_complaint": "Weakness and difficulty speaking"
+      "presenting_complaint": "Slurred speech and I can't move my right side"
     }
   ],
 
   "history_data": {
-    "hpi": "Patient developed sudden onset right-sided weakness approximately 90 minutes ago. Family members noticed facial drooping and slurred speech. Symptoms started abruptly while watching television.",
+    "hpi": "Patient was found by family members to have acute onset right-sided weakness and slurred speech approximately 85 minutes ago while sitting in an armchair. Last known well was 85 minutes prior when he was talking normally and moving all limbs. Family immediately called ambulance. Patient reports no warning signs or prodromal symptoms. Sudden onset of facial drooping, right arm and leg weakness, and difficulty forming words. No loss of consciousness. No headache.",
 
     "patient_quotes": [
       "My arm suddenly felt weak.",
-      "I can't speak properly.",
-      "My face feels strange.",
-      "Everything happened very suddenly.",
-      "I was completely normal before this."
+      "I can't speak the words properly.",
+      "My face feels numb and droopy.",
+      "Everything happened in an instant.",
+      "I was completely fine a moment ago.",
+      "I feel very worried about this."
     ],
 
     "pmh_pool": [
-      "Hypertension",
-      "Atrial fibrillation",
-      "Type 2 diabetes",
-      "Previous TIA",
-      "Hyperlipidemia",
-      "Smoking",
-      "Coronary artery disease"
+      "Hypertension — diagnosed 15 years ago",
+      "Atrial fibrillation — diagnosed 3 years ago",
+      "Type 2 diabetes mellitus — diagnosed 8 years ago",
+      "Hyperlipidemia — diagnosed 10 years ago",
+      "Previous transient ischemic attack (TIA) — 2 years ago, resolved",
+      "Smoking history — quit 5 years ago"
     ],
 
     "medications_pool": [
-      "Amlodipine 5mg daily",
-      "Apixaban",
-      "Metformin 500mg twice daily",
-      "Atorvastatin 40mg daily",
-      "Aspirin 81mg daily"
+      "Amlodipine 10mg daily (for hypertension)",
+      "Apixaban 5mg twice daily (for atrial fibrillation)",
+      "Metformin 1000mg twice daily (for diabetes)",
+      "Atorvastatin 40mg daily (for hyperlipidemia)",
+      "Aspirin 81mg daily (for secondary prevention after TIA)"
     ],
 
     "social_history": {
-      "smoking": "Former smoker",
-      "alcohol": "Occasional alcohol use",
-      "exercise": "Limited exercise",
-      "stress": "Normal daily stress"
+      "smoking": "Former smoker — quit 5 years ago, smoked 40 pack-years",
+      "alcohol": "Occasional alcohol use — 2–3 drinks per week",
+      "exercise": "Limited exercise — sedentary occupation history",
+      "stress": "Moderate stress from family responsibilities"
     },
 
     "core_facts": {
-      "symptom_duration": "90 minutes",
+      "time_from_onset": "85 minutes",
+      "last_known_well": "85 minutes ago",
       "facial_droop": true,
       "speech_difficulty": true,
       "right_arm_weakness": true,
-      "sudden_onset": true
+      "right_leg_weakness": true,
+      "sudden_onset": true,
+      "no_loss_of_consciousness": true,
+      "no_severe_headache": true,
+      "fast_positive": true
     },
 
     "negative_history": [
-      "No recent trauma",
+      "No recent head trauma",
       "No fever",
       "No seizure activity",
-      "No severe headache"
+      "No severe headache",
+      "No neck stiffness",
+      "No vision changes"
     ]
   },
 
   "physical_exam": {
     "general_appearance": [
-      "Alert",
-      "Anxious",
-      "Difficulty speaking"
+      "Alert and anxious",
+      "Difficulty speaking",
+      "Apparent facial asymmetry"
     ],
 
     "cardiovascular": [
-      "Regular rhythm",
-      "No murmurs"
+      "Heart rate irregular — atrial fibrillation noted",
+      "Blood pressure elevated",
+      "No cardiac murmurs"
     ],
 
     "respiratory": [
-      "Clear breath sounds bilaterally"
+      "Clear breath sounds bilaterally",
+      "Normal respiratory effort"
     ],
 
     "neurological": [
-      "Right facial droop",
-      "Right arm weakness",
-      "Right leg weakness",
-      "Slurred speech",
-      "Pronator drift present"
+      "Alert, oriented to person and place (slightly confused regarding time)",
+      "Right-sided facial droop",
+      "Speech: expressive aphasia present, difficulty forming words, slurred",
+      "Right arm: pronator drift — unable to maintain arm elevation against gravity",
+      "Right leg: weakness 4/5 — able to move but with effort",
+      "Left side: normal strength and sensation",
+      "Cranial nerves: CN VII — right-sided palsy; other CNs intact",
+      "Gait: not tested due to acute weakness",
+      "No signs of meningismus",
+      "No papilloedema on fundoscopy"
     ]
   },
 
   "vitals_ranges": {
-    "systolic_bp": [140, 220],
-    "diastolic_bp": [80, 120],
-    "heart_rate": [70, 120],
-    "resp_rate": [12, 24],
-    "spo2": [95, 100],
-    "temperature": [36.4, 37.3]
+    "systolic_bp": [155, 210],
+    "diastolic_bp": [85, 125],
+    "heart_rate": [85, 115],
+    "resp_rate": [14, 22],
+    "spo2": [97, 100],
+    "temperature": [36.6, 37.2]
   },
 
   "investigations": {
-    "ecg_variants": [
-      "Normal sinus rhythm",
-      "Atrial fibrillation",
-      "Left ventricular hypertrophy"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "No acute abnormality"
-    ],
-
-    "lab_findings": [
-      "Normal CBC",
-      "Elevated glucose",
-      "Elevated cholesterol"
-    ]
+    "Blood Glucose": "7.2 mmol/L — normal range. Hypoglycemia excluded as cause of neurological deficit.",
+    "Urea & Electrolytes": "Na 139 mmol/L, K 4.1 mmol/L, Creatinine 92 µmol/L, Urea 6.8 mmol/L, eGFR 72 — all normal. Baseline kidney function acceptable for contrast administration.",
+    "FBC (Full Blood Count)": "WBC 8.9 × 10⁹/L, Hb 13.6 g/dL, Platelets 245 × 10⁹/L — normal. No thrombocytopenia (which would contraindicate thrombolysis).",
+    "Coagulation Screen (PT/APPT/INR)": "PT 12 seconds, APPT 28 seconds, INR 1.0 — normal. Patient on apixaban (DOAC) but not warfarin; INR irrelevant but PT/APTT normal supports thrombolysis eligibility.",
+    "Lipid Profile": "Total cholesterol 6.2 mmol/L, LDL 4.1 mmol/L (elevated), HDL 0.9 mmol/L (low), Triglycerides 2.1 mmol/L — abnormal lipid profile consistent with cardiovascular risk factors.",
+    "ECG": "Atrial fibrillation with ventricular response 92 bpm. No acute ST changes. No evidence of acute MI. Confirms arrhythmia as potential embolic source.",
+    "Blood Group & Crossmatch": "Group A positive. Crossmatch not required urgently but available if transfusion needed.",
+    "CT Head (Non-contrast)": "No acute intracranial haemorrhage. No mass effect. No hypodensity in middle cerebral artery territory — consistent with hyperacute ischemic stroke. No contraindication to thrombolysis identified on imaging."
   },
 
-  "hidden_diagnosis": "Acute Ischemic Stroke",
+  "hidden_diagnosis": "Acute Ischemic Stroke (Left Middle Cerebral Artery Territory) — Within Thrombolysis Window",
 
   "patient_rules": {
     "never_reveal_diagnosis": true,
     "only_answer_if_asked": true,
-    "emotional_state": "worried",
+    "emotional_state": "worried and anxious",
     "allow_small_talk": false
   },
 
   "scoring_rubric": {
     "essential_questions": [
-      "time of onset",
-      "speech difficulty",
-      "weakness",
-      "facial droop",
-      "previous stroke",
-      "anticoagulant use",
-      "risk factors"
+      "time of last known well — CRITICAL",
+      "time of symptom onset",
+      "details of weakness — location, progression",
+      "speech difficulty — expressive or receptive?",
+      "facial drooping",
+      "vision changes",
+      "anticoagulant use — dose and timing of last dose",
+      "antiplatelet use",
+      "recent bleeding or surgery",
+      "previous stroke or TIA",
+      "atrial fibrillation history",
+      "hypertension control",
+      "diabetes control",
+      "last meal — relevant for aspiration risk"
     ],
 
     "essential_examinations": [
-      "neurological examination",
-      "cranial nerve examination",
-      "vital signs"
-    ],
-
-    "essential_investigations": [
-      "ct head",
-      "blood glucose",
-      "ecg"
+      "NIHSS (National Institutes of Health Stroke Scale) — or equivalent comprehensive neurological assessment",
+      "Facial symmetry assessment",
+      "Arm drift test",
+      "Speech assessment",
+      "Level of consciousness",
+      "Cranial nerve examination",
+      "Motor and sensory examination",
+      "Vital signs — especially blood pressure",
+      "Cardiac rhythm assessment",
+      "Fundoscopy"
     ],
 
     "critical_actions": [
-      "recognize stroke",
-      "establish onset time",
-      "perform neurological assessment",
-      "activate stroke pathway",
-      "consider thrombolysis eligibility"
+      "ACTIVATE STROKE ALERT IMMEDIATELY",
+      "Establish EXACT time of symptom onset or last known well",
+      "Perform rapid neurological assessment (NIHSS preferred)",
+      "Stat non-contrast CT head to rule out haemorrhage",
+      "Stat blood glucose — hypoglycemia must be excluded",
+      "Obtain ECG to assess for atrial fibrillation",
+      "Rapid blood work: Urea & Electrolytes, FBC, Coagulation, Lipid profile",
+      "Establish IV access — two large-bore cannulae preferred",
+      "Cardiac monitoring",
+      "ASSESS THROMBOLYSIS ELIGIBILITY — time window is critical (4.5 hours for IV tPA; 24 hours for mechanical thrombectomy if no early signs of infarction)",
+      "If eligible and no contraindications: administer IV alteplase (tPA) 0.9 mg/kg (max 90 mg)",
+      "Prepare for possible mechanical thrombectomy",
+      "Neurology consultation",
+      "NPO status until swallow assessment complete"
     ],
 
     "red_flags": [
-      "Sudden neurological deficit",
-      "Facial droop",
-      "Speech difficulty",
-      "Unilateral weakness",
-      "Atrial fibrillation",
-      "Acute onset symptoms"
+      "Sudden onset neurological deficit",
+      "Facial droop — sign of brainstem or cortical involvement",
+      "Speech difficulty — expressive aphasia suggests dominant hemisphere involvement",
+      "Unilateral weakness — arm and leg together suggests cortical stroke",
+      "Atrial fibrillation — embolic source",
+      "Time from onset — 85 minutes is WITHIN thrombolysis window",
+      "No loss of consciousness — suggests focused stroke, not global event",
+      "Multiple risk factors: age, hypertension, diabetes, AF, hyperlipidemia",
+      "Previous TIA — indicates high-risk patient"
     ],
 
     "correct_diagnosis_keywords": [
       "stroke",
       "acute ischemic stroke",
       "cerebrovascular accident",
-      "cva"
+      "cva",
+      "middle cerebral artery stroke",
+      "mca territory stroke"
     ],
 
     "acceptable_differentials": [
-  "Transient ischaemic attack",
-  "Hypoglycaemia",
-  "Seizure with Todd's paralysis",
-  "Brain tumour",
-  "Migraine with aura"
-],
+      "Transient ischemic attack (TIA) — but symptoms persistent, so less likely",
+      "Hypoglycaemia — excluded by normal glucose",
+      "Seizure with Todd's paralysis — no history of seizure activity",
+      "Brain tumour — wrong presentation, no time for progressive course",
+      "Migraine with aura — wrong age, wrong presentation",
+      "Subdural haematoma — no trauma history, CT negative"
+    ],
 
-"management_actions": [
-  "Activate stroke pathway",
-  "Immediate CT head",
-  "Check blood glucose",
-  "Neurological assessment",
-  "Cardiac monitoring",
-  "Assess thrombolysis eligibility",
-  "Urgent neurology consultation"
-],
+    "management_actions": [
+      "IMMEDIATE stroke pathway activation",
+      "Rapid assessment — aim to have patient in CT scanner within 10 minutes",
+      "Stat non-contrast CT head — rule out haemorrhage before thrombolysis",
+      "Stat blood tests: glucose, Urea & Electrolytes, FBC, Coagulation Screen, Lipid profile",
+      "12-lead ECG",
+      "Peripheral IV access — large bore × 2",
+      "Continuous cardiac monitoring and pulse oximetry",
+      "Blood pressure management: target SBP <180 mmHg before and during thrombolysis",
+      "NPO until swallow assessment",
+      "IV tPA eligibility assessment — TIME FROM LAST KNOWN WELL IS CRITICAL",
+      "If eligible: IV alteplase (tPA) 0.9 mg/kg IV infusion over 60 minutes (10% bolus over 1 minute, remainder over 59 minutes)",
+      "Post-tPA monitoring: neurological checks every 15 minutes × 2 hours, then hourly × 6 hours; CT head 24 hours post-tPA",
+      "Prepare for mechanical thrombectomy if large vessel occlusion suspected",
+      "Antiplatelet therapy post-thrombolysis: aspirin 300mg day 1, then 75mg daily",
+      "Anticoagulation: continue apixaban after assessment period",
+      "Intensive care/high-dependency monitoring",
+      "Swallow assessment before oral intake",
+      "Early physiotherapy and rehabilitation",
+      "Neurology and stroke team follow-up"
+    ],
 
-"important_investigations": [
-  "CT Head",
-  "Blood Glucose",
-  "ECG",
-  "CBC",
-  "CT Angiography"
-],
+    "important_investigations": [
+      "CT Head (non-contrast) — STAT",
+      "Blood Glucose — STAT",
+      "Urea & Electrolytes",
+      "FBC (Full Blood Count)",
+      "Coagulation Screen (PT/APPT/INR)",
+      "ECG",
+      "Lipid Profile",
+      "Blood Group & Crossmatch"
+    ],
 
-"critical_history_questions": [
-  "When was the patient last known well?",
-  "What symptoms occurred?",
-  "Any weakness or numbness?",
-  "Any speech difficulties?",
-  "Any visual disturbances?",
-  "Any anticoagulant use?",
-  "Previous strokes?",
-  "History of atrial fibrillation?"
-]
+    "critical_history_questions": [
+      "When was the patient LAST KNOWN WELL? (Exact time)",
+      "When were symptoms FIRST NOTICED? (Exact time)",
+      "Who discovered the patient, and what exactly did they observe?",
+      "What were the initial symptoms — in what order did they occur?",
+      "Has the patient lost consciousness at any point?",
+      "Any focal weakness — which limbs, which side?",
+      "Any speech difficulty — can patient form words, understand speech?",
+      "Any facial drooping — which side?",
+      "Any vision changes or visual field loss?",
+      "Any headache or neck stiffness?",
+      "Any recent seizure activity?",
+      "Is patient on anticoagulation? What drug and dose? When was last dose?",
+      "Is patient on antiplatelet therapy?",
+      "Recent bleeding or surgery?",
+      "Recent blood pressure readings — baseline control?",
+      "Blood sugar control — any recent hypoglycaemic episodes?",
+      "Known atrial fibrillation?",
+      "Previous stroke or TIA — when, what treatment?",
+      "Last meal — time and type of food?",
+      "Any recent head injury or trauma?",
+      "Currently smoking or recent smoking?"
+    ]
   }
 }

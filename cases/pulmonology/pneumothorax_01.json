@@ -5,9 +5,10 @@
   "metadata": {
     "specialty": "Pulmonology",
     "difficulty": "intermediate",
-    "diagnosis": "Spontaneous Pneumothorax",
+    "diagnosis": "Primary Spontaneous Pneumothorax",
     "tags": [
       "pneumothorax",
+      "spontaneous pneumothorax",
       "chest pain",
       "shortness of breath",
       "respiratory emergency",
@@ -16,7 +17,7 @@
   },
 
   "patient_generator": {
-    "age_range": [18, 45],
+    "age_range": [18, 40],
     "sexes": [
       "male",
       "female"
@@ -29,7 +30,9 @@
       "office worker",
       "electrician",
       "fitness trainer",
-      "retail worker"
+      "retail worker",
+      "graphic designer",
+      "barista"
     ],
     "pain_score_range": [5, 9],
     "risk_factor_count_range": [0, 2]
@@ -37,38 +40,39 @@
 
   "presentation_variants": [
     {
-      "presenting_complaint": "Sudden sharp chest pain"
+      "presenting_complaint": "Sudden sharp chest pain on the left side"
     },
     {
-      "presenting_complaint": "Chest pain and shortness of breath"
+      "presenting_complaint": "I suddenly couldn't breathe properly and have chest pain"
     },
     {
-      "presenting_complaint": "I suddenly couldn't breathe properly"
+      "presenting_complaint": "Sharp pain on one side of my chest that came out of nowhere"
     },
     {
-      "presenting_complaint": "Sharp pain on one side of my chest"
+      "presenting_complaint": "Chest pain and breathlessness that started out of nowhere while I was sitting"
     },
     {
-      "presenting_complaint": "Breathing became painful all of a sudden"
+      "presenting_complaint": "Breathing became painful and difficult all of a sudden"
     }
   ],
 
   "history_data": {
-    "hpi": "Patient developed sudden onset left-sided pleuritic chest pain approximately one hour ago while resting. This was immediately followed by shortness of breath. Pain worsens with deep inspiration.",
+    "hpi": "Patient is a 24-year-old tall, thin male who developed sudden onset sharp left-sided chest pain approximately one hour ago while sitting at his desk. The pain began without any precipitant and was immediately followed by progressive breathlessness. Pain is pleuritic — worse on deep inspiration and coughing. No preceding exertion, cough, trauma, or respiratory illness. No fever or productive cough. Patient is a current smoker. He has never had this before but recalls being told he had a 'tall, thin chest' at a previous health check. He is visibly anxious and in pain.",
 
     "patient_quotes": [
-      "The pain started out of nowhere.",
-      "It hurts when I take a deep breath.",
-      "I suddenly felt short of breath.",
-      "The pain is mostly on one side.",
-      "I was completely fine before this happened."
+      "The pain came completely out of nowhere — I was just sitting at my desk.",
+      "It's a sharp pain on the left side that gets worse when I breathe in.",
+      "I suddenly felt like I couldn't take a full breath.",
+      "I've never had anything like this before.",
+      "I was completely fine and then it just happened."
     ],
 
     "pmh_pool": [
-      "Smoking",
-      "Previous pneumothorax",
-      "Tall thin body habitus",
-      "No significant medical history"
+      "No significant past medical history",
+      "Current smoker — 10 cigarettes per day for 5 years",
+      "Tall, thin body habitus — marfanoid features noted at previous GP visit",
+      "No previous pneumothorax",
+      "No known lung disease"
     ],
 
     "medications_pool": [
@@ -76,165 +80,202 @@
     ],
 
     "social_history": {
-      "smoking": "Current smoker",
-      "alcohol": "Occasional alcohol use",
-      "exercise": "Regular exercise",
-      "stress": "Normal daily stress"
+      "smoking": "Current smoker — 10 cigarettes per day for 5 years (approximately 2.5 pack-years)",
+      "alcohol": "Occasional alcohol — weekends only",
+      "exercise": "Moderately active — gym twice per week",
+      "stress": "Moderate — university final year examinations"
     },
 
     "core_facts": {
       "sudden_onset": true,
       "pleuritic_chest_pain": true,
+      "chest_pain_location": "left-sided",
       "shortness_of_breath": true,
-      "pain_location": "left chest",
-      "duration": "1 hour"
+      "pain_worse_with": "deep inspiration and coughing",
+      "precipitant": "none — occurred at rest",
+      "symptom_duration": "1 hour",
+      "fever": false,
+      "productive_cough": false,
+      "trauma": false,
+      "previous_pneumothorax": false
     },
 
     "negative_history": [
-      "No fever",
-      "No productive cough",
-      "No recent surgery",
-      "No trauma"
+      "No fever or chills",
+      "No productive cough or haemoptysis",
+      "No recent trauma or chest injury",
+      "No recent surgery or invasive procedure",
+      "No preceding exertion",
+      "No leg swelling or calf pain",
+      "No known connective tissue disease",
+      "No family history of pneumothorax or Marfan syndrome"
     ]
   },
 
   "physical_exam": {
     "general_appearance": [
-      "Appears uncomfortable",
-      "Mild respiratory distress",
-      "Anxious"
+      "Tall and slim — body habitus consistent with risk phenotype",
+      "Visibly uncomfortable and anxious",
+      "Mild to moderate respiratory distress",
+      "Splinting — guarding left side of chest to minimise respiratory movement",
+      "No cyanosis"
     ],
 
     "cardiovascular": [
-      "Tachycardia",
-      "Regular rhythm"
+      "Tachycardia — heart rate elevated",
+      "Regular rhythm",
+      "No murmurs",
+      "Blood pressure maintained",
+      "Trachea midline — no deviation (no tension pneumothorax)"
     ],
 
     "respiratory": [
-      "Reduced breath sounds on the left",
-      "Reduced chest expansion on the left",
-      "Hyperresonance on percussion"
+      "Reduced chest expansion — left side",
+      "Hyperresonance to percussion — left hemithorax",
+      "Markedly reduced breath sounds — left hemithorax",
+      "Right lung clear — normal breath sounds throughout",
+      "No wheeze or crackles",
+      "No pleural rub"
     ]
   },
 
   "vitals_ranges": {
-    "systolic_bp": [100, 145],
-    "diastolic_bp": [60, 90],
-    "heart_rate": [95, 135],
-    "resp_rate": [20, 32],
-    "spo2": [88, 96],
-    "temperature": [36.4, 37.2]
+    "systolic_bp": [102, 140],
+    "diastolic_bp": [60, 88],
+    "heart_rate": [98, 132],
+    "resp_rate": [20, 30],
+    "spo2": [89, 96],
+    "temperature": [36.4, 37.0]
   },
 
   "investigations": {
-    "ecg_variants": [
-      "Sinus tachycardia",
-      "Normal sinus rhythm"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "Large left pneumothorax",
-      "Moderate right pneumothorax",
-      "Visible pleural line with absent peripheral lung markings",
-      "Spontaneous pneumothorax"
-    ],
-
-    "lab_findings": [
-      "Normal CBC",
-      "Normal electrolytes"
-    ]
+    "Chest X-Ray": "Large left-sided pneumothorax — visible pleural line with complete absence of peripheral lung markings in the left hemithorax. Estimated >2cm rim of air at hilum level — consistent with large pneumothorax by BTS criteria. No mediastinal shift. No right-sided pneumothorax. No pleural effusion. Trachea remains midline — no features of tension pneumothorax on this film.",
+    "ABG (Arterial Blood Gas)": "pH 7.44, PaO2 72 mmHg (hypoxaemia on air), PaCO2 33 mmHg (mild hyperventilation), HCO3 22 mmol/L, SpO2 92% on air. Acute respiratory alkalosis with hypoxaemia consistent with significant pneumothorax. Supplemental oxygen indicated.",
+    "ECG": "Sinus tachycardia at 112 bpm. No acute ST changes. No right heart strain pattern. Left-sided QRS voltage reduction may be noted — consistent with ipsilateral pneumothorax. No features of PE or ACS.",
+    "FBC (Full Blood Count)": "WBC 9.2 × 10⁹/L (normal — no infection), Hb 14.8 g/dL, Platelets 284 × 10⁹/L. Normal haematological parameters — no evidence of underlying haematological abnormality.",
+    "Urea & Electrolytes": "Na 139 mmol/L, K 4.1 mmol/L, Creatinine 82 µmol/L, Urea 5.2 mmol/L — all normal. Useful baseline prior to any procedural intervention.",
+    "D-Dimer": "320 ng/mL — mildly elevated, likely due to physiological stress response. Pulmonary embolism remains a differential; however, clinical picture, young age, and CXR findings are more consistent with pneumothorax. CT-PA not indicated at this stage."
   },
 
-  "hidden_diagnosis": "Spontaneous Pneumothorax",
+  "hidden_diagnosis": "Primary Spontaneous Pneumothorax — Large (Left-Sided)",
 
   "patient_rules": {
     "never_reveal_diagnosis": true,
     "only_answer_if_asked": true,
-    "emotional_state": "anxious",
+    "emotional_state": "anxious and in pain — frightened by the sudden onset, trying to take shallow breaths to minimise pain",
     "allow_small_talk": false
   },
 
   "scoring_rubric": {
     "essential_questions": [
-      "chest pain",
-      "onset",
-      "shortness of breath",
-      "smoking history",
-      "previous pneumothorax",
-      "trauma history",
-      "pain with breathing"
+      "exact time of onset and what patient was doing at the time",
+      "character of chest pain — sharp, pleuritic, sudden onset",
+      "location of pain — unilateral",
+      "pain variation with breathing and coughing",
+      "onset and progression of dyspnoea",
+      "any preceding trauma, exertion, or invasive procedure",
+      "previous pneumothorax — ipsilateral or contralateral",
+      "smoking history — major risk factor for primary spontaneous pneumothorax",
+      "known lung disease — COPD, asthma, CF, sarcoidosis (secondary spontaneous pneumothorax)",
+      "body habitus — tall and thin body type is a recognised risk factor",
+      "connective tissue disease — Marfan syndrome, Ehlers-Danlos syndrome",
+      "family history of pneumothorax",
+      "fever or productive cough — to exclude pneumonia",
+      "leg swelling or calf pain — to exclude PE"
     ],
 
     "essential_examinations": [
-      "respiratory examination",
-      "vital signs",
-      "oxygen saturation"
-    ],
-
-    "essential_investigations": [
-      "chest xray",
-      "oxygen saturation"
+      "general assessment — body habitus, respiratory distress, splinting",
+      "tracheal position — deviation away from affected side indicates tension pneumothorax",
+      "percussion — hyperresonance over affected hemithorax",
+      "auscultation — absent or markedly reduced breath sounds over affected side",
+      "chest expansion — reduced on affected side",
+      "heart rate and blood pressure — haemodynamic compromise suggests tension",
+      "oxygen saturation on air",
+      "jugular venous pressure — raised JVP with hypotension suggests tension pneumothorax"
     ],
 
     "critical_actions": [
-      "recognize pneumothorax",
-      "assess respiratory status",
-      "obtain chest xray",
-      "administer oxygen",
-      "consider chest decompression"
+      "immediately assess for tension pneumothorax — tracheal deviation, raised JVP, haemodynamic collapse, absent breath sounds: if present, needle decompression BEFORE chest X-ray",
+      "obtain chest X-ray to confirm pneumothorax and estimate size if patient is stable",
+      "classify as primary (no underlying lung disease) vs secondary (known lung disease) — management differs significantly",
+      "size classification by BTS criteria: small = <2cm rim of air at hilum; large = ≥2cm rim",
+      "large primary spontaneous pneumothorax: aspirate with 16–18G cannula in 2nd intercostal space, midclavicular line — up to 2.5L; if fails, chest drain insertion",
+      "small primary spontaneous pneumothorax with minimal symptoms: may discharge with 1-week outpatient follow-up and safety-netting advice",
+      "high-flow oxygen 10–15L/min via non-rebreather mask — accelerates reabsorption of pleural air",
+      "secondary spontaneous pneumothorax: admit ALL patients regardless of size; lower threshold for chest drain",
+      "repeat chest X-ray after aspiration or drain insertion to confirm lung re-expansion",
+      "smoking cessation counselling — reduces recurrence risk",
+      "refer to thoracics for pleurodesis or VATS after second ipsilateral pneumothorax",
+      "advise patient: no flying for 1 week after full radiological resolution; no scuba diving ever unless surgical pleurodesis performed"
     ],
 
     "red_flags": [
-      "Sudden chest pain",
-      "Sudden shortness of breath",
-      "Unilateral reduced breath sounds",
-      "Hypoxia",
-      "Tachycardia",
-      "Large pneumothorax"
+      "Tracheal deviation away from affected side — tension pneumothorax, immediate needle decompression required",
+      "Hypotension with absent breath sounds — tension pneumothorax, do not wait for CXR",
+      "Raised JVP with haemodynamic instability — tension physiology",
+      "SpO2 <92% on air — significant respiratory compromise",
+      "Bilateral pneumothorax — rare but life-threatening",
+      "Secondary spontaneous pneumothorax in patient with underlying lung disease — higher mortality, admit all",
+      "Large pneumothorax (≥2cm rim) — intervention required",
+      "Failure of lung to re-expand after aspiration — chest drain required"
     ],
 
     "correct_diagnosis_keywords": [
       "pneumothorax",
       "spontaneous pneumothorax",
+      "primary spontaneous pneumothorax",
       "collapsed lung"
     ],
 
     "acceptable_differentials": [
-  "Pulmonary embolism",
-  "Asthma exacerbation",
-  "COPD exacerbation",
-  "Pneumonia",
-  "Acute coronary syndrome"
-],
+      "Pulmonary embolism — pleuritic pain and dyspnoea, but CXR typically normal; D-dimer mildly elevated here but clinical picture favours pneumothorax",
+      "Acute coronary syndrome — central crushing pain, not pleuritic; ECG and troponin would differentiate",
+      "Acute pericarditis — pleuritic chest pain and dyspnoea, but positional (relieved leaning forward), no unilateral signs",
+      "Musculoskeletal chest wall pain — no dyspnoea, reproducible on palpation, no CXR findings",
+      "Pneumonia — fever, productive cough, crackles rather than absent breath sounds; dullness not hyperresonance on percussion"
+    ],
 
-"management_actions": [
-  "Assess stability",
-  "High-flow oxygen",
-  "Immediate chest X-ray",
-  "Needle decompression if tension pneumothorax",
-  "Chest drain insertion",
-  "Cardiorespiratory monitoring",
-  "Respiratory review"
-],
+    "management_actions": [
+      "Immediate tracheal position assessment — exclude tension pneumothorax",
+      "High-flow oxygen 10–15L/min via non-rebreather mask",
+      "Chest X-Ray — confirm diagnosis and assess size",
+      "ABG on air — assess degree of hypoxaemia",
+      "Large pneumothorax (≥2cm): needle aspiration — 16–18G cannula, 2nd ICS midclavicular line, aspirate up to 2.5L",
+      "If aspiration fails: chest drain insertion — Seldinger technique, 4th–5th ICS, anterior axillary line",
+      "Repeat CXR after intervention to confirm re-expansion",
+      "Analgesia: paracetamol and ibuprofen; opiates if severe",
+      "Smoking cessation counselling — strongly advised; smoking increases recurrence risk 12-fold",
+      "If small pneumothorax and minimal symptoms: discharge with safety-netting and outpatient follow-up in 1 week",
+      "Advise no flying until 1 week after confirmed radiological resolution",
+      "Advise no scuba diving unless bilateral surgical pleurodesis has been performed",
+      "Refer to thoracic surgery after second ipsilateral episode for consideration of pleurodesis or VATS bullectomy"
+    ],
 
-"important_investigations": [
-  "Chest X-Ray",
-  "ABG",
-  "ECG",
-  "Oxygen Saturation"
-],
+    "important_investigations": [
+      "Chest X-Ray",
+      "ABG (Arterial Blood Gas)",
+      "ECG",
+      "FBC (Full Blood Count)",
+      "Urea & Electrolytes",
+      "D-Dimer"
+    ],
 
-"critical_history_questions": [
-  "Sudden onset symptoms?",
-  "Chest pain?",
-  "Shortness of breath?",
-  "Previous pneumothorax?",
-  "Recent trauma?",
-  "Smoking history?",
-  "Underlying lung disease?",
-  "Symptom progression?"
-]
+    "critical_history_questions": [
+      "What exactly were you doing when the pain started?",
+      "Did it come on suddenly or gradually?",
+      "Where exactly is the pain — can you point to it?",
+      "Does the pain change when you breathe in or cough?",
+      "Have you had anything like this before?",
+      "Have you ever been told you had a collapsed lung before?",
+      "Do you smoke — how much and for how long?",
+      "Do you have any lung conditions — asthma, COPD, or anything else?",
+      "Have you had any recent chest trauma or injury?",
+      "Any recent medical procedures or surgery?",
+      "Do you have any connective tissue conditions — Marfan syndrome or similar?",
+      "Any family history of collapsed lung?",
+      "Any leg swelling or calf pain?",
+      "Any fever or cough with phlegm?"
+    ]
   }
 }

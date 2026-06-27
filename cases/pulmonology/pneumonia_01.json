@@ -5,13 +5,16 @@
   "metadata": {
     "specialty": "Pulmonology",
     "difficulty": "easy",
-    "diagnosis": "Community Acquired Pneumonia",
+    "diagnosis": "Community-Acquired Pneumonia (CAP)",
     "tags": [
       "pneumonia",
+      "community-acquired pneumonia",
+      "cap",
       "fever",
       "cough",
-      "shortness of breath",
-      "pulmonology"
+      "consolidation",
+      "pulmonology",
+      "respiratory"
     ]
   },
 
@@ -29,7 +32,9 @@
       "nurse",
       "retired worker",
       "shop owner",
-      "sales representative"
+      "sales representative",
+      "delivery driver",
+      "healthcare assistant"
     ],
     "pain_score_range": [2, 7],
     "risk_factor_count_range": [1, 4]
@@ -37,210 +42,265 @@
 
   "presentation_variants": [
     {
-      "presenting_complaint": "Fever and cough"
+      "presenting_complaint": "Fever, cough and difficulty breathing for the past few days"
     },
     {
-      "presenting_complaint": "Shortness of breath with chest discomfort"
+      "presenting_complaint": "I've been coughing up yellow mucus and feel terrible"
     },
     {
-      "presenting_complaint": "I've been coughing up mucus"
+      "presenting_complaint": "Fever and chest pain that's worse when I breathe"
     },
     {
-      "presenting_complaint": "Fever, chills and difficulty breathing"
+      "presenting_complaint": "I've had chills, a cough, and I can't catch my breath"
     },
     {
-      "presenting_complaint": "Persistent cough and feeling unwell"
+      "presenting_complaint": "Feeling very unwell with a productive cough and fever"
     }
   ],
 
   "history_data": {
-    "hpi": "Patient developed fever and productive cough 4 days ago. Symptoms have progressively worsened with increasing shortness of breath, fatigue, and pleuritic chest pain. Sputum is yellow-green in color.",
+    "hpi": "Patient presents with a 4-day history of productive cough with yellow-green sputum, high fever, rigors, and progressive breathlessness. Symptoms began with a mild sore throat and myalgia, then worsened significantly over 48 hours with onset of pleuritic right-sided chest pain — sharp and worse on inspiration and coughing. Fever has persisted despite paracetamol. The patient is finding it increasingly difficult to complete sentences and reports marked fatigue and reduced oral intake.",
 
     "patient_quotes": [
-      "I've been coughing constantly.",
-      "The fever won't go away.",
-      "I'm bringing up yellow mucus.",
-      "Breathing feels harder than usual.",
-      "I feel exhausted."
+      "I started with what felt like a cold, then it got much worse.",
+      "I have a sharp pain on the right side when I breathe in deeply.",
+      "I've been bringing up thick yellow-green phlegm.",
+      "The fever just won't come down.",
+      "I feel absolutely exhausted — I can barely get out of bed."
     ],
 
     "pmh_pool": [
-      "Smoking",
-      "Asthma",
-      "COPD",
-      "Type 2 diabetes",
-      "Hypertension",
-      "No significant medical history"
+      "Type 2 diabetes mellitus — diagnosed 6 years ago, on metformin",
+      "Hypertension — diagnosed 9 years ago, on amlodipine",
+      "Asthma — mild, salbutamol PRN only",
+      "Former smoker — quit 5 years ago, 15 pack-year history",
+      "No previous hospitalisations for pneumonia",
+      "No immunosuppressive therapy"
     ],
 
     "medications_pool": [
-      "Salbutamol inhaler",
-      "Metformin",
-      "Amlodipine",
-      "No regular medications"
+      "Metformin 500mg twice daily",
+      "Amlodipine 5mg daily",
+      "Salbutamol 100mcg inhaler — PRN",
+      "Paracetamol 1g PRN (self-medicating for fever)"
     ],
 
     "social_history": {
-      "smoking": "Former smoker",
-      "alcohol": "Occasional alcohol use",
-      "exercise": "Normally active",
-      "stress": "Normal daily stress"
+      "smoking": "Ex-smoker — quit 5 years ago, 15 pack-year history",
+      "alcohol": "Occasional alcohol — 3–4 units per week",
+      "exercise": "Normally active — walking daily; now housebound due to illness",
+      "stress": "Moderate work-related stress"
     },
 
     "core_facts": {
       "fever": true,
+      "rigors": true,
       "productive_cough": true,
-      "shortness_of_breath": true,
+      "sputum_colour": "yellow-green — purulent",
       "pleuritic_chest_pain": true,
-      "duration": "4 days"
+      "chest_pain_location": "right-sided",
+      "shortness_of_breath": true,
+      "symptom_duration": "4 days",
+      "preceding_urti": true,
+      "haemoptysis": false,
+      "immunosuppressed": false
     },
 
     "negative_history": [
+      "No haemoptysis",
+      "No recent foreign travel",
+      "No TB contacts or TB risk factors",
+      "No recent hospitalisation or healthcare exposure",
+      "No aspiration risk — no dysphagia, not bed-bound",
+      "No immunosuppressive therapy or known immunodeficiency",
       "No recent surgery",
-      "No hemoptysis",
-      "No recent travel"
+      "No leg swelling or calf pain"
     ]
   },
 
   "physical_exam": {
     "general_appearance": [
-      "Appears unwell",
-      "Febrile",
-      "Mild respiratory distress"
+      "Appears unwell and flushed",
+      "Febrile — visibly sweating",
+      "Mild to moderate respiratory distress",
+      "Speaking in short sentences",
+      "No cyanosis"
     ],
 
     "cardiovascular": [
-      "Tachycardia",
-      "Regular rhythm"
+      "Tachycardia — heart rate elevated",
+      "Regular rhythm",
+      "No murmurs",
+      "Blood pressure maintained",
+      "Warm peripheries"
     ],
 
     "respiratory": [
-      "Crackles over right lower lung",
-      "Reduced air entry at right base",
-      "Bronchial breath sounds"
+      "Increased respiratory rate",
+      "Reduced chest expansion — right lower zone",
+      "Dullness to percussion — right lower zone",
+      "Bronchial breath sounds — right lower zone",
+      "Coarse crackles — right lower and mid zones",
+      "Increased vocal resonance and tactile vocal fremitus — right lower zone",
+      "Left lung clear throughout"
     ]
   },
 
   "vitals_ranges": {
-    "systolic_bp": [100, 150],
-    "diastolic_bp": [60, 90],
-    "heart_rate": [95, 135],
-    "resp_rate": [18, 32],
+    "systolic_bp": [95, 140],
+    "diastolic_bp": [58, 88],
+    "heart_rate": [98, 132],
+    "resp_rate": [20, 32],
     "spo2": [88, 96],
-    "temperature": [38.0, 40.0]
+    "temperature": [38.2, 40.1]
   },
 
   "investigations": {
-    "ecg_variants": [
-      "Sinus tachycardia"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "Right lower lobe consolidation",
-      "Left lower lobe pneumonia",
-      "Lobar consolidation",
-      "Patchy infiltrates consistent with pneumonia"
-    ],
-
-    "lab_findings": [
-      "Elevated white blood cell count",
-      "Elevated CRP",
-      "Elevated ESR"
-    ]
+    "Chest X-Ray": "Right lower lobe consolidation with air bronchograms. No pleural effusion. No pneumothorax. Cardiac silhouette normal size. Appearances consistent with lobar community-acquired pneumonia. No evidence of cavitation.",
+    "FBC (Full Blood Count)": "WBC 18.4 × 10⁹/L (elevated — neutrophilia), Neutrophils 15.8 × 10⁹/L, Hb 13.2 g/dL, Platelets 322 × 10⁹/L. Marked neutrophilia consistent with bacterial infection.",
+    "CRP": "184 mg/L — significantly elevated, consistent with acute bacterial infection.",
+    "ESR": "76 mm/hr — elevated, consistent with active infection and inflammation.",
+    "Urea & Electrolytes": "Na 132 mmol/L (hyponatraemia — common in pneumonia, especially Legionella), K 3.7 mmol/L, Creatinine 108 µmol/L (mildly elevated — pre-renal dehydration), Urea 9.2 mmol/L (elevated — CURB-65 scoring: Urea >7 mmol/L = 1 point). Rehydration required.",
+    "Blood Glucose": "11.8 mmol/L — elevated, consistent with stress hyperglycaemia in known diabetic. Monitor closely; infection worsens glycaemic control.",
+    "LFTs (Liver Function Tests)": "ALT 42 IU/L (mildly elevated), ALP 98 IU/L (normal), Bilirubin 18 µmol/L (mildly elevated), Albumin 30 g/L (hypoalbuminaemia — acute phase response). Mild transaminitis — can occur with systemic infection.",
+    "Blood Culture": "Two sets sent prior to antibiotics — results pending at 48 hours. Blood cultures positive in approximately 10–15% of CAP cases. Positivity rate higher in severe CAP and bacteraemic pneumococcal disease.",
+    "Sputum Culture": "Purulent sputum sent for MC&S prior to antibiotics — results pending. Most common causative organisms in CAP: Streptococcus pneumoniae, Haemophilus influenzae, Mycoplasma pneumoniae, Legionella pneumophila.",
+    "ECG": "Sinus tachycardia at 116 bpm. No acute ST changes. No right heart strain pattern. Tachycardia consistent with fever and sepsis physiology."
   },
 
-  "hidden_diagnosis": "Community Acquired Pneumonia",
+  "hidden_diagnosis": "Community-Acquired Pneumonia (CAP) — Right Lower Lobe, Moderate Severity (CURB-65 Score 2–3)",
 
   "patient_rules": {
     "never_reveal_diagnosis": true,
     "only_answer_if_asked": true,
-    "emotional_state": "unwell",
+    "emotional_state": "unwell and fatigued — visibly miserable, slightly anxious about how quickly symptoms have worsened",
     "allow_small_talk": false
   },
 
   "scoring_rubric": {
     "essential_questions": [
-      "fever",
-      "cough",
-      "sputum",
-      "shortness of breath",
-      "chest pain",
-      "duration",
-      "smoking history"
+      "onset and duration of symptoms",
+      "fever — temperature, rigors, drenching sweats",
+      "cough — productive or dry",
+      "sputum — colour, volume, blood-stained",
+      "pleuritic chest pain — location, relationship to breathing",
+      "dyspnoea — at rest or exertional, change from baseline",
+      "preceding upper respiratory tract infection",
+      "recent sick contacts or outbreak",
+      "recent hospitalisation or healthcare exposure — aspiration or hospital-acquired risk",
+      "smoking history",
+      "immunosuppression — steroids, chemotherapy, HIV",
+      "diabetes or other comorbidities",
+      "haemoptysis",
+      "travel history — Legionella risk (hotels, air conditioning, spa pools)",
+      "vaccination status — pneumococcal and influenza vaccines"
     ],
 
     "essential_examinations": [
-      "respiratory examination",
-      "vital signs",
-      "oxygen saturation"
-    ],
-
-    "essential_investigations": [
-      "chest xray",
-      "cbc",
-      "crp"
+      "general assessment — unwell, febrile, flushed, rigors",
+      "respiratory rate — key severity marker",
+      "oxygen saturation on air",
+      "temperature",
+      "auscultation — bronchial breathing, coarse crackles, reduced air entry",
+      "percussion — dullness over consolidation",
+      "vocal resonance and tactile fremitus — increased over consolidation",
+      "cardiovascular — tachycardia, blood pressure (sepsis?)",
+      "mental status — confusion is a severity marker (CURB-65)"
     ],
 
     "critical_actions": [
-      "recognize pneumonia",
-      "assess severity",
-      "obtain chest xray",
-      "start antibiotics",
-      "monitor oxygenation"
+      "recognise community-acquired pneumonia from clinical and radiological features",
+      "calculate CURB-65 severity score: Confusion (1), Urea >7 mmol/L (1), Respiratory rate ≥30/min (1), Blood pressure systolic <90 or diastolic ≤60 (1), Age ≥65 (1) — score 0–1: home treatment; 2: consider admission; 3–5: hospital admission, consider HDU",
+      "obtain chest X-ray to confirm consolidation and exclude complications",
+      "send blood cultures × 2 and sputum culture BEFORE starting antibiotics",
+      "start empirical antibiotics within 4 hours of diagnosis — do not delay for culture results",
+      "mild-moderate CAP: amoxicillin 500mg–1g oral TDS ± clarithromycin 500mg oral BD for atypical cover",
+      "severe CAP: co-amoxiclav 1.2g IV TDS + clarithromycin 500mg IV BD or levofloxacin monotherapy",
+      "oxygen therapy: titrate to SpO2 94–98% (or 88–92% if known CO2 retainer)",
+      "IV fluid resuscitation if signs of dehydration or sepsis",
+      "monitor blood glucose closely in diabetic patients — infection causes hyperglycaemia",
+      "reassess at 48–72 hours — if not improving, broaden antibiotics or investigate for complications (empyema, effusion, abscess)",
+      "venous thromboembolism prophylaxis if admitted",
+      "smoking cessation counselling"
     ],
 
     "red_flags": [
-      "Hypoxia",
-      "High fever",
-      "Respiratory distress",
-      "Sepsis",
-      "Confusion",
-      "Low blood pressure"
+      "CURB-65 score ≥3 — high severity, consider HDU/ICU",
+      "Confusion or altered mental status — score 1 on CURB-65, indicates severe disease",
+      "Respiratory rate ≥30/min",
+      "SpO2 <92% on air",
+      "Systolic BP <90 mmHg — septic shock",
+      "Urea >7 mmol/L — indicates severity and renal impairment",
+      "Multilobar or bilateral consolidation on CXR",
+      "Failure to improve after 48 hours of antibiotics — consider resistant organism, empyema, or alternative diagnosis",
+      "Immunocompromised patient — atypical organisms, PCP pneumonia",
+      "Age ≥65 with comorbidities — higher mortality risk"
     ],
 
     "correct_diagnosis_keywords": [
       "pneumonia",
-      "community acquired pneumonia",
-      "cap"
+      "community-acquired pneumonia",
+      "cap",
+      "lobar pneumonia",
+      "bacterial pneumonia"
     ],
 
     "acceptable_differentials": [
-  "COPD exacerbation",
-  "Heart failure",
-  "Pulmonary embolism",
-  "Tuberculosis",
-  "Pleural effusion"
-],
+      "Pulmonary embolism with infarction — pleuritic pain and dyspnoea, but no fever or purulent sputum; CXR usually normal",
+      "Pleural effusion — dullness on percussion but absent rather than bronchial breath sounds; no consolidation on CXR",
+      "COPD exacerbation — wheeze, no consolidation, background COPD history",
+      "Lung abscess — cavitating lesion, longer history, foul sputum; seen on CT",
+      "Pulmonary tuberculosis — chronic course, night sweats, haemoptysis, upper lobe involvement; no rigors or acute illness",
+      "Heart failure — bilateral crackles, orthopnoea, elevated BNP, cardiomegaly on CXR"
+    ],
 
-"management_actions": [
-  "Assess severity",
-  "Blood cultures if indicated",
-  "Empiric antibiotics",
-  "Oxygen if hypoxic",
-  "IV fluids if required",
-  "Monitor observations",
-  "Respiratory review"
-],
+    "management_actions": [
+      "Supplemental oxygen: target SpO2 94–98%",
+      "IV access and bloods: FBC, CRP, U&E, LFTs, blood glucose, blood cultures × 2",
+      "Chest X-Ray — confirm consolidation and assess severity",
+      "Sputum MC&S before antibiotics",
+      "CURB-65 severity scoring to guide admission and antibiotic route",
+      "Empirical antibiotics: amoxicillin 1g oral TDS + clarithromycin 500mg oral BD (moderate CAP); escalate to IV if severe",
+      "IV fluids: 0.9% NaCl if dehydrated or septic (Urea elevated, reduced oral intake)",
+      "Antipyretics: paracetamol 1g QDS",
+      "Blood glucose monitoring — 4-hourly in diabetic patients",
+      "VTE prophylaxis: enoxaparin if admitted",
+      "Review blood and sputum culture results at 48 hours — narrow antibiotics if organism identified",
+      "Reassess clinically at 48–72 hours — if not improving, arrange CT chest to exclude empyema or abscess",
+      "Chest X-Ray at 6 weeks post-discharge to confirm resolution — especially in smokers (exclude underlying malignancy)",
+      "Smoking cessation counselling",
+      "Pneumococcal and influenza vaccination advice at discharge"
+    ],
 
-"important_investigations": [
-  "Chest X-Ray",
-  "CBC",
-  "CRP",
-  "Blood Cultures",
-  "Oxygen Saturation"
-],
+    "important_investigations": [
+      "Chest X-Ray",
+      "FBC (Full Blood Count)",
+      "CRP",
+      "ESR",
+      "Urea & Electrolytes",
+      "LFTs (Liver Function Tests)",
+      "Blood Glucose",
+      "Blood Culture",
+      "Sputum Culture",
+      "ECG"
+    ],
 
-"critical_history_questions": [
-  "Duration of symptoms?",
-  "Fever?",
-  "Productive cough?",
-  "Sputum colour?",
-  "Shortness of breath?",
-  "Chest pain?",
-  "Recent sick contacts?",
-  "Smoking history?"
-]
+    "critical_history_questions": [
+      "When did you first feel unwell and how has it changed?",
+      "Do you have a fever — have you measured your temperature at home?",
+      "Are you coughing up phlegm — what colour is it?",
+      "Any blood in the phlegm?",
+      "Do you have chest pain — where exactly, and does it change with breathing or coughing?",
+      "How breathless are you — at rest or only on exertion?",
+      "Did it start like a cold before getting worse?",
+      "Has anyone around you been unwell recently?",
+      "Have you been in hospital or a healthcare setting recently?",
+      "Have you travelled recently — any hotels, spas, or air-conditioned environments?",
+      "Do you smoke or have you smoked in the past?",
+      "Do you have diabetes, lung disease, or any condition affecting your immune system?",
+      "Are you on any steroids or other immunosuppressive medications?",
+      "Have you had a pneumonia vaccine or flu vaccine?",
+      "Any confusion or difficulty thinking clearly?"
+    ]
   }
 }

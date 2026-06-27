@@ -11,12 +11,13 @@
       "neurology",
       "headache",
       "fever",
-      "neck stiffness"
+      "neck stiffness",
+      "infectious disease"
     ]
   },
 
   "patient_generator": {
-    "age_range": [18, 70],
+    "age_range": [18, 65],
     "sexes": [
       "male",
       "female"
@@ -29,46 +30,48 @@
       "sales representative",
       "nurse",
       "office worker",
-      "retail worker"
+      "retail worker",
+      "university student",
+      "trainee"
     ],
-    "pain_score_range": [7, 10],
-    "risk_factor_count_range": [0, 3]
+    "pain_score_range": [8, 10],
+    "risk_factor_count_range": [0, 2]
   },
 
   "presentation_variants": [
     {
-      "presenting_complaint": "Severe headache and fever"
+      "presenting_complaint": "Severe headache and high fever with neck stiffness"
     },
     {
-      "presenting_complaint": "Headache with a stiff neck"
+      "presenting_complaint": "I can't touch my chin to my chest — my neck hurts too much"
     },
     {
-      "presenting_complaint": "I can't look down because my neck hurts"
+      "presenting_complaint": "Worst headache ever with fever and sensitivity to light"
     },
     {
-      "presenting_complaint": "High fever and a terrible headache"
+      "presenting_complaint": "High fever, terrible headache, and my neck is very stiff"
     },
     {
-      "presenting_complaint": "Headache, fever and sensitivity to light"
+      "presenting_complaint": "Severe headache with fever and nausea — light is killing me"
     }
   ],
 
   "history_data": {
-    "hpi": "Patient developed a severe generalized headache 24 hours ago followed by fever, neck stiffness and photophobia. Symptoms have progressively worsened. Reports nausea and several episodes of vomiting.",
+    "hpi": "Patient developed a severe generalized headache 20 hours ago, followed by high fever and progressive neck stiffness. Associated with photophobia, nausea, and multiple episodes of vomiting. Symptoms have rapidly worsened over the past 6 hours. Denies recent head trauma or travel.",
 
     "patient_quotes": [
-      "This is the worst headache I've had in years.",
-      "My neck feels extremely stiff.",
-      "Bright lights make everything worse.",
-      "I've been feeling feverish all day.",
-      "I feel incredibly sick."
+      "This is the worst headache I've ever had in my life.",
+      "I can't bend my neck at all — it's killing me.",
+      "The lights are making everything so much worse.",
+      "I feel absolutely feverish and sick.",
+      "I've been throwing up repeatedly."
     ],
 
     "pmh_pool": [
       "Recent upper respiratory infection",
-      "College dormitory residence",
-      "No significant medical history",
-      "Recent viral illness"
+      "Lives in university dormitory",
+      "No significant past medical history",
+      "Recent viral illness exposure"
     ],
 
     "medications_pool": [
@@ -81,164 +84,179 @@
       "smoking": "Non-smoker",
       "alcohol": "Occasional alcohol use",
       "exercise": "Regular exercise",
-      "stress": "Normal daily stress"
+      "stress": "Normal daily stress",
+      "living_situation": "Shared student accommodation"
     },
 
     "core_facts": {
-      "headache": true,
+      "headache_location": "generalized",
+      "headache_character": "severe, worst-ever headache",
+      "headache_duration": "20 hours",
       "fever": true,
+      "fever_height": "very high, >39°C",
       "neck_stiffness": true,
+      "neck_stiffness_severity": "unable to flex chin to chest",
       "photophobia": true,
-      "vomiting": true
+      "vomiting": true,
+      "vomiting_frequency": "multiple episodes"
     },
 
     "negative_history": [
       "No recent head trauma",
       "No known stroke history",
-      "No chronic neurological disease"
+      "No chronic neurological disease",
+      "No immunosuppression",
+      "No recent surgery"
     ]
   },
 
   "physical_exam": {
     "general_appearance": [
-      "Appears acutely ill",
-      "Uncomfortable",
-      "Avoiding bright light"
+      "Appears acutely ill and distressed",
+      "Photophobic — avoiding bright light",
+      "Uncomfortable and in obvious pain"
     ],
 
     "cardiovascular": [
       "Tachycardia",
-      "Regular rhythm"
+      "Regular rhythm",
+      "Bounding pulses"
     ],
 
     "respiratory": [
-      "Clear breath sounds bilaterally"
+      "Clear breath sounds bilaterally",
+      "Tachypnoeic"
     ],
 
     "neurological": [
-      "Neck stiffness present",
-      "Photophobia present",
-      "Positive meningeal signs"
+      "Neck stiffness — positive Kernig sign",
+      "Positive Brudzinski sign",
+      "Marked photophobia",
+      "Alert and oriented but irritable",
+      "No focal neurological deficits noted"
     ]
   },
 
   "vitals_ranges": {
-    "systolic_bp": [100, 150],
-    "diastolic_bp": [60, 95],
-    "heart_rate": [100, 140],
-    "resp_rate": [18, 30],
-    "spo2": [95, 100],
-    "temperature": [38.0, 40.0]
+    "systolic_bp": [105, 145],
+    "diastolic_bp": [65, 90],
+    "heart_rate": [105, 140],
+    "resp_rate": [20, 32],
+    "spo2": [96, 100],
+    "temperature": [38.8, 40.2]
   },
 
   "investigations": {
-    "ecg_variants": [
-      "Sinus tachycardia"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "No acute abnormality"
-    ],
-
-    "lab_findings": [
-      "Elevated white blood cell count",
-      "Elevated CRP",
-      "Elevated ESR"
-    ]
+    "CT Head": "No acute intracranial pathology. No mass effect. No hydrocephalus. No herniation. Normal ventricular size. Imaging does not contraindicate lumbar puncture.",
+    "FBC (Full Blood Count)": "WBC 16.8 × 10⁹/L (markedly elevated with left shift), Hb 13.2 g/dL, Platelets 245 × 10⁹/L. Leukocytosis with predominance of neutrophils consistent with acute bacterial infection.",
+    "CRP": "187 mg/L (markedly elevated) — confirms acute systemic inflammation",
+    "ESR": "68 mm/hr (markedly elevated) — consistent with acute bacterial meningitis",
+    "Blood Culture": "Pending at 6 hours; empiric antibiotics already started. Culture positive for Neisseria meningitidis at 24 hours (later confirmed).",
+    "Urea & Electrolytes": "Na 128 mmol/L (hyponatraemia — SIADH from meningitis), K 3.9 mmol/L, Creatinine 89 µmol/L, Urea 8.2 mmol/L. Hyponatraemia is critical finding warranting fluid restriction.",
+    "Lumbar Puncture (CSF)": "Opening pressure elevated at 32 cmH₂O. CSF: cloudy/turbid appearance, protein 1.8 g/L (markedly elevated), glucose 1.1 mmol/L (low, CSF:serum ratio 0.2), WBC 2400 cells/µL (predominantly neutrophils 94%), RBC 45 cells/µL. Gram stain: Gram-negative diplococci. Bacterial antigen testing positive for Neisseria meningitidis."
   },
 
-  "hidden_diagnosis": "Acute Bacterial Meningitis",
+  "hidden_diagnosis": "Acute Bacterial Meningitis (Neisseria meningitidis)",
 
   "patient_rules": {
     "never_reveal_diagnosis": true,
     "only_answer_if_asked": true,
-    "emotional_state": "ill",
+    "emotional_state": "ill and distressed",
     "allow_small_talk": false
   },
 
   "scoring_rubric": {
     "essential_questions": [
-      "headache",
+      "headache onset",
       "fever",
       "neck stiffness",
       "photophobia",
       "vomiting",
-      "onset of symptoms",
-      "recent infection"
+      "confusion or altered mental status",
+      "recent infections or exposures",
+      "living situation and close contacts"
     ],
 
     "essential_examinations": [
+      "vital signs — especially temperature",
       "neurological examination",
-      "meningeal signs",
-      "vital signs"
-    ],
-
-    "essential_investigations": [
-      "blood cultures",
-      "lumbar puncture",
-      "ct head"
+      "meningeal signs — Kernig and Brudzinski signs",
+      "assessment of mental status",
+      "rash examination"
     ],
 
     "critical_actions": [
-      "recognize meningitis",
-      "obtain blood cultures",
-      "start empiric antibiotics",
+      "recognize meningitis from clinical presentation",
+      "obtain blood cultures before antibiotics",
+      "start empiric IV antibiotics immediately — do not delay for lumbar puncture",
+      "administer dexamethasone",
       "perform neurological assessment",
-      "consider lumbar puncture"
+      "arrange urgent lumbar puncture if no contraindications",
+      "initiate droplet isolation precautions"
     ],
 
     "red_flags": [
-      "Fever",
+      "High fever (>38.5°C)",
+      "Severe headache — worst-ever quality",
       "Neck stiffness",
       "Photophobia",
-      "Altered mental status",
-      "Severe headache",
-      "Positive meningeal signs"
+      "Positive meningeal signs (Kernig, Brudzinski)",
+      "Altered mental status or confusion",
+      "Petechial or purpuric rash",
+      "Hypotension or tachycardia"
     ],
 
     "correct_diagnosis_keywords": [
       "meningitis",
       "bacterial meningitis",
-      "acute meningitis"
+      "acute bacterial meningitis",
+      "meningococcal meningitis"
     ],
 
     "acceptable_differentials": [
+      "Viral meningitis",
       "Viral encephalitis",
       "Subarachnoid haemorrhage",
-      "Migraine",
-      "Brain abscess",
-      "Sepsis"
+      "Severe migraine",
+      "Intracranial abscess",
+      "Bacterial endocarditis with septic emboli"
     ],
 
     "management_actions": [
-      "Immediate IV access",
-      "Blood cultures",
-      "Empiric IV antibiotics",
-      "Dexamethasone",
-      "Lumbar puncture if safe",
-      "Neurology or infectious disease review",
-      "Close monitoring"
+      "Immediate assessment and stabilization",
+      "Draw blood cultures immediately",
+      "Start empiric IV antibiotics without delay — ceftriaxone 2g IV 6-hourly + vancomycin 15–20 mg/kg IV 8-hourly + ampicillin 2g IV 4-hourly",
+      "Administer IV dexamethasone 10mg 6-hourly for 4 days",
+      "CT head if any contraindication to lumbar puncture",
+      "Lumbar puncture with CSF analysis, culture, and sensitivities",
+      "IV access and cardiac monitoring",
+      "Droplet isolation precautions — meningitis alert",
+      "Fluid restriction for hyponatraemia secondary to SIADH",
+      "Identify and prophylax close contacts — rifampicin or ceftriaxone",
+      "Infectious disease and neurology review",
+      "Repeat LP if no clinical improvement in 48 hours"
     ],
 
     "important_investigations": [
-      "CBC",
-      "CRP",
-      "Blood Cultures",
       "CT Head",
-      "Lumbar Puncture"
+      "Blood Culture",
+      "FBC (Full Blood Count)",
+      "CRP",
+      "ESR",
+      "Urea & Electrolytes",
+      "Lumbar Puncture (CSF)"
     ],
 
     "critical_history_questions": [
-      "When did symptoms begin?",
-      "Do you have fever?",
-      "Do you have neck stiffness?",
-      "Any photophobia?",
-      "Any rash?",
-      "Any recent infections?",
-      "Any immunosuppression?",
-      "Any confusion or altered mental status?"
+      "When exactly did the headache start?",
+      "Have you had fever? How high?",
+      "Do you have neck stiffness — can you touch your chin to your chest?",
+      "Are bright lights painful to look at?",
+      "Any confusion or difficulty concentrating?",
+      "Any rash or petechiae?",
+      "Any recent illness in contacts?",
+      "Do you live in shared accommodation?",
+      "Any immunosuppression or recent antibiotics?"
     ]
   }
 }

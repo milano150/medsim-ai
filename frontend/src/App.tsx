@@ -62,6 +62,10 @@ function App() {
   const [history, setHistory] = useState<any[]>([]);
   const [historyDetail, setHistoryDetail] = useState<any>(null);
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarSearch, setSidebarSearch] = useState("");
+  const [sidebarFilter, setSidebarFilter] = useState("all");
+
   // ── Timer ───────────────────────────────────────────────────────────────────
   const [timerSeconds, setTimerSeconds]   = useState(0);
   const [timerRunning, setTimerRunning]   = useState(false);
@@ -152,7 +156,7 @@ function App() {
       const caseRes  = await fetch(`${BASE}/specialty/${selectedSpecialty.toLowerCase()}`);
       const caseData = await caseRes.json();
       setCaseId(caseData.case_id);
-      setPatient({ ...caseData, abnormal_investigations: caseData.abnormal_investigations || {} });
+      setPatient({ ...caseData, investigations: caseData.investigations || {} });
 
       const startRes  = await fetch(`${BASE}/start/${caseData.case_id}`, { method: "POST" });
       const startData = await startRes.json();
@@ -307,28 +311,36 @@ function App() {
   const INVESTIGATION_CATALOGUE: { group: string; items: string[] }[] = [
     {
       group: "Cardiac",
-      items: ["ECG", "Troponin", "BNP", "CK-MB", "Echocardiogram", "Holter Monitor", "Cardiac Catheterisation"],
+      items: ["ECG", "Troponin", "BNP", "CK-MB", "Echocardiogram", "Holter Monitor", "Cardiac Catheterisation", "Exercise Stress Test"],
     },
     {
       group: "Imaging",
-      items: ["Chest X-Ray", "CT Chest", "CT Head", "MRI Brain", "CT Abdomen/Pelvis", "Ultrasound Abdomen", "V/Q Scan", "CTPA"],
+      items: ["Chest X-Ray", "CT Chest", "CT Head", "MRI Brain", "CT Abdomen/Pelvis", "CT Aortogram", "Ultrasound Abdomen", "V/Q Scan", "CTPA", "CT Coronary Angiography", "Coronary Angiography"],
     },
     {
       group: "Blood Tests",
       items: [
         "FBC (Full Blood Count)", "CRP", "ESR", "Urea & Electrolytes", "LFTs (Liver Function Tests)",
-        "Blood Glucose", "HbA1c", "Coagulation Screen (PT/APTT/INR)", "D-Dimer",
+        "Blood Glucose", "HbA1c", "Coagulation Screen (PT/APPT/INR)", "D-Dimer",
         "Thyroid Function (TSH/T4)", "Lipid Profile", "Lactate", "ABG (Arterial Blood Gas)",
-        "Blood Culture", "Sputum Culture",
+        "Blood Culture", "Sputum Culture", "Blood Group & Crossmatch",
       ],
     },
     {
       group: "Urine & Other",
-      items: ["Urinalysis", "Urine Culture", "Urine MC&S", "Lumbar Puncture (CSF)", "Spirometry", "Peak Flow", "Sputum AFB Smear"],
+      items: ["Urinalysis", "Urine Culture", "Urine MC&S", "Lumbar Puncture (CSF)", "Spirometry", "Peak Flow", "Sputum AFB Smear","Bilateral Leg Doppler Ultrasound"],
     },
   ];
 
   const ALL_INVESTIGATIONS: string[] = INVESTIGATION_CATALOGUE.flatMap((g) => g.items);
+
+  const normalizeInvestigationName = (name: string): string => {
+  return name
+    .toLowerCase()
+    .replace(/[-_()/]/g, "")
+    .replace(/\s+/g, "")
+    .trim();
+};
 
   // Map catalogue names → JSON investigation keys (for the ones the backend provides)
   const CATALOGUE_TO_CASE_KEY: Record<string, string> = {
@@ -371,7 +383,7 @@ function App() {
       "LFTs (Liver Function Tests)":  "ALT 28 U/L, AST 25 U/L, ALP 72 U/L, Bilirubin 12 µmol/L, Albumin 41 g/L — normal",
       "Blood Glucose":                "5.2 mmol/L (fasting normal: 3.9–5.5 mmol/L)",
       "HbA1c":                        "37 mmol/mol / 5.6% (normal < 42 mmol/mol)",
-      "Coagulation Screen (PT/APTT/INR)": "PT 12s, APTT 28s, INR 1.0 — normal coagulation",
+      "Coagulation Screen (PT/APPT/INR)": "PT 12s, APPT 28s, INR 1.0 — normal coagulation",
       "D-Dimer":                      "0.3 mg/L FEU (normal < 0.5 mg/L FEU)",
       "Thyroid Function (TSH/T4)":    isElderly ? "TSH 3.1 mIU/L, Free T4 14 pmol/L — euthyroid" : "TSH 2.4 mIU/L, Free T4 16 pmol/L — normal thyroid function",
       "Lipid Profile":                "Total cholesterol 4.8 mmol/L, LDL 2.9 mmol/L, HDL 1.4 mmol/L, TG 1.2 mmol/L — within desirable range",
@@ -386,6 +398,14 @@ function App() {
       "Spirometry":                   "FEV₁ 88% predicted, FVC 90% predicted, FEV₁/FVC 0.82 — normal spirometry",
       "Peak Flow":                    "480 L/min (within 20% of personal best) — normal",
       "Sputum AFB Smear":             "Acid-fast bacilli not seen. Culture pending.",
+      "CT Aortogram":           "No aortic dissection. Normal aortic calibre throughout. No aneurysmal dilatation.",
+      "Blood Group & Crossmatch": "Group A positive. No atypical antibodies detected. Crossmatch not requested.",
+      "CT Coronary Angiography": "No significant coronary artery disease. Normal coronary anatomy.",
+      "Coronary Angiography":    "No significant coronary artery disease identified.",
+      "Exercise Stress Test":    "No ST changes. No symptoms reproduced. Adequate heart rate achieved. Negative for inducible ischaemia.",
+      "Bilateral Leg Doppler Ultrasound": "No deep vein thrombosis identified bilaterally.",
+      "Magnesium":               "0.85 mmol/L (normal: 0.7–1.0 mmol/L)",
+      "Fasting Blood Glucose":   "5.0 mmol/L (normal fasting: 3.9–5.5 mmol/L)",
     };
     return normalMap[test] ?? "Result within normal limits for age and sex.";
   };
@@ -401,13 +421,24 @@ function App() {
 
   // Get result for any ordered investigation
   const getInvestigationResult = (testName: string): string => {
-    if (patient?.abnormal_investigations?.[testName]) {
-      return patient.abnormal_investigations[testName];
+    const investigations = patient?.investigations || {};
+    const normalizedTest = normalizeInvestigationName(testName);
+    for (const [key, value] of Object.entries(investigations)) {
+      if (normalizeInvestigationName(key) === normalizedTest) {
+        return value as string;
+      }
     }
     return getNormalResult(testName, patient?.age ?? 40);
   };
 
   // (availableInvestigations no longer needed — dropdown replaces fixed buttons)
+
+  // ── Filtered history for sidebar ────────────────────────────────────────────
+  const filteredHistory = history.filter(s =>
+    (sidebarFilter === "all" || s.specialty === sidebarFilter) &&
+    (!sidebarSearch || [s.patient_name, s.hidden_diagnosis, s.specialty]
+      .some(v => v?.toLowerCase().includes(sidebarSearch.toLowerCase())))
+  );
 
   // ── Render ───────────────────────────────────────────────────────────────────
   return (
@@ -496,87 +527,385 @@ function App() {
 
         {/* ══════════════════ LANDING ══════════════════ */}
         {appView === "landing" && (
-          <div className="landing">
-            <div className="landing-hero">
-              <p className="landing-eyebrow">Clinical Training Platform</p>
-              <h1 className="landing-title">Choose a Specialty</h1>
-              <p className="landing-sub">Select a medical specialty to begin your simulated patient encounter.</p>
+  <>
+    {/* Sidebar overlay */}
+    {sidebarOpen && (
+      <div
+        onClick={() => setSidebarOpen(false)}
+        style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.5)", zIndex:99 }}
+      />
+    )}
+
+    {/* ── REVAMPED HISTORY SIDEBAR ── */}
+    <div style={{
+      position: "fixed", top: 0, left: 0, height: "100%", width: 340,
+      background: "linear-gradient(180deg, #111126 0%, #0f0f22 100%)",
+      borderRight: "1px solid var(--border, #2d2d44)",
+      transform: sidebarOpen ? "translateX(0)" : "translateX(-100%)",
+      transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+      zIndex: 100, 
+      display: "flex", 
+      flexDirection: "column",
+      boxShadow: sidebarOpen ? "-4px 0 24px rgba(0, 0, 0, 0.4)" : "none",
+    }}>
+      {/* Header with close button */}
+      <div style={{ 
+        padding: "20px 20px 16px", 
+        borderBottom: "1px solid rgba(45, 45, 68, 0.6)",
+        display:"flex", 
+        justifyContent:"space-between", 
+        alignItems:"center"
+      }}>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", color: "#06b6d4", textTransform: "uppercase" }}>Session History</div>
+          <div style={{ fontSize: 13, color: "var(--text-secondary, #9ca3af)", marginTop: 2 }}>
+            {filteredHistory.length} session{filteredHistory.length !== 1 ? 's' : ''}
+          </div>
+        </div>
+        <button 
+          className="btn-ghost" 
+          style={{ 
+            padding:"6px 8px", 
+            fontSize:14,
+            color: "#9ca3af",
+            transition: "all 0.2s"
+          }} 
+          onClick={() => setSidebarOpen(false)}
+          onMouseEnter={(e) => (e.currentTarget as HTMLButtonElement).style.color = "#e5e7eb"}
+          onMouseLeave={(e) => (e.currentTarget as HTMLButtonElement).style.color = "#9ca3af"}
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Search box */}
+      <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(45, 45, 68, 0.6)" }}>
+        <input
+          type="text"
+          placeholder="Search by name or diagnosis…"
+          value={sidebarSearch}
+          onChange={e => setSidebarSearch(e.target.value)}
+          style={{ 
+            width:"100%", 
+            padding:"8px 12px", 
+            background:"var(--surface, #1a1a2e)", 
+            border:"1px solid var(--border, #2d2d44)", 
+            borderRadius: 6, 
+            color:"var(--text-primary, #e5e7eb)", 
+            fontSize:13, 
+            outline:"none",
+            transition: "all 0.2s",
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.borderColor = "#06b6d4";
+            e.currentTarget.style.background = "rgba(26, 26, 46, 0.8)";
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.borderColor = "var(--border, #2d2d44)";
+            e.currentTarget.style.background = "var(--surface, #1a1a2e)";
+          }}
+        />
+      </div>
+
+      {/* Filter pills */}
+      <div style={{ padding:"12px 16px", borderBottom:"1px solid rgba(45, 45, 68, 0.6)", display:"flex", gap:6, flexWrap:"wrap" }}>
+        {["all", "Cardiology", "Pulmonology", "Neurology"].map(f => (
+          <button
+            key={f}
+            onClick={() => setSidebarFilter(f)}
+            style={{
+              padding:"5px 12px", 
+              borderRadius: 16, 
+              fontSize:12, 
+              fontWeight: sidebarFilter === f ? 500 : 400,
+              cursor:"pointer",
+              border: sidebarFilter === f ? "1px solid #06b6d4" : "1px solid rgba(45, 45, 68, 0.8)",
+              background: sidebarFilter === f ? "rgba(6, 182, 212, 0.15)" : "rgba(255, 255, 255, 0.02)",
+              color: sidebarFilter === f ? "#06b6d4" : "var(--text-secondary, #9ca3af)",
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              if (sidebarFilter !== f) {
+                (e.currentTarget as HTMLButtonElement).style.background = "rgba(255, 255, 255, 0.05)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(6, 182, 212, 0.3)";
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (sidebarFilter !== f) {
+                (e.currentTarget as HTMLButtonElement).style.background = "rgba(255, 255, 255, 0.02)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(45, 45, 68, 0.8)";
+              }
+            }}
+          >
+            {f === "all" ? "All" : f}
+          </button>
+        ))}
+      </div>
+
+      {/* Sessions list */}
+      <div style={{ flex:1, overflowY:"auto", padding:"8px 12px" }}>
+        {filteredHistory.length === 0 ? (
+          <div style={{ 
+            padding:"32px 16px", 
+            textAlign:"center", 
+            color:"var(--text-secondary, #9ca3af)",
+            fontSize: 13,
+            lineHeight: 1.6
+          }}>
+            <div style={{ fontSize: 28, marginBottom: 8 }}>📋</div>
+            <div style={{ fontWeight: 500, marginBottom: 4 }}>No sessions found</div>
+            <div style={{ fontSize: 12 }}>
+              {sidebarSearch ? "Try adjusting your search" : "Start a new simulation to see your history"}
             </div>
-            <div className="specialty-grid">
-              {specialties.map((specialty) => (
-                <button
-                  key={specialty}
-                  className={`specialty-card ${selectedSpecialty === specialty ? "selected" : ""}`}
-                  onClick={() => setSelectedSpecialty(specialty)}
-                >
-                  <span className="specialty-icon">{specialtyIcons[specialty]}</span>
-                  <span className="specialty-name">{specialty}</span>
-                  <span className="specialty-check">{selectedSpecialty === specialty ? "✓" : ""}</span>
-                </button>
-              ))}
-            </div>
-            {selectedSpecialty && (
-              <div className="start-panel">
-                <div className="selected-badge">
-                  {specialtyIcons[selectedSpecialty]} {selectedSpecialty} selected
+          </div>
+        ) : (
+          filteredHistory.map((s, i) => {
+            const score = s.overall_score ?? 0;
+            const scoreColor = score >= 75 ? "#22c55e" : score >= 50 ? "#f59e0b" : "#ef4444";
+            const scoreLabel = getScoreLabel(score);
+            const specialty = s.specialty || "Unknown";
+            const icon = specialtyIcons[specialty] || "◆";
+            
+            return (
+              <div
+                key={`${s.session_id}-${i}`}
+                onClick={() => { loadHistoryDetail(s.session_id); setSidebarOpen(false); }}
+                style={{ 
+                  padding:"12px 12px", 
+                  borderRadius: 8, 
+                  cursor:"pointer", 
+                  marginBottom:8,
+                  background: "rgba(255, 255, 255, 0.02)",
+                  border: "1px solid rgba(45, 45, 68, 0.4)",
+                  transition: "all 0.2s",
+                  display: "flex",
+                  gap: 10,
+                  alignItems: "flex-start"
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.background = "rgba(6, 182, 212, 0.08)";
+                  el.style.borderColor = "rgba(6, 182, 212, 0.3)";
+                  el.style.transform = "translateX(2px)";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.background = "rgba(255, 255, 255, 0.02)";
+                  el.style.borderColor = "rgba(45, 45, 68, 0.4)";
+                  el.style.transform = "translateX(0)";
+                }}
+              >
+                {/* Specialty icon */}
+                <div style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 6,
+                  background: "rgba(6, 182, 212, 0.1)",
+                  border: "1px solid rgba(6, 182, 212, 0.2)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 18,
+                  flexShrink: 0,
+                  color: "#06b6d4"
+                }}>
+                  {icon}
                 </div>
-                <button
-                  className={`btn-primary ${loading ? "loading" : ""}`}
-                  onClick={startSimulation}
-                  disabled={loading}
-                >
-                  {loading ? <><span className="spinner" /> Generating Case…</> : "Start Simulation →"}
-                </button>
-              </div>
-            )}
-            {history.length > 0 && (
-              <div style={{ marginTop: 48, width: "100%", maxWidth: 720 }}>
-                <h2 style={{ fontSize: 18, fontWeight: 500, marginBottom: 16 }}>
-                  Past Simulations
-                </h2>
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  {history.map((s, i) => (
-                    <div
-                      key={`${s.session_id}-${i}`}
-                      onClick={() => loadHistoryDetail(s.session_id)}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        padding: "12px 16px",
-                        background: "var(--surface-elevated, #1a1a2e)",
-                        border: "1px solid var(--border, #2d2d44)",
-                        borderRadius: 8,
-                        cursor: "pointer",
-                      }}
-                    >
-                      <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                        <span style={{ fontSize: 14, fontWeight: 500 }}>
-                          {s.specialty} — {s.patient_name}, {s.patient_age} {s.patient_sex}
-                        </span>
-                        <span style={{ fontSize: 12, color: "var(--text-secondary, #9ca3af)" }}>
-                          {s.hidden_diagnosis}
-                        </span>
-                      </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                        <span style={{ fontSize: 13, color: "var(--text-secondary, #9ca3af)" }}>
-                          {new Date(s.started_at).toLocaleDateString()}
-                        </span>
-                        <span style={{
-                          fontSize: 15,
-                          fontWeight: 500,
-                          color: getScoreColor(s.overall_score ?? 0),
-                        }}>
-                          {s.overall_score ?? "—"}%
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+
+                {/* Content */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ 
+                    fontSize: 11, 
+                    fontWeight: 600,
+                    color:"#06b6d4", 
+                    textTransform:"uppercase", 
+                    letterSpacing:".06em", 
+                    marginBottom:3 
+                  }}>
+                    {specialty}
+                  </div>
+                  <div style={{ 
+                    fontSize:13, 
+                    fontWeight: 500, 
+                    color:"var(--text-primary, #e5e7eb)",
+                    marginBottom: 2,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis"
+                  }}>
+                    {s.patient_name}
+                  </div>
+                  <div style={{ 
+                    fontSize:11, 
+                    color:"var(--text-secondary, #9ca3af)",
+                    marginBottom: 4,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis"
+                  }}>
+                    {s.patient_age}y · {s.hidden_diagnosis}
+                  </div>
+                  <div style={{ fontSize: 11, color: "var(--text-tertiary, #6b7280)" }}>
+                    {new Date(s.started_at).toLocaleDateString()}
+                  </div>
+                </div>
+
+                {/* Score badge */}
+                <div style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 3,
+                  flexShrink: 0
+                }}>
+                  <div style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: "50%",
+                    background: `rgba(${scoreColor === "#22c55e" ? "34, 197, 94" : scoreColor === "#f59e0b" ? "245, 158, 11" : "239, 68, 68"}, 0.1)`,
+                    border: `1.5px solid ${scoreColor}`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: scoreColor,
+                  }}>
+                    {score}%
+                  </div>
+                  <div style={{ fontSize: 10, color: scoreColor, fontWeight: 500 }}>
+                    {scoreLabel}
+                  </div>
                 </div>
               </div>
-            )}
+            );
+          })
+        )}
+      </div>
+    </div>
+
+    {/* Landing content */}
+    <div className="landing" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      {/* HERO SECTION — Clean and minimal */}
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      <div className="landing-hero" style={{ paddingTop: 60, paddingBottom: 80, textAlign: "center" }}>
+        <p className="landing-eyebrow">Clinical training platform</p>
+        <h1 className="landing-title">Choose your specialty.</h1>
+        <p className="landing-sub" style={{ maxWidth: 500, marginLeft: "auto", marginRight: "auto" }}>
+          Start a simulation and begin practicing real patient consultations with instant AI feedback.
+        </p>
+      </div>
+
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      {/* MAIN CTA — Specialty selection (center stage) */}
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      <div style={{ paddingBottom: 80 }}>
+        <div className="specialty-grid">
+          {specialties.map((specialty) => (
+            <button
+              key={specialty}
+              className={`specialty-card ${selectedSpecialty === specialty ? "selected" : ""}`}
+              onClick={() => setSelectedSpecialty(specialty)}
+            >
+              <span className="specialty-icon">{specialtyIcons[specialty]}</span>
+              <span className="specialty-name">{specialty}</span>
+              <span className="specialty-check">{selectedSpecialty === specialty ? "✓" : ""}</span>
+            </button>
+          ))}
+        </div>
+
+        {selectedSpecialty && (
+          <div className="start-panel" style={{ marginTop: 32 }}>
+            <button className={`btn-primary ${loading ? "loading" : ""}`} onClick={startSimulation} disabled={loading} style={{ width: "100%", padding: "14px 24px", fontSize: 16 }}>
+              {loading ? <><span className="spinner" /> Generating case…</> : `Start ${selectedSpecialty} simulation →`}
+            </button>
           </div>
         )}
+      </div>
+
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      {/* SECONDARY ZONE — Your progress & history (below fold) */}
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      {history.length > 0 && (
+        <div style={{ borderTop: "1px solid var(--border, #2d2d44)", paddingTop: 60, paddingBottom: 60, flex: 1 }}>
+          {/* Stats row */}
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:16, marginBottom:48, maxWidth: 600, marginLeft: "auto", marginRight: "auto" }}>
+            {[
+              ["Sessions completed", history.length],
+              ["Average score", Math.round(history.reduce((a,s) => a + (s.overall_score ?? 0), 0) / history.length) + "%"],
+              ["Specialties practiced", new Set(history.map(s => s.specialty)).size],
+            ].map(([label, val]) => (
+              <div key={label} style={{ background:"transparent", border:"1px solid var(--border, #2d2d44)", borderRadius:12, padding:24, textAlign:"center", transition: "all 0.2s" }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "#06b6d4";
+                  (e.currentTarget as HTMLDivElement).style.background = "rgba(6, 182, 212, 0.05)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "var(--border, #2d2d44)";
+                  (e.currentTarget as HTMLDivElement).style.background = "transparent";
+                }}
+              >
+                <div style={{ fontSize:28, fontWeight:600, color:"#06b6d4", marginBottom: 6 }}>{val}</div>
+                <div style={{ fontSize:13, color:"var(--text-secondary, #9ca3af)", fontWeight: 500 }}>{label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Recent sessions section */}
+          <div style={{ maxWidth: 760, marginLeft: "auto", marginRight: "auto" }}>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
+              <div>
+                <h2 style={{ fontSize:18, fontWeight: 600, marginBottom: 2 }}>Recent sessions</h2>
+                <p style={{ fontSize:13, color:"var(--text-secondary, #9ca3af)" }}>Review your past simulations and progress</p>
+              </div>
+              {history.length > 3 && (
+                <button className="btn-ghost" style={{ fontSize:13, padding:"8px 12px", whiteSpace: "nowrap" }} onClick={() => setSidebarOpen(true)}>View all</button>
+              )}
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {history.slice(0, 3).map((s, i) => {
+                const score = s.overall_score ?? 0;
+                const scoreColor = score >= 75 ? "#22c55e" : score >= 50 ? "#f59e0b" : "#ef4444";
+                const scoreLabel = getScoreLabel(score);
+                const specialty = s.specialty || "Unknown";
+                
+                return (
+                  <div
+                    key={`${s.session_id}-${i}`}
+                    onClick={() => loadHistoryDetail(s.session_id)}
+                    style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"14px 16px", background:"transparent", border:"1px solid var(--border, #2d2d44)", borderRadius:10, cursor:"pointer", transition: "all 0.2s" }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.borderColor = "#06b6d4";
+                      (e.currentTarget as HTMLDivElement).style.background = "rgba(6, 182, 212, 0.05)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.borderColor = "var(--border, #2d2d44)";
+                      (e.currentTarget as HTMLDivElement).style.background = "transparent";
+                    }}
+                  >
+                    <div style={{ display:"flex", flexDirection:"column", gap:4, flex: 1 }}>
+                      <span style={{ fontSize:11, color:"#06b6d4", textTransform:"uppercase", letterSpacing:".05em", fontWeight: 600 }}>{specialty}</span>
+                      <span style={{ fontSize:14, color:"var(--text-primary, #e5e7eb)", fontWeight: 500 }}>{s.patient_name}, {s.patient_age}y</span>
+                      <span style={{ fontSize:12, color:"var(--text-secondary, #9ca3af)" }}>{s.hidden_diagnosis}</span>
+                    </div>
+                    <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:3, textAlign: "right", flexShrink: 0 }}>
+                      <div style={{ fontSize:18, fontWeight:600, color:scoreColor }}>{score}%</div>
+                      <span style={{ fontSize:11, color:"var(--text-secondary, #9ca3af)" }}>{scoreLabel}</span>
+                      <span style={{ fontSize:11, color:"var(--text-tertiary, #6b7280)" }}>{new Date(s.started_at).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  </>
+)}
 
         {/* ══════════════════ SIMULATION ══════════════════ */}
         {appView === "simulation" && patient && (

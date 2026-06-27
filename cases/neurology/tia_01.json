@@ -5,18 +5,19 @@
   "metadata": {
     "specialty": "Neurology",
     "difficulty": "intermediate",
-    "diagnosis": "Transient Ischemic Attack",
+    "diagnosis": "Transient Ischemic Attack (TIA)",
     "tags": [
       "tia",
       "neurology",
       "stroke",
-      "transient weakness",
-      "speech difficulty"
+      "transient ischemic attack",
+      "secondary prevention",
+      "high stroke risk"
     ]
   },
 
   "patient_generator": {
-    "age_range": [45, 85],
+    "age_range": [55, 80],
     "sexes": [
       "male",
       "female"
@@ -29,49 +30,51 @@
       "retired engineer",
       "business owner",
       "security guard",
+      "retired nurse",
       "retired bus driver"
     ],
-    "pain_score_range": [0, 2],
+    "pain_score_range": [0, 1],
     "risk_factor_count_range": [2, 5]
   },
 
   "presentation_variants": [
     {
-      "presenting_complaint": "My arm suddenly went weak but got better"
+      "presenting_complaint": "My arm went weak but it got better"
     },
     {
       "presenting_complaint": "I couldn't speak properly for a few minutes"
     },
     {
-      "presenting_complaint": "Sudden facial drooping that resolved"
+      "presenting_complaint": "Sudden facial drooping that resolved quickly"
     },
     {
       "presenting_complaint": "Temporary weakness on one side"
     },
     {
-      "presenting_complaint": "Brief episode of slurred speech"
+      "presenting_complaint": "Brief episode of slurred speech and weakness"
     }
   ],
 
   "history_data": {
-    "hpi": "Patient experienced sudden onset left-sided weakness and slurred speech approximately 3 hours ago. Symptoms lasted about 20 minutes and completely resolved before arrival to the hospital.",
+    "hpi": "Patient experienced sudden onset left-sided facial drooping, arm weakness, and slurred speech approximately 2.5 hours ago while at work. Symptoms peaked within seconds and completely resolved within 18 minutes. By the time patient arrived at hospital (approximately 2.5 hours after onset), neurological examination was completely normal. Patient describes it as a frightening episode but feels completely well now.",
 
     "patient_quotes": [
-      "My arm suddenly stopped working properly.",
-      "I couldn't get my words out.",
-      "Everything went back to normal after a while.",
-      "It was frightening.",
+      "My arm suddenly went numb and weak.",
+      "I couldn't get the words out of my mouth.",
+      "The left side of my face felt strange.",
+      "Everything lasted maybe 15–20 minutes then went away completely.",
+      "I'm terrified this means I'm going to have a stroke.",
       "I feel completely fine now."
     ],
 
     "pmh_pool": [
-      "Hypertension",
-      "Atrial fibrillation",
-      "Type 2 diabetes",
-      "Hyperlipidemia",
-      "Smoking",
-      "Previous TIA",
-      "Coronary artery disease"
+      "Hypertension — diagnosed 12 years ago",
+      "Atrial fibrillation — diagnosed 4 years ago",
+      "Type 2 diabetes mellitus — diagnosed 8 years ago",
+      "Hyperlipidemia — diagnosed 10 years ago",
+      "Previous TIA — 3 years ago, transient left arm weakness",
+      "Smoking history — quit 10 years ago, 30 pack-year history",
+      "Coronary artery disease — had MI 5 years ago"
     ],
 
     "medications_pool": [
@@ -79,173 +82,213 @@
       "Atorvastatin 40mg daily",
       "Metformin 500mg twice daily",
       "Amlodipine 5mg daily",
-      "Apixaban"
+      "Apixaban 5mg twice daily (for atrial fibrillation)"
     ],
 
     "social_history": {
-      "smoking": "Former smoker",
-      "alcohol": "Occasional alcohol use",
-      "exercise": "Limited exercise",
-      "stress": "Normal daily stress"
+      "smoking": "Former smoker — quit 10 years ago, 30 pack-year history",
+      "alcohol": "Occasional alcohol use — 2–3 drinks per week",
+      "exercise": "Limited exercise — mostly sedentary",
+      "stress": "Moderate work-related stress"
     },
 
     "core_facts": {
-      "symptom_duration": "20 minutes",
+      "symptom_onset": "sudden",
+      "symptom_duration": "18 minutes total",
+      "facial_drooping": true,
+      "arm_weakness": true,
       "speech_difficulty": true,
-      "unilateral_weakness": true,
       "complete_resolution": true,
-      "sudden_onset": true
+      "symptom_free_at_examination": true,
+      "time_from_onset_to_hospital": "2.5 hours"
     },
 
     "negative_history": [
       "No seizure activity",
       "No head trauma",
+      "No loss of consciousness",
       "No persistent neurological deficit",
-      "No loss of consciousness"
+      "No headache",
+      "No vision loss"
     ]
   },
 
   "physical_exam": {
     "general_appearance": [
-      "Comfortable",
-      "Alert",
-      "No distress"
+      "Comfortable and alert",
+      "No distress",
+      "Appropriately concerned about recent symptoms"
     ],
 
     "cardiovascular": [
-      "Regular rhythm",
-      "No murmurs"
+      "Heart rate irregular — atrial fibrillation noted",
+      "Blood pressure elevated",
+      "No cardiac murmurs"
     ],
 
     "respiratory": [
-      "Clear breath sounds bilaterally"
+      "Clear breath sounds bilaterally",
+      "Normal respiratory effort"
     ],
 
     "neurological": [
-      "No focal neurological deficit",
-      "Normal motor strength",
-      "Normal cranial nerves"
+      "Alert and oriented × 3",
+      "Speech normal and fluent",
+      "Cranial nerves II–XII intact — no facial asymmetry",
+      "Motor strength 5/5 throughout — no pronator drift",
+      "Sensation intact to light touch",
+      "Reflexes normal",
+      "Gait normal",
+      "No focal neurological deficit detected",
+      "Fundoscopy: normal optic discs"
     ]
   },
 
   "vitals_ranges": {
-    "systolic_bp": [135, 190],
-    "diastolic_bp": [80, 110],
-    "heart_rate": [65, 110],
-    "resp_rate": [12, 22],
-    "spo2": [96, 100],
-    "temperature": [36.4, 37.2]
+    "systolic_bp": [145, 185],
+    "diastolic_bp": [85, 115],
+    "heart_rate": [75, 105],
+    "resp_rate": [14, 20],
+    "spo2": [98, 100],
+    "temperature": [36.5, 37.1]
   },
 
   "investigations": {
-    "ecg_variants": [
-      "Normal sinus rhythm",
-      "Atrial fibrillation",
-      "Left ventricular hypertrophy"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "No acute abnormality"
-    ],
-
-    "lab_findings": [
-      "Elevated cholesterol",
-      "Elevated glucose",
-      "Normal CBC"
-    ]
+    "Blood Glucose": "6.8 mmol/L — normal range. Hypoglycaemia excluded as cause of transient neurological symptoms.",
+    "Urea & Electrolytes": "Na 139 mmol/L, K 4.0 mmol/L, Creatinine 94 µmol/L, Urea 6.5 mmol/L, eGFR 68 — all normal. Baseline renal function acceptable for future imaging with contrast.",
+    "FBC (Full Blood Count)": "WBC 8.5 × 10⁹/L, Hb 13.8 g/dL, Platelets 258 × 10⁹/L — normal. No thrombocytosis or haematologic abnormality identified.",
+    "Lipid Profile": "Total cholesterol 6.5 mmol/L, LDL 4.3 mmol/L (elevated), HDL 0.9 mmol/L (low), Triglycerides 2.2 mmol/L (elevated) — abnormal lipid profile consistent with cardiovascular risk. Suboptimal control despite atorvastatin.",
+    "HbA1c": "68 mmol/mol (8.4%) — elevated, indicating suboptimal diabetes control.",
+    "Coagulation Screen (PT/APPT/INR)": "PT 12 seconds, APPT 29 seconds, INR 1.0 — normal. Patient on apixaban (DOAC) for atrial fibrillation; coagulation parameters normal.",
+    "ECG": "Atrial fibrillation with ventricular response 82 bpm. No acute ST changes. No evidence of acute MI. Confirms chronic atrial fibrillation — important embolic stroke risk factor.",
+    "Thyroid Function (TSH/T4)": "TSH 2.3 mIU/L, Free T4 14 pmol/L — normal. Hyperthyroidism excluded as cause of atrial fibrillation.",
+    "CT Head (Non-contrast)": "No acute intracranial haemorrhage. No acute infarction visible. Normal brain parenchyma. No mass or midline shift. Imaging does not explain transient symptoms but rules out acute stroke."
   },
 
-  "hidden_diagnosis": "Transient Ischemic Attack",
+  "hidden_diagnosis": "Transient Ischemic Attack (TIA) — High-Risk Presentation",
 
   "patient_rules": {
     "never_reveal_diagnosis": true,
     "only_answer_if_asked": true,
-    "emotional_state": "concerned",
+    "emotional_state": "concerned but reassured by normal examination",
     "allow_small_talk": false
   },
 
   "scoring_rubric": {
     "essential_questions": [
-      "time of onset",
-      "duration of symptoms",
-      "speech difficulty",
-      "weakness",
-      "resolution of symptoms",
-      "stroke risk factors",
-      "previous episodes"
+      "exact time of symptom onset",
+      "exact time when symptoms fully resolved",
+      "description of symptoms — focal neurological deficit?",
+      "facial drooping — which side?",
+      "arm or leg weakness — which side, how severe?",
+      "speech difficulty — expressive, receptive, or dysarthria?",
+      "vision loss — monocular or field defect?",
+      "complete resolution of ALL symptoms",
+      "current neurological status",
+      "previous TIA or stroke events",
+      "atrial fibrillation history",
+      "hypertension control",
+      "diabetes control",
+      "smoking history",
+      "statin use and lipid control",
+      "antiplatelet or anticoagulant use"
     ],
 
     "essential_examinations": [
-      "neurological examination",
-      "cranial nerve examination",
-      "vital signs"
-    ],
-
-    "essential_investigations": [
-      "ct head",
-      "ecg",
-      "carotid imaging"
+      "comprehensive neurological examination — looking for residual deficits",
+      "vital signs — especially blood pressure and pulse regularity",
+      "cardiac auscultation — looking for arrhythmias",
+      "carotid auscultation — listen for bruits",
+      "fundoscopy — assess optic disc and retinal vessels"
     ],
 
     "critical_actions": [
-      "recognize TIA",
-      "assess stroke risk",
-      "identify vascular risk factors",
-      "arrange urgent stroke workup",
-      "initiate secondary prevention"
+      "recognize TIA from history of COMPLETE resolution despite focal neurological symptoms",
+      "distinguish TIA from stroke — key difference is COMPLETE resolution",
+      "ABCD2 risk stratification: Age ≥60, Blood pressure elevated, Clinical features (unilateral weakness/speech), Duration >60 min, Diabetes",
+      "assess stroke risk — this patient is HIGH RISK: Age 68, BP elevated, unilateral weakness + speech = 4 points, Duration 18 min = 0 points, Diabetes = 1 point = ABCD2 score 5–6 (HIGH RISK, 8% stroke risk at 2 days)",
+      "initiate secondary prevention URGENTLY",
+      "arrange urgent vascular imaging to exclude carotid stenosis (though not available in current investigations)",
+      "optimize risk factor control — blood pressure, lipids, glucose, smoking cessation",
+      "ensure antiplatelet or anticoagulation appropriate",
+      "rapid neurology referral for specialist assessment"
     ],
 
     "red_flags": [
-      "Transient unilateral weakness",
-      "Speech disturbance",
-      "Atrial fibrillation",
-      "Previous TIA",
-      "Sudden onset symptoms"
+      "Sudden onset focal neurological deficit (even if transient)",
+      "Multiple risk factors: age, hypertension, diabetes, atrial fibrillation",
+      "Previous TIA — indicates very high risk of future stroke",
+      "Atrial fibrillation — embolic source",
+      "Suboptimal control of risk factors despite medications",
+      "Speech difficulty + unilateral weakness — suggests vascular event not other cause"
     ],
 
     "correct_diagnosis_keywords": [
       "tia",
       "transient ischemic attack",
-      "mini stroke"
+      "mini stroke",
+      "amaurosis fugax (if vision loss)"
     ],
 
     "acceptable_differentials": [
-  "Stroke",
-  "Migraine with aura",
-  "Seizure",
-  "Hypoglycaemia",
-  "Bell's palsy"
-],
+      "Acute ischemic stroke — but symptoms completely resolved (so TIA instead)",
+      "Migraine with aura — but no headache, different symptom pattern",
+      "Focal seizure with Todd's paralysis — but no convulsions, no post-ictal period",
+      "Hypoglycaemia — blood glucose normal",
+      "Bell's palsy — would be isolated facial weakness, not combined with arm weakness",
+      "Vertebral artery dissection — would have headache or neck pain"
+    ],
 
-"management_actions": [
-  "Urgent neurological assessment",
-  "Cardiac monitoring",
-  "Initiate antiplatelet therapy",
-  "Risk factor assessment",
-  "Carotid imaging",
-  "ECG",
-  "Stroke clinic referral"
-],
+    "management_actions": [
+      "URGENT TIA clinic referral — ideally same day or next day",
+      "Continue apixaban 5mg twice daily for atrial fibrillation stroke prevention",
+      "Continue aspirin 81mg daily for secondary prevention (note: patient already on dual therapy with apixaban, so antiplatelet may be reviewed)",
+      "Blood pressure target: <140/90 mmHg — consider uptitrating amlodipine or adding additional agent",
+      "Lipid management: intensify atorvastatin — consider increasing to 80mg daily given LDL not at goal; target LDL <1.8 mmol/L for very high-risk patients",
+      "Diabetes management: intensify glycaemic control — target HbA1c <53 mmol/mol; increase metformin or add GLP-1 agonist",
+      "Reinforce smoking cessation counselling — patient quit 10 years ago but emphasize importance",
+      "Urgent carotid imaging (carotid ultrasound or CT/MR angiography — NOT available in this investigation set but critical in real practice) — rule out significant stenosis requiring endarterectomy",
+      "Urgent ECG (already done) — confirm atrial fibrillation",
+      "Lifestyle modifications: diet, exercise, stress reduction",
+      "Driver safety counselling — may need to notify driving authority depending on jurisdiction",
+      "Patient education on TIA warning signs and stroke prevention",
+      "Arrange follow-up appointment with neurology and primary care within 1 week"
+    ],
 
-"important_investigations": [
-  "CT Head",
-  "ECG",
-  "Carotid Doppler",
-  "Blood Glucose",
-  "CBC"
-],
+    "important_investigations": [
+      "Blood Glucose",
+      "Urea & Electrolytes",
+      "FBC (Full Blood Count)",
+      "Lipid Profile",
+      "HbA1c",
+      "Coagulation Screen (PT/APPT/INR)",
+      "ECG",
+      "Thyroid Function (TSH/T4)",
+      "CT Head (non-contrast)",
+      "Carotid imaging — NOT available in frontend but CRITICAL in real practice"
+    ],
 
-"critical_history_questions": [
-  "What symptoms occurred?",
-  "How long did symptoms last?",
-  "Did symptoms completely resolve?",
-  "Any weakness or numbness?",
-  "Any speech difficulty?",
-  "Any visual loss?",
-  "Previous TIA or stroke?",
-  "History of hypertension or atrial fibrillation?"
-]
+    "critical_history_questions": [
+      "Exactly what time did symptoms START?",
+      "Exactly what time were symptoms COMPLETELY GONE?",
+      "What was the first symptom you noticed?",
+      "Describe any weakness — which arm? which leg? How severe?",
+      "Any facial drooping — which side?",
+      "Any speech difficulty — could you form words? Could you understand others?",
+      "Any vision loss — one eye or field loss?",
+      "Any numbness or tingling?",
+      "Any vertigo or balance problems?",
+      "Did ANY symptom persist after the main episode resolved?",
+      "Have you had similar episodes before? When?",
+      "Do you have atrial fibrillation? How long diagnosed?",
+      "Are you on anticoagulants? Which one? Dose?",
+      "Are you on antiplatelet therapy? Which drug?",
+      "How is your blood pressure normally? Any recent readings?",
+      "How is your blood sugar control? Any recent HbA1c or glucose readings?",
+      "When was your last cholesterol check? What were the results?",
+      "Are you a current or former smoker?",
+      "Have you had a previous stroke or TIA?",
+      "Any family history of stroke?"
+    ]
   }
 }

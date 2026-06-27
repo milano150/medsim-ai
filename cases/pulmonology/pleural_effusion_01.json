@@ -5,18 +5,19 @@
   "metadata": {
     "specialty": "Pulmonology",
     "difficulty": "intermediate",
-    "diagnosis": "Pleural Effusion",
+    "diagnosis": "Pleural Effusion (Exudative — Malignant)",
     "tags": [
       "pleural effusion",
       "shortness of breath",
-      "chest pain",
+      "exudate",
+      "malignant effusion",
       "respiratory",
       "pulmonology"
     ]
   },
 
   "patient_generator": {
-    "age_range": [40, 85],
+    "age_range": [45, 80],
     "sexes": [
       "male",
       "female"
@@ -29,217 +30,270 @@
       "business owner",
       "security guard",
       "retired engineer",
-      "sales representative"
+      "sales representative",
+      "retired nurse",
+      "retired factory worker"
     ],
-    "pain_score_range": [1, 6],
+    "pain_score_range": [1, 5],
     "risk_factor_count_range": [1, 4]
   },
 
   "presentation_variants": [
     {
-      "presenting_complaint": "I've become increasingly short of breath"
+      "presenting_complaint": "I've become increasingly short of breath over the past few weeks"
     },
     {
-      "presenting_complaint": "Breathing feels harder than usual"
+      "presenting_complaint": "Breathing feels harder than usual and I have chest discomfort"
     },
     {
-      "presenting_complaint": "Chest discomfort and breathlessness"
+      "presenting_complaint": "I get winded walking short distances now"
     },
     {
-      "presenting_complaint": "I get winded very easily"
+      "presenting_complaint": "I feel pressure on one side of my chest and I'm breathless"
     },
     {
-      "presenting_complaint": "Persistent shortness of breath"
+      "presenting_complaint": "My breathing has been getting worse gradually"
     }
   ],
 
   "history_data": {
-    "hpi": "Patient reports progressive shortness of breath over the past two weeks. Symptoms are worse with exertion. Mild pleuritic chest discomfort is present but no severe pain. Exercise tolerance has significantly decreased.",
+    "hpi": "Patient presents with a 2-week history of progressively worsening dyspnoea on exertion, now limiting activity significantly. Reports a dull aching discomfort in the right lower chest, worse with deep inspiration. No acute pleuritic chest pain. Exercise tolerance has declined from walking 500 metres to barely managing 50 metres on flat ground. Associated dry cough and mild fatigue. No fever or purulent sputum. Patient has a background of treated breast cancer (completed chemotherapy 18 months ago, thought to be in remission) and is a former smoker. Unintentional weight loss of approximately 5kg over the past 2 months.",
 
     "patient_quotes": [
-      "Walking short distances leaves me breathless.",
-      "I can't do as much as I used to.",
-      "Breathing feels heavy.",
-      "The symptoms have gradually worsened.",
-      "I feel pressure on one side of my chest."
+      "Walking even short distances leaves me breathless now.",
+      "There's a dull heaviness on the right side of my chest.",
+      "I can feel pressure when I breathe deeply.",
+      "My breathing has been getting worse for about two weeks.",
+      "I've been losing weight without trying — I thought it was stress."
     ],
 
     "pmh_pool": [
-      "Congestive heart failure",
-      "Recent pneumonia",
-      "Lung cancer",
-      "Breast cancer",
-      "Chronic kidney disease",
-      "Hypertension"
+      "Breast cancer — right-sided, treated with lumpectomy and chemotherapy 18 months ago, thought to be in remission",
+      "Hypertension — diagnosed 8 years ago",
+      "Hyperlipidaemia — on statin therapy",
+      "Former smoker — quit 10 years ago, 20 pack-year history",
+      "No previous cardiac history",
+      "No chronic kidney disease"
     ],
 
     "medications_pool": [
-      "Furosemide",
-      "Lisinopril",
-      "Amlodipine",
-      "Atorvastatin"
+      "Amlodipine 5mg daily",
+      "Atorvastatin 20mg daily",
+      "Tamoxifen 20mg daily (adjuvant hormone therapy post-breast cancer)",
+      "Paracetamol 500mg PRN"
     ],
 
     "social_history": {
-      "smoking": "Former smoker",
-      "alcohol": "Occasional alcohol use",
-      "exercise": "Limited due to breathlessness",
-      "stress": "Normal daily stress"
+      "smoking": "Ex-smoker — quit 10 years ago, 20 pack-year history",
+      "alcohol": "Occasional alcohol — 2–3 units per week",
+      "exercise": "Previously active — now severely limited by breathlessness",
+      "stress": "Significant — anxious about possible cancer recurrence"
     },
 
     "core_facts": {
       "shortness_of_breath": true,
-      "gradual_onset": true,
+      "onset": "gradual over 2 weeks",
+      "chest_discomfort": "dull aching right lower chest — worse with deep inspiration",
       "exercise_intolerance": true,
-      "mild_chest_discomfort": true,
-      "duration": "2 weeks"
+      "baseline_exercise_tolerance": "500 metres on flat",
+      "current_exercise_tolerance": "50 metres on flat",
+      "dry_cough": true,
+      "weight_loss": true,
+      "weight_loss_amount": "approximately 5kg over 2 months",
+      "fever": false,
+      "haemoptysis": false,
+      "purulent_sputum": false,
+      "previous_malignancy": true
     },
 
     "negative_history": [
-      "No recent trauma",
-      "No severe chest pain",
-      "No hemoptysis"
+      "No fever or night sweats",
+      "No haemoptysis",
+      "No purulent sputum",
+      "No leg swelling or calf pain",
+      "No acute severe pleuritic pain",
+      "No recent trauma or surgery",
+      "No symptoms of heart failure — no orthopnoea, PND, or ankle swelling",
+      "No TB contacts or recent travel to endemic areas"
     ]
   },
 
   "physical_exam": {
     "general_appearance": [
-      "Mild respiratory distress",
-      "Appears fatigued",
-      "Comfortable at rest"
+      "Mild pallor",
+      "Visibly breathless on minimal exertion",
+      "Comfortable at rest",
+      "Appears anxious",
+      "Mild cachexia"
     ],
 
     "cardiovascular": [
+      "Heart rate mildly elevated",
       "Regular rhythm",
-      "Mild tachycardia"
+      "No murmurs",
+      "No raised JVP",
+      "No peripheral oedema"
     ],
 
     "respiratory": [
-      "Reduced breath sounds at right lung base",
-      "Dullness to percussion",
-      "Reduced chest expansion on affected side"
+      "Reduced chest expansion — right side",
+      "Stony dullness to percussion — right lung base extending to mid zone",
+      "Markedly reduced breath sounds — right lower and mid zone",
+      "Bronchial breathing at upper border of effusion — right mid zone",
+      "Left lung clear — normal breath sounds throughout",
+      "No wheeze"
     ]
   },
 
   "vitals_ranges": {
-    "systolic_bp": [105, 165],
-    "diastolic_bp": [60, 95],
-    "heart_rate": [85, 120],
-    "resp_rate": [18, 30],
-    "spo2": [89, 97],
-    "temperature": [36.4, 38.0]
+    "systolic_bp": [108, 155],
+    "diastolic_bp": [62, 92],
+    "heart_rate": [88, 116],
+    "resp_rate": [18, 28],
+    "spo2": [90, 96],
+    "temperature": [36.5, 37.4]
   },
 
   "investigations": {
-    "ecg_variants": [
-      "Normal sinus rhythm",
-      "Sinus tachycardia"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "Moderate right pleural effusion",
-      "Large left pleural effusion",
-      "Blunting of the costophrenic angle",
-      "Pleural fluid collection"
-    ],
-
-    "lab_findings": [
-      "Elevated BNP",
-      "Normal CBC",
-      "Mild inflammatory markers elevation"
-    ]
+    "Chest X-Ray": "Large right-sided pleural effusion with blunting of the right costophrenic angle and opacification of the right lower and mid zones. Tracheal and mediastinal shift to the left — consistent with a large effusion. No left-sided effusion. No pneumothorax. Cardiac silhouette normal size. Appearances raise strong suspicion for malignant pleural effusion in the context of known breast cancer history.",
+    "CT Chest": "Large right pleural effusion confirmed. Multiple right-sided pleural nodules and pleural thickening — highly suspicious for malignant pleural seeding. 2.1cm right lower lobe pulmonary nodule. Right hilar lymphadenopathy. No pericardial effusion. No left pleural effusion. Findings are consistent with metastatic disease — likely recurrence of known breast cancer.",
+    "Ultrasound Abdomen": "Performed as part of staging assessment. No hepatic metastases identified. No ascites. No abdominal lymphadenopathy. Normal-sized kidneys bilaterally.",
+    "FBC (Full Blood Count)": "WBC 9.8 × 10⁹/L, Hb 10.2 g/dL (normocytic anaemia — anaemia of chronic disease in context of malignancy), MCV 83 fL, Platelets 398 × 10⁹/L (reactive thrombocytosis). Anaemia requires iron studies.",
+    "CRP": "52 mg/L — elevated, consistent with malignancy-associated inflammation.",
+    "LFTs (Liver Function Tests)": "ALP 212 IU/L (elevated — may indicate bony or hepatic metastases), ALT 36 IU/L, Bilirubin 12 µmol/L, Albumin 26 g/L (hypoalbuminaemia — malnutrition and chronic disease). Elevated ALP warrants bone scan or further staging.",
+    "Urea & Electrolytes": "Na 133 mmol/L (mild hyponatraemia — monitor), K 3.9 mmol/L, Creatinine 78 µmol/L, Urea 5.8 mmol/L — normal renal function.",
+    "BNP": "58 pg/mL — within normal limits. Cardiac failure is an unlikely cause of this effusion. Supports exudative rather than transudative aetiology.",
+    "Coagulation Screen (PT/APPT/INR)": "PT 13s, APTT 28s, INR 1.1 — normal. Important baseline prior to thoracentesis."
   },
 
-  "hidden_diagnosis": "Pleural Effusion",
+  "hidden_diagnosis": "Malignant Pleural Effusion — Likely Metastatic Breast Cancer Recurrence",
 
   "patient_rules": {
     "never_reveal_diagnosis": true,
     "only_answer_if_asked": true,
-    "emotional_state": "concerned",
+    "emotional_state": "anxious and fearful — aware that symptoms may represent cancer recurrence, trying to stay calm",
     "allow_small_talk": false
   },
 
   "scoring_rubric": {
     "essential_questions": [
-      "shortness of breath",
-      "duration",
-      "exercise tolerance",
-      "chest discomfort",
-      "heart failure history",
-      "cancer history",
-      "recent infection"
+      "onset and duration of dyspnoea",
+      "change from baseline exercise tolerance",
+      "character and location of chest discomfort — pleuritic vs dull",
+      "associated dry cough",
+      "unintentional weight loss — amount and timeframe",
+      "fever or night sweats — suggest infection or lymphoma",
+      "haemoptysis",
+      "history of malignancy — type, treatment, remission status",
+      "history of cardiac disease — orthopnoea, PND, ankle swelling to consider heart failure",
+      "history of chronic kidney disease — consider transudative causes",
+      "smoking history",
+      "leg swelling or calf pain — exclude PE",
+      "TB exposure or travel to endemic areas",
+      "asbestos exposure — mesothelioma as differential",
+      "current medications including tamoxifen"
     ],
 
     "essential_examinations": [
-      "respiratory examination",
-      "vital signs",
-      "oxygen saturation"
-    ],
-
-    "essential_investigations": [
-      "chest xray",
-      "ultrasound chest",
-      "pleural fluid analysis"
+      "general assessment — cachexia, pallor, breathlessness at rest vs exertion",
+      "respiratory examination — percussion (stony dull), auscultation (absent breath sounds), chest expansion asymmetry, bronchial breathing at effusion border",
+      "cardiovascular — JVP, peripheral oedema (heart failure vs malignant effusion)",
+      "lymph node examination — supraclavicular, cervical, axillary nodes",
+      "abdominal examination — hepatomegaly, ascites",
+      "oxygen saturation",
+      "vital signs including respiratory rate"
     ],
 
     "critical_actions": [
-      "recognize pleural effusion",
-      "assess respiratory status",
-      "obtain chest imaging",
-      "identify underlying cause",
-      "consider thoracentesis"
+      "recognise pleural effusion from clinical signs — stony dullness and absent breath sounds",
+      "obtain chest X-ray to confirm and characterise effusion size",
+      "arrange CT chest to evaluate for pleural nodules, malignancy, and underlying lung pathology",
+      "distinguish transudative from exudative effusion — Light's criteria applied to pleural fluid",
+      "arrange diagnostic thoracentesis — send pleural fluid for: protein, LDH, glucose, pH, cytology, MC&S, AFB if TB suspected",
+      "in context of known breast cancer — assume malignant until proven otherwise",
+      "check BNP and echocardiogram if cardiac failure is a differential",
+      "urgent oncology referral given previous breast cancer history and suspicious CT findings",
+      "therapeutic thoracentesis if large effusion causing significant dyspnoea",
+      "consider indwelling pleural catheter (IPC) or pleurodesis for recurrent malignant effusion",
+      "staging investigations — CT abdomen/pelvis, bone scan or PET-CT",
+      "check coagulation before any pleural procedure",
+      "MDT discussion — oncology, respiratory, radiology"
     ],
 
     "red_flags": [
-      "Large pleural effusion",
-      "Hypoxia",
-      "Respiratory distress",
-      "Underlying malignancy",
-      "Rapid symptom progression"
+      "History of malignancy with new pleural effusion — malignant effusion until proven otherwise",
+      "Unintentional weight loss — systemic feature of malignancy or TB",
+      "Stony dullness to percussion — distinguishes effusion from consolidation",
+      "Mediastinal shift away from effusion — large effusion causing haemodynamic concern",
+      "SpO2 <92% — significant respiratory compromise",
+      "Pleural nodules on CT — strongly suggest malignant aetiology",
+      "Hypoalbuminaemia — may cause transudative effusion but also suggests malignant cachexia",
+      "Elevated ALP — bony or hepatic metastases"
     ],
 
     "correct_diagnosis_keywords": [
       "pleural effusion",
+      "malignant pleural effusion",
+      "exudative effusion",
       "pleural fluid",
-      "effusion"
+      "metastatic pleural effusion"
     ],
+
     "acceptable_differentials": [
-  "Heart failure",
-  "Pneumonia",
-  "Lung cancer",
-  "Tuberculosis",
-  "Pulmonary embolism"
-],
+      "Transudative pleural effusion from heart failure — but no cardiac history, normal BNP, no peripheral oedema",
+      "Parapneumonic effusion — no fever, no consolidation, no purulent sputum",
+      "Tuberculosis — chronic course, night sweats, TB exposure; pleural fluid AFB and adenosine deaminase would help",
+      "Mesothelioma — asbestos exposure, pleural thickening; biopsy required to differentiate",
+      "Pulmonary embolism with haemorrhagic effusion — consider if sudden onset, pleuritic pain, PE risk factors",
+      "Lymphoma — mediastinal involvement, B symptoms; biopsy required"
+    ],
 
-"management_actions": [
-  "Respiratory assessment",
-  "Chest X-Ray",
-  "Thoracic ultrasound",
-  "Diagnostic thoracentesis",
-  "Treat underlying cause",
-  "Monitor oxygenation",
-  "Respiratory referral"
-],
+    "management_actions": [
+      "Chest X-Ray — confirm effusion and assess size",
+      "CT Chest with contrast — characterise effusion, detect pleural nodules, assess lungs and mediastinum",
+      "Ultrasound-guided diagnostic thoracentesis — aspirate pleural fluid for analysis",
+      "Pleural fluid: protein, LDH, glucose, pH — apply Light's criteria to classify as exudate or transudate",
+      "Pleural fluid cytology — identify malignant cells",
+      "Pleural fluid MC&S and AFB — exclude infection and TB",
+      "BNP — if cardiac failure suspected as aetiology",
+      "FBC, LFTs, U&E, CRP — baseline labs and staging screen",
+      "Coagulation screen before any pleural procedure",
+      "Therapeutic thoracentesis if large symptomatic effusion — drain up to 1.5L per session",
+      "Oncology referral — given breast cancer history and CT findings",
+      "CT abdomen/pelvis and bone scan or PET-CT — full staging",
+      "Consider indwelling pleural catheter (IPC) for recurrent symptomatic malignant effusion",
+      "Oxygen supplementation if SpO2 <94%",
+      "MDT discussion before further oncological treatment decisions",
+      "Nutritional support — dietitian referral given weight loss and hypoalbuminaemia"
+    ],
 
-"important_investigations": [
-  "Chest X-Ray",
-  "Thoracic Ultrasound",
-  "Pleural Fluid Analysis",
-  "CBC",
-  "CT Chest"
-],
+    "important_investigations": [
+      "Chest X-Ray",
+      "CT Chest",
+      "Ultrasound Abdomen",
+      "FBC (Full Blood Count)",
+      "LFTs (Liver Function Tests)",
+      "Urea & Electrolytes",
+      "CRP",
+      "BNP",
+      "Coagulation Screen (PT/APPT/INR)"
+    ],
 
-"critical_history_questions": [
-  "Shortness of breath?",
-  "Chest pain?",
-  "Duration of symptoms?",
-  "Weight loss?",
-  "Fever?",
-  "History of malignancy?",
-  "Heart failure history?",
-  "Tuberculosis exposure?"
-]
+    "critical_history_questions": [
+      "When did you first notice the breathlessness — how has it changed?",
+      "What can you do now compared to 2–3 weeks ago?",
+      "Do you have any chest discomfort — where exactly, and does it change with breathing?",
+      "Have you had any cough — dry or productive?",
+      "Have you coughed up any blood?",
+      "Have you lost any weight recently without trying — how much and over how long?",
+      "Have you had a fever, chills, or night sweats?",
+      "You mentioned a previous cancer — can you tell me more about your breast cancer treatment and when you were last told you were in remission?",
+      "Have you had any heart problems — swollen ankles, waking at night breathless, needing extra pillows to sleep?",
+      "Any leg swelling or calf pain?",
+      "Have you ever been exposed to asbestos?",
+      "Have you been in contact with anyone with tuberculosis or travelled to a TB-endemic area?",
+      "Do you smoke or have you smoked in the past?",
+      "Any bone pain or headaches?"
+    ]
   }
 }

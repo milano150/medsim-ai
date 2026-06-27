@@ -135,13 +135,12 @@
   },
 
   "investigations": {
-    "ECG (during tachycardia)": "Regular narrow complex tachycardia at 196 bpm. No visible P waves. Retrograde P waves seen in ST segment of inferior leads. No delta waves. Pattern consistent with AVNRT.",
-    "ECG (post-termination)": "Normal sinus rhythm at 72 bpm. No delta waves or pre-excitation. No ST changes or ischaemia. PR interval normal.",
+    "ECG": "Regular narrow complex tachycardia at 196 bpm. No visible P waves. Retrograde P waves seen in ST segment of inferior leads. No delta waves. Pattern consistent with AVNRT.",
     "Troponin": "0.01 ng/mL (within normal limits — no myocardial injury; troponin can be mildly elevated in sustained SVT but normal here)",
     "Chest X-Ray": "No acute cardiopulmonary abnormality. Normal cardiac silhouette.",
     "Urea & Electrolytes": "Na 140 mmol/L, K 3.7 mmol/L, Creatinine 74 µmol/L — normal; hypokalaemia and hypomagnesaemia excluded as precipitants",
     "Magnesium": "0.82 mmol/L — normal",
-    "TSH (Thyroid Function)": "1.8 mIU/L — normal; hyperthyroidism excluded as underlying cause",
+    "Thyroid Function (TSH/T4)": "1.8 mIU/L — normal; hyperthyroidism excluded as underlying cause",
     "FBC (Full Blood Count)": "WBC 8.1 × 10⁹/L, Hb 13.8 g/dL, Platelets 254 × 10⁹/L — normal",
     "Blood Glucose": "5.4 mmol/L — normal",
     "LFTs (Liver Function Tests)": "Within normal limits",

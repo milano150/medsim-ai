@@ -5,18 +5,19 @@
   "metadata": {
     "specialty": "Neurology",
     "difficulty": "intermediate",
-    "diagnosis": "Generalized Tonic-Clonic Seizure",
+    "diagnosis": "Generalized Tonic-Clonic Seizure (First Episode)",
     "tags": [
       "seizure",
       "epilepsy",
       "neurology",
       "loss of consciousness",
-      "convulsion"
+      "convulsion",
+      "tonic-clonic"
     ]
   },
 
   "patient_generator": {
-    "age_range": [18, 70],
+    "age_range": [18, 65],
     "sexes": [
       "male",
       "female"
@@ -29,220 +30,254 @@
       "sales representative",
       "office worker",
       "electrician",
-      "retail worker"
+      "retail worker",
+      "nurse",
+      "administrator"
     ],
-    "pain_score_range": [0, 4],
-    "risk_factor_count_range": [0, 3]
+    "pain_score_range": [0, 2],
+    "risk_factor_count_range": [0, 2]
   },
 
   "presentation_variants": [
     {
-      "presenting_complaint": "I blacked out and woke up confused"
+      "presenting_complaint": "I lost consciousness and my family says I had a seizure"
     },
     {
-      "presenting_complaint": "My family says I had a seizure"
+      "presenting_complaint": "I blacked out and woke up confused with sore muscles"
     },
     {
-      "presenting_complaint": "I lost consciousness suddenly"
+      "presenting_complaint": "My family witnessed me shaking all over"
     },
     {
-      "presenting_complaint": "I woke up on the floor confused"
+      "presenting_complaint": "I don't remember the event — I just woke up confused"
     },
     {
-      "presenting_complaint": "I don't remember what happened"
+      "presenting_complaint": "I had a sudden loss of consciousness with convulsions"
     }
   ],
 
   "history_data": {
-    "hpi": "Patient was witnessed to suddenly lose consciousness and develop generalized shaking movements lasting approximately 2 minutes. Following the event, the patient remained confused for 20 minutes before gradually returning to baseline.",
+    "hpi": "Patient was witnessed by family members to suddenly lose consciousness without warning while sitting at home. Approximately 30 seconds after losing consciousness, patient developed generalized rhythmic shaking movements of all four limbs lasting approximately 90 seconds. Following the event, patient remained confused and disoriented for 15 minutes before gradually returning to baseline. Patient reports not remembering the event itself. Bystanders noted tongue biting and possible incontinence. No prior seizures. This is patient's first seizure event.",
 
     "patient_quotes": [
-      "I don't remember the event itself.",
+      "I don't remember anything.",
       "The next thing I knew, people were standing around me.",
-      "I felt very confused afterward.",
-      "My muscles are sore now.",
-      "Apparently I was shaking all over."
+      "My muscles hurt all over.",
+      "I felt very confused and tired afterward.",
+      "I apparently bit my tongue — I can feel it now."
     ],
 
     "pmh_pool": [
-      "Epilepsy",
-      "Previous seizure",
-      "Sleep deprivation",
-      "Recent alcohol binge",
-      "No significant medical history"
+      "No history of epilepsy",
+      "Recent head injury — minor head bump 2 days ago",
+      "Recent high fever — resolved yesterday",
+      "Sleep deprivation — only 4 hours sleep last night",
+      "Recent stress and sleep disturbance",
+      "No significant past medical history"
     ],
 
     "medications_pool": [
-      "Levetiracetam",
-      "Valproate",
-      "Lamotrigine",
-      "No regular medications"
+      "No regular medications",
+      "Paracetamol for headache yesterday",
+      "No anticonvulsants"
     ],
 
     "social_history": {
       "smoking": "Non-smoker",
-      "alcohol": "Occasional alcohol use",
+      "alcohol": "Occasional social drinker",
       "exercise": "Regular exercise",
-      "stress": "Recent sleep deprivation"
+      "stress": "Recent work stress and sleep deprivation",
+      "sleep": "Only 4 hours sleep last night — known trigger"
     },
 
     "core_facts": {
       "loss_of_consciousness": true,
+      "onset": "sudden, no warning",
       "generalized_shaking": true,
-      "duration": "2 minutes",
+      "shaking_duration": "approximately 90 seconds",
       "postictal_confusion": true,
-      "tongue_biting": true
+      "postictal_confusion_duration": "15 minutes",
+      "tongue_biting": true,
+      "possible_incontinence": true,
+      "myalgia": true,
+      "first_seizure": true
     },
 
     "negative_history": [
-      "No chest pain",
-      "No focal weakness before event",
-      "No recent head trauma"
+      "No focal weakness or numbness before event",
+      "No recent head trauma except minor bump 2 days ago",
+      "No fever at time of seizure (resolved yesterday)",
+      "No neck stiffness",
+      "No current chest pain",
+      "No previous seizures"
     ]
   },
 
   "physical_exam": {
     "general_appearance": [
-      "Appears tired",
-      "Mild confusion initially",
-      "Alert after recovery"
+      "Alert after recovery period",
+      "Appears tired and confused initially",
+      "Mild discomfort — tongue bite visible inside mouth",
+      "Generalized myalgia evident on palpation"
     ],
 
     "cardiovascular": [
+      "Tachycardia (post-ictal)",
       "Regular rhythm",
       "Normal heart sounds"
     ],
 
     "respiratory": [
-      "Clear breath sounds bilaterally"
+      "Clear breath sounds bilaterally",
+      "No respiratory distress",
+      "Normal oxygen saturation"
     ],
 
     "neurological": [
+      "Alert and oriented to person, place, time after 15 minutes",
+      "Cranial nerves II–XII intact",
+      "Motor strength 5/5 throughout",
+      "Sensation intact to light touch",
+      "Reflexes normal",
       "No focal neurological deficit",
-      "Postictal confusion improving",
-      "Normal cranial nerves"
+      "Tongue bite evident on intraoral exam",
+      "No meningeal signs"
     ]
   },
 
   "vitals_ranges": {
-    "systolic_bp": [110, 170],
-    "diastolic_bp": [65, 100],
-    "heart_rate": [90, 130],
-    "resp_rate": [14, 26],
-    "spo2": [95, 100],
-    "temperature": [36.4, 37.5]
+    "systolic_bp": [120, 160],
+    "diastolic_bp": [70, 95],
+    "heart_rate": [105, 135],
+    "resp_rate": [16, 26],
+    "spo2": [96, 100],
+    "temperature": [36.8, 37.3]
   },
 
   "investigations": {
-    "ecg_variants": [
-      "Normal sinus rhythm",
-      "Sinus tachycardia"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "No acute abnormality"
-    ],
-
-    "lab_findings": [
-      "Elevated lactate",
-      "Mild leukocytosis",
-      "Normal electrolytes"
-    ]
+    "Blood Glucose": "4.8 mmol/L — normal. Hypoglycaemia excluded as precipitant.",
+    "Urea & Electrolytes": "Na 138 mmol/L, K 3.9 mmol/L, Creatinine 88 µmol/L, Urea 6.1 mmol/L — all normal. Hyponatraemia and hypokalaemia excluded as causes of seizure.",
+    "FBC (Full Blood Count)": "WBC 9.2 × 10⁹/L, Hb 13.8 g/dL, Platelets 268 × 10⁹/L — normal. No evidence of acute infection or anaemia.",
+    "Lactate": "3.2 mmol/L (mildly elevated) — consistent with post-ictal metabolic state from seizure activity and muscle exertion. Expected to normalize.",
+    "Urea & Electrolytes (repeat if needed)": "To monitor for any electrolyte disturbance; initial normal.",
+    "CT Head": "No acute intracranial abnormality. No mass, bleed, or structural lesion. Normal ventricles. No midline shift. Minor head injury 2 days ago did not result in any pathology."
   },
 
-  "hidden_diagnosis": "Generalized Tonic-Clonic Seizure",
+  "hidden_diagnosis": "Generalized Tonic-Clonic Seizure (First Unprovoked Seizure)",
 
   "patient_rules": {
     "never_reveal_diagnosis": true,
     "only_answer_if_asked": true,
-    "emotional_state": "confused",
+    "emotional_state": "confused initially, gradually improving",
     "allow_small_talk": false
   },
 
   "scoring_rubric": {
     "essential_questions": [
-      "loss of consciousness",
-      "witnessed movements",
-      "duration",
-      "postictal confusion",
-      "tongue biting",
-      "urinary incontinence",
-      "previous seizures"
+      "loss of consciousness — was it sudden?",
+      "were there any witnesses to the event?",
+      "describe what happened during the event",
+      "how long did the shaking last?",
+      "any tongue biting or cheek injury?",
+      "any urinary or faecal incontinence?",
+      "how long was confusion after the event?",
+      "any warning or aura before loss of consciousness?",
+      "previous seizures or family history of seizures?",
+      "recent head injury?",
+      "recent fever or infection?",
+      "sleep deprivation or stress?"
     ],
 
     "essential_examinations": [
-      "neurological examination",
+      "comprehensive neurological examination",
       "vital signs",
-      "mental status examination"
-    ],
-
-    "essential_investigations": [
-      "blood glucose",
-      "electrolytes",
-      "ct head",
-      "eeg"
+      "assessment for tongue bite or incontinence",
+      "fundoscopy",
+      "meningeal signs",
+      "mental status assessment — orientation, cognition"
     ],
 
     "critical_actions": [
-      "recognize seizure",
-      "identify postictal state",
-      "exclude hypoglycemia",
+      "recognize seizure from eyewitness account and postictal state",
       "assess airway safety",
-      "investigate underlying cause"
+      "check blood glucose immediately — rule out hypoglycemia",
+      "establish IV access and cardiac monitoring",
+      "obtain CT head to rule out structural cause",
+      "check electrolytes and basic metabolic panel",
+      "obtain 12-lead ECG to rule out cardiac syncope",
+      "arrange urgent neurology referral",
+      "counsel on seizure precautions and driving restrictions"
     ],
 
     "red_flags": [
-      "First seizure",
-      "Prolonged seizure",
-      "Persistent confusion",
-      "Head injury",
-      "Status epilepticus"
+      "First seizure — requires investigation for cause",
+      "Loss of consciousness",
+      "Generalized convulsive movements",
+      "Prolonged postictal confusion (>30 min indicates potential status epilepticus)",
+      "Recurrent seizures in close succession — status epilepticus risk",
+      "Recent head injury",
+      "History of head trauma"
     ],
 
     "correct_diagnosis_keywords": [
       "seizure",
-      "generalized tonic clonic seizure",
-      "epileptic seizure",
-      "epilepsy"
+      "generalized tonic-clonic seizure",
+      "gtcs",
+      "convulsion",
+      "epileptic seizure"
     ],
 
     "acceptable_differentials": [
-  "Syncope",
-  "Hypoglycaemia",
-  "Stroke",
-  "Brain tumour",
-  "Psychogenic non-epileptic seizure"
-],
+      "Syncope (vasovagal fainting)",
+      "Hypoglycaemia",
+      "Cardiac arrhythmia",
+      "Transient ischaemic attack",
+      "Stroke",
+      "Concussion with loss of consciousness",
+      "Psychogenic non-epileptic seizure (PNES)"
+    ],
 
-"management_actions": [
-  "Airway assessment",
-  "Check glucose",
-  "Cardiac monitoring",
-  "Neurological examination",
-  "Treat active seizure if ongoing",
-  "Identify precipitating cause",
-  "Neurology referral"
-],
+    "management_actions": [
+      "Immediate: Ensure airway patency, position on side, clear environment of hazards",
+      "Blood glucose check — if <3.5 mmol/L, give IV dextrose 50mL of 50% solution",
+      "Cardiac monitoring and IV access",
+      "12-lead ECG to rule out cardiac syncope",
+      "Blood tests: FBC, Urea & Electrolytes, Lactate, Blood Glucose",
+      "CT head without contrast to rule out structural lesion",
+      "Neurology urgent referral — first seizure workup",
+      "Do NOT start anticonvulsants after single first unprovoked seizure without neurology input (risk of recurrence ~40%)",
+      "Counsel on seizure precautions: driving restrictions (1–6 months depending on jurisdiction), avoid heights, water safety",
+      "EEG when safe (may show post-ictal changes or epileptiform activity — arrange with neurology)",
+      "Educate on seizure triggers: sleep deprivation, stress, fever, alcohol, flickering lights",
+      "Follow-up with neurology in 1–2 weeks"
+    ],
 
-"important_investigations": [
-  "Blood Glucose",
-  "Electrolytes",
-  "CT Head",
-  "EEG",
-  "CBC"
-],
+    "important_investigations": [
+      "Blood Glucose (first priority)",
+      "Urea & Electrolytes",
+      "FBC (Full Blood Count)",
+      "Lactate",
+      "CT Head",
+      "ECG (to rule out cardiac syncope)"
+    ],
 
-"critical_history_questions": [
-  "Was the event witnessed?",
-  "How long did it last?",
-  "Any tongue biting?",
-  "Any urinary incontinence?",
-  "Any post-ictal confusion?",
-  "Previous seizures?",
-  "Recent head trauma?",
-  "Medication compliance?"
-]
+    "critical_history_questions": [
+      "Was the event witnessed? What exactly did they see?",
+      "Did you lose consciousness suddenly without warning?",
+      "How long did the shaking last?",
+      "Did you bite your tongue?",
+      "Did you wet yourself or lose bowel control?",
+      "How long were you confused afterward?",
+      "Any warning signs or aura before it happened?",
+      "Have you ever had a seizure before?",
+      "Does anyone in your family have epilepsy or seizures?",
+      "Have you had a head injury recently?",
+      "Have you had any recent fever or infection?",
+      "How much sleep have you had recently?",
+      "Have you been under stress?",
+      "Are you taking any medications?",
+      "Do you drink alcohol? Any recent binge drinking?",
+      "Any recent use of drugs or alcohol?"
+    ]
   }
 }

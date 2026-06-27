@@ -10,8 +10,11 @@
       "tuberculosis",
       "tb",
       "chronic cough",
+      "haemoptysis",
       "weight loss",
-      "pulmonology"
+      "night sweats",
+      "pulmonology",
+      "infectious disease"
     ]
   },
 
@@ -29,217 +32,288 @@
       "shop owner",
       "office worker",
       "security guard",
-      "driver"
+      "driver",
+      "healthcare worker",
+      "hostel resident"
     ],
-    "pain_score_range": [0, 5],
+    "pain_score_range": [0, 4],
     "risk_factor_count_range": [1, 4]
   },
 
   "presentation_variants": [
     {
-      "presenting_complaint": "I've had a cough for months"
+      "presenting_complaint": "I've had a cough for months that won't go away"
     },
     {
-      "presenting_complaint": "Persistent cough and weight loss"
+      "presenting_complaint": "Persistent cough, weight loss and night sweats"
     },
     {
-      "presenting_complaint": "Night sweats and coughing"
+      "presenting_complaint": "I've been soaking through my clothes at night and I'm losing weight"
     },
     {
-      "presenting_complaint": "I'm coughing up blood occasionally"
+      "presenting_complaint": "I've occasionally coughed up blood and I'm exhausted all the time"
     },
     {
-      "presenting_complaint": "I've been feeling sick for weeks"
+      "presenting_complaint": "I've been feeling unwell for weeks — cough, sweating and no appetite"
     }
   ],
 
   "history_data": {
-    "hpi": "Patient reports a persistent cough for the past 8 weeks. Symptoms are associated with weight loss, night sweats, fatigue, and occasional blood-streaked sputum. Appetite has decreased significantly.",
+    "hpi": "Patient presents with an 8-week history of persistent productive cough with occasional blood-streaked sputum. Associated symptoms include drenching night sweats requiring change of clothing, unintentional weight loss of approximately 7kg over 2 months, progressive fatigue, and markedly reduced appetite. Low-grade fever has been present most evenings. Patient emigrated from a TB-endemic country 3 years ago and works in a crowded warehouse with poor ventilation. No known TB contacts but lives in shared accommodation with 6 others. No previous TB diagnosis or treatment. Not known to be HIV positive but has not been recently tested.",
 
     "patient_quotes": [
-      "The cough just won't go away.",
-      "I've been sweating a lot at night.",
-      "I've lost weight without trying.",
-      "Sometimes there's blood in my sputum.",
-      "I feel exhausted all the time."
+      "The cough has been there for months — it just won't go away.",
+      "I wake up drenched in sweat most nights — I have to change my clothes.",
+      "I've lost a lot of weight without trying — my clothes don't fit anymore.",
+      "Sometimes when I cough I see a little blood in the phlegm.",
+      "I feel exhausted all the time and I have no appetite."
     ],
 
     "pmh_pool": [
-      "Previous TB exposure",
-      "Diabetes mellitus",
-      "Smoking",
-      "HIV risk factors",
-      "No significant medical history"
+      "No previous TB diagnosis or treatment",
+      "Type 2 diabetes mellitus — diagnosed 4 years ago, on metformin (diabetes increases TB reactivation risk significantly)",
+      "No known HIV infection — not recently tested",
+      "Smoking history — current smoker, 10 cigarettes per day",
+      "No previous immunosuppressive therapy",
+      "Born and raised in high TB-burden country — emigrated 3 years ago"
     ],
 
     "medications_pool": [
-      "Metformin",
-      "Amlodipine",
-      "No regular medications"
+      "Metformin 500mg twice daily",
+      "No other regular medications"
     ],
 
     "social_history": {
-      "smoking": "Current smoker",
-      "alcohol": "Occasional alcohol use",
-      "exercise": "Reduced due to fatigue",
-      "stress": "Normal daily stress"
+      "smoking": "Current smoker — 10 cigarettes per day for 12 years (approximately 6 pack-years)",
+      "alcohol": "Occasional alcohol — 2–3 units per week",
+      "exercise": "Reduced significantly due to fatigue and breathlessness",
+      "stress": "Significant — financial pressures, immigration stressors, crowded living situation"
     },
 
     "core_facts": {
       "chronic_cough": true,
-      "weight_loss": true,
+      "cough_duration": "8 weeks",
+      "haemoptysis": true,
+      "haemoptysis_character": "blood-streaked sputum — small volume, intermittent",
       "night_sweats": true,
+      "night_sweats_severity": "drenching — requiring change of clothing",
+      "weight_loss": true,
+      "weight_loss_amount": "approximately 7kg over 2 months",
       "fatigue": true,
-      "duration": "8 weeks"
+      "anorexia": true,
+      "low_grade_fever": true,
+      "tb_endemic_country_origin": true,
+      "crowded_living_conditions": true,
+      "diabetes": true,
+      "hiv_status": "unknown — not recently tested"
     },
 
     "negative_history": [
-      "No recent surgery",
-      "No chest trauma",
-      "No acute onset symptoms"
+      "No known TB contacts",
+      "No previous TB diagnosis or treatment",
+      "No known immunosuppressive therapy",
+      "No acute pleuritic chest pain",
+      "No leg swelling",
+      "No confusion or focal neurology",
+      "No recent foreign travel beyond usual residence",
+      "No haemoptysis of large volume — no frank blood"
     ]
   },
 
   "physical_exam": {
     "general_appearance": [
-      "Appears thin",
-      "Looks fatigued",
-      "Chronically unwell appearance"
+      "Visibly cachectic — marked muscle wasting and weight loss",
+      "Appears chronically unwell and fatigued",
+      "Mild pallor",
+      "Low-grade fever on presentation",
+      "No acute respiratory distress at rest"
     ],
 
     "cardiovascular": [
+      "Mildly elevated heart rate",
       "Regular rhythm",
-      "Mild tachycardia"
+      "No murmurs",
+      "No peripheral oedema"
     ],
 
     "respiratory": [
-      "Crackles in upper lung fields",
-      "Reduced air entry in upper lobe",
-      "Occasional wheeze"
+      "Fine crackles — right upper zone",
+      "Reduced air entry — right upper lobe",
+      "Dullness to percussion — right upper zone",
+      "No wheeze",
+      "No pleural rub",
+      "Mild bronchial breath sounds — right apex"
+    ],
+
+    "lymph_nodes": [
+      "Right cervical lymphadenopathy — single firm, non-tender node approximately 1cm",
+      "No axillary or inguinal lymphadenopathy"
     ]
   },
 
   "vitals_ranges": {
-    "systolic_bp": [100, 145],
-    "diastolic_bp": [60, 90],
-    "heart_rate": [85, 120],
-    "resp_rate": [16, 28],
+    "systolic_bp": [102, 142],
+    "diastolic_bp": [62, 88],
+    "heart_rate": [88, 118],
+    "resp_rate": [16, 26],
     "spo2": [92, 98],
-    "temperature": [37.2, 39.0]
+    "temperature": [37.4, 38.9]
   },
 
   "investigations": {
-    "ecg_variants": [
-      "Normal sinus rhythm",
-      "Sinus tachycardia"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "Right upper lobe cavitary lesion",
-      "Upper lobe infiltrates",
-      "Apical fibrosis and cavitation",
-      "Findings consistent with pulmonary tuberculosis"
-    ],
-
-    "lab_findings": [
-      "Elevated ESR",
-      "Mild anemia",
-      "Positive acid-fast bacilli smear"
-    ]
+    "Chest X-Ray": "Right upper lobe cavitary lesion with surrounding nodular infiltrates and fibrosis. Apical shadowing with cavitation. No pleural effusion. No mediastinal lymphadenopathy visible on plain film. Appearances highly suspicious for active pulmonary tuberculosis. CT chest recommended for further characterisation.",
+    "CT Chest": "Right upper lobe cavitary lesion 3.2cm with surrounding satellite nodules and tree-in-bud pattern consistent with endobronchial spread. Bilateral upper lobe infiltrates. Right hilar lymphadenopathy. No pleural effusion. No pericardial effusion. CT findings highly consistent with active pulmonary TB with endobronchial spread — indicates likely infectiousness.",
+    "Sputum AFB Smear": "Sputum acid-fast bacilli (AFB) smear positive — 3+ on Ziehl-Neelsen staining. Three early morning sputum samples collected. Positive smear confirms presence of mycobacteria; culture required for speciation and drug susceptibility testing (DST). Patient should be considered infectious until proven otherwise.",
+    "FBC (Full Blood Count)": "WBC 10.4 × 10⁹/L (mildly elevated), Lymphocytes 0.9 × 10⁹/L (lymphopaenia — associated with TB and possible HIV co-infection), Hb 10.8 g/dL (normocytic anaemia — anaemia of chronic disease), MCV 84 fL, Platelets 468 × 10⁹/L (reactive thrombocytosis). Lymphopaenia warrants HIV testing.",
+    "ESR": "112 mm/hr — markedly elevated, consistent with active chronic infection and inflammation.",
+    "CRP": "88 mg/L — significantly elevated, consistent with active infection.",
+    "Blood Glucose": "9.4 mmol/L — elevated in known diabetic. Poor glycaemic control increases TB severity and treatment response. HbA1c required.",
+    "HbA1c": "74 mmol/mol (8.9%) — suboptimal glycaemic control. Diabetes is a major risk factor for TB reactivation and is associated with worse treatment outcomes. Intensification of diabetes management required alongside TB treatment.",
+    "LFTs (Liver Function Tests)": "ALT 36 IU/L, ALP 88 IU/L, Bilirubin 10 µmol/L, Albumin 28 g/L (hypoalbuminaemia — malnutrition and chronic disease). Baseline LFTs critical before starting anti-TB therapy — all four first-line drugs (HRZE) are potentially hepatotoxic. Monitor closely during treatment.",
+    "Urea & Electrolytes": "Na 135 mmol/L, K 3.8 mmol/L, Creatinine 84 µmol/L, Urea 5.6 mmol/L — normal. Baseline renal function required before starting ethambutol (renally cleared — dose adjustment needed in renal impairment)."
   },
 
-  "hidden_diagnosis": "Pulmonary Tuberculosis",
+  "hidden_diagnosis": "Active Pulmonary Tuberculosis — Smear Positive, Cavitary Disease",
 
   "patient_rules": {
     "never_reveal_diagnosis": true,
     "only_answer_if_asked": true,
-    "emotional_state": "fatigued",
+    "emotional_state": "fatigued and anxious — has noticed symptoms worsening for weeks, concerned about what is wrong, worried about implications for family and housemates",
     "allow_small_talk": false
   },
 
   "scoring_rubric": {
     "essential_questions": [
-      "cough duration",
-      "weight loss",
-      "night sweats",
-      "hemoptysis",
-      "tb exposure",
-      "fever",
-      "appetite loss"
+      "duration of cough — weeks to months is a key TB red flag",
+      "character of cough — productive, blood-streaked sputum",
+      "haemoptysis — volume and frequency",
+      "night sweats — severity, drenching vs mild",
+      "unintentional weight loss — amount and timeframe",
+      "fatigue and anorexia — constitutional B symptoms",
+      "fever — pattern, low-grade evening fevers typical of TB",
+      "country of origin or birth — TB-endemic country",
+      "recent travel to high TB-burden regions",
+      "known TB contacts — household, workplace, community",
+      "living conditions — crowded housing, hostel, prison",
+      "HIV status — must be tested in all TB patients",
+      "previous TB diagnosis or treatment — risk of drug resistance",
+      "diabetes mellitus — major TB reactivation risk factor",
+      "immunosuppressive therapy — steroids, biologics, chemotherapy",
+      "occupation — healthcare worker, prison worker, teacher",
+      "smoking history",
+      "BCG vaccination history"
     ],
 
     "essential_examinations": [
-      "respiratory examination",
-      "weight assessment",
-      "vital signs"
-    ],
-
-    "essential_investigations": [
-      "chest xray",
-      "sputum microscopy",
-      "tb pcr"
+      "general assessment — cachexia, pallor, fever, chronically unwell",
+      "respiratory examination — upper lobe crackles, bronchial breathing, reduced air entry apically",
+      "percussion — dullness over consolidation or effusion",
+      "lymph node examination — cervical, supraclavicular lymphadenopathy",
+      "weight measurement and BMI",
+      "temperature — low-grade fever pattern",
+      "oxygen saturation",
+      "abdominal examination — hepatosplenomegaly in miliary TB"
     ],
 
     "critical_actions": [
-      "recognize tuberculosis",
-      "isolate patient if needed",
-      "obtain sputum samples",
-      "order chest imaging",
-      "initiate anti-tb treatment pathway"
+      "immediately place patient in airborne isolation — negative pressure room if available; surgical mask on patient during transport",
+      "notify infectious disease or respiratory TB team urgently",
+      "collect three early morning sputum samples for AFB smear and TB culture before starting treatment",
+      "order chest X-ray — upper lobe cavitation, infiltrates, apical fibrosis are classic",
+      "arrange CT chest for further characterisation of extent of disease",
+      "HIV test — mandatory in all TB patients; HIV co-infection fundamentally changes management",
+      "baseline LFTs before starting anti-TB therapy — all four drugs are hepatotoxic",
+      "baseline renal function — ethambutol dose adjustment required in renal impairment",
+      "baseline visual acuity and colour vision — ethambutol can cause optic neuritis",
+      "initiate standard 4-drug anti-TB therapy: HRZE for 2 months (intensive phase) then HR for 4 months (continuation phase) — once drug susceptibility confirmed",
+      "await drug susceptibility testing results — multidrug-resistant TB (MDR-TB) requires specialist management",
+      "contact tracing — all household contacts and close contacts must be screened",
+      "mandatory public health notification — TB is a notifiable disease",
+      "optimise diabetes control — poor glycaemic control worsens TB outcomes",
+      "nutritional support — significant malnutrition present",
+      "directly observed therapy (DOT) should be considered to ensure adherence"
     ],
 
     "red_flags": [
-      "Hemoptysis",
-      "Weight loss",
-      "Night sweats",
-      "Chronic cough",
-      "TB exposure",
-      "Upper lobe cavitation"
+      "Haemoptysis with chronic cough — TB until proven otherwise",
+      "Drenching night sweats + weight loss + chronic cough — classic TB triad",
+      "Upper lobe cavitation on CXR — highly characteristic of post-primary TB",
+      "AFB smear positive — infectious, immediate isolation mandatory",
+      "Lymphopaenia on FBC — raises concern for HIV co-infection",
+      "Diabetes with chronic respiratory symptoms — TB reactivation risk",
+      "Origin from or travel to high TB-burden country",
+      "Crowded living conditions — high transmission risk",
+      "Previous TB treatment — risk of drug-resistant TB",
+      "Known HIV positive status — risk of atypical or disseminated TB"
     ],
 
     "correct_diagnosis_keywords": [
       "tuberculosis",
       "pulmonary tuberculosis",
-      "tb"
+      "tb",
+      "mycobacterium tuberculosis",
+      "active tb"
     ],
 
     "acceptable_differentials": [
-  "Lung cancer",
-  "Pneumonia",
-  "Bronchiectasis",
-  "COPD",
-  "Fungal lung infection"
-],
+      "Primary lung cancer — chronic cough, haemoptysis, weight loss, upper lobe mass; biopsy distinguishes; TB and cancer can coexist",
+      "Community-acquired pneumonia — acute onset, fever, productive cough; CXR consolidation; but lacks chronicity and night sweats",
+      "Lung abscess — cavitary lesion, foul sputum, acute illness; anaerobic organisms; no weight loss or night sweats pattern",
+      "Bronchiectasis — chronic productive cough, recurrent infections; CXR shows dilated airways not upper lobe cavitation",
+      "Fungal lung infection (aspergillosis, histoplasmosis) — immunocompromised patients; travel history; serology and culture distinguish",
+      "Lymphoma — B symptoms (fever, night sweats, weight loss), mediastinal lymphadenopathy; biopsy required"
+    ],
 
-"management_actions": [
-  "Airborne isolation",
-  "Sputum testing",
-  "Chest X-Ray",
-  "Notify infectious disease team",
-  "Initiate anti-tuberculous therapy",
-  "Contact tracing",
-  "Public health notification"
-],
+    "management_actions": [
+      "Airborne isolation immediately — negative pressure room, N95 mask for healthcare workers, surgical mask on patient",
+      "Three early morning sputum samples — AFB smear, TB culture, and drug susceptibility testing (DST)",
+      "Chest X-Ray and CT Chest — characterise extent of disease",
+      "HIV test — mandatory",
+      "Baseline bloods: FBC, LFTs, U&E, blood glucose, HbA1c, ESR, CRP",
+      "Visual acuity and colour vision assessment — baseline before ethambutol",
+      "Standard anti-TB therapy: Isoniazid (H) + Rifampicin (R) + Pyrazinamide (Z) + Ethambutol (E) for 2 months, then Isoniazid + Rifampicin for 4 months",
+      "Pyridoxine (vitamin B6) supplementation with isoniazid — prevents peripheral neuropathy",
+      "Await DST results — modify regimen if MDR-TB confirmed",
+      "Monitor LFTs monthly during treatment — hepatotoxicity risk with HRZE",
+      "Monthly visual acuity monitoring — ethambutol optic neuritis",
+      "Optimise glycaemic control — increase metformin or add second agent",
+      "Nutritional support and dietitian referral",
+      "Mandatory public health notification",
+      "Contact tracing — all household contacts and close contacts",
+      "Consider directly observed therapy (DOT) for adherence assurance",
+      "Smoking cessation counselling"
+    ],
 
-"important_investigations": [
-  "Chest X-Ray",
-  "Sputum AFB",
-  "TB PCR",
-  "CBC",
-  "CT Chest"
-],
+    "important_investigations": [
+      "Chest X-Ray",
+      "CT Chest",
+      "Sputum AFB Smear",
+      "FBC (Full Blood Count)",
+      "ESR",
+      "CRP",
+      "LFTs (Liver Function Tests)",
+      "Urea & Electrolytes",
+      "Blood Glucose",
+      "HbA1c"
+    ],
 
-"critical_history_questions": [
-  "Chronic cough duration?",
-  "Weight loss?",
-  "Night sweats?",
-  "Haemoptysis?",
-  "TB exposure?",
-  "Recent travel?",
-  "Immunosuppression?",
-  "Previous TB infection?"
-]
+    "critical_history_questions": [
+      "How long have you had this cough — has it changed over time?",
+      "Have you coughed up any blood — how much and how often?",
+      "Do you wake up sweating at night — do you have to change your clothes or bedding?",
+      "How much weight have you lost and over what period of time?",
+      "Have you had a fever — does it tend to come in the evenings?",
+      "Where were you born and where have you lived?",
+      "Have you spent time in any country with a high rate of TB?",
+      "Has anyone close to you had tuberculosis — at home, at work, or in your community?",
+      "How many people do you live with and in how many rooms?",
+      "Have you ever been tested or treated for TB before?",
+      "Have you ever been tested for HIV — would you be willing to have a test today?",
+      "Do you have diabetes or any condition affecting your immune system?",
+      "Are you on any steroids or other medications that affect your immune system?",
+      "Do you work in healthcare, a prison, or another high-risk environment?",
+      "Have you had a BCG vaccination?",
+      "Do you smoke?"
+    ]
   }
 }

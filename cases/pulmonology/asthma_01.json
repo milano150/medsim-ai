@@ -11,7 +11,8 @@
       "wheezing",
       "shortness of breath",
       "pulmonology",
-      "respiratory"
+      "respiratory",
+      "bronchospasm"
     ]
   },
 
@@ -29,7 +30,9 @@
       "nurse",
       "retail worker",
       "office worker",
-      "sales representative"
+      "sales representative",
+      "graphic designer",
+      "librarian"
     ],
     "pain_score_range": [0, 3],
     "risk_factor_count_range": [1, 3]
@@ -37,52 +40,53 @@
 
   "presentation_variants": [
     {
-      "presenting_complaint": "I'm wheezing and short of breath"
+      "presenting_complaint": "I'm wheezing and can't catch my breath"
     },
     {
-      "presenting_complaint": "My asthma is acting up"
+      "presenting_complaint": "My asthma is flaring up badly today"
     },
     {
-      "presenting_complaint": "I can't catch my breath"
+      "presenting_complaint": "My chest is tight and I'm struggling to breathe"
     },
     {
-      "presenting_complaint": "Chest tightness and wheezing"
+      "presenting_complaint": "My inhaler isn't working and my breathing is getting worse"
     },
     {
-      "presenting_complaint": "Breathing has become difficult today"
+      "presenting_complaint": "I've been wheezing all day and it won't settle"
     }
   ],
 
   "history_data": {
-    "hpi": "Patient developed worsening shortness of breath and wheezing over the past 12 hours. Symptoms began after exposure to dust and have not improved with usual inhaler use. Reports chest tightness and cough.",
+    "hpi": "Patient with known asthma presents with worsening shortness of breath and audible wheeze over the past 12 hours. Symptoms began after exposure to dust at work and have not improved despite repeated use of salbutamol inhaler. Reports associated chest tightness and dry cough. Denies fever or purulent sputum. No previous ICU admission but had one hospital admission 2 years ago for a severe exacerbation.",
 
     "patient_quotes": [
-      "I feel like I can't get enough air.",
-      "I've been wheezing all day.",
-      "My inhaler isn't helping much.",
-      "My chest feels tight.",
-      "Breathing is getting harder."
+      "I feel like I can't get enough air in.",
+      "My chest feels really tight — it's hard to breathe out.",
+      "I've used my inhaler four times today and it's barely helping.",
+      "I started wheezing after cleaning out the storage room at work.",
+      "I'm scared — this feels worse than usual."
     ],
 
     "pmh_pool": [
-      "Asthma",
-      "Allergic rhinitis",
-      "Eczema",
-      "Previous asthma hospitalization"
+      "Asthma — diagnosed age 14, previously well controlled",
+      "Allergic rhinitis — ongoing, managed with antihistamines",
+      "Eczema — mild, topical treatment only",
+      "Previous asthma hospitalisation — 2 years ago, discharged after nebulisers and steroids",
+      "No previous ICU admission or intubation"
     ],
 
     "medications_pool": [
-      "Salbutamol inhaler",
-      "Budesonide inhaler",
-      "Montelukast",
-      "Fluticasone inhaler"
+      "Salbutamol 100mcg inhaler — PRN (rescue inhaler)",
+      "Budesonide 200mcg inhaler — twice daily (preventer)",
+      "Montelukast 10mg daily",
+      "Loratadine 10mg daily (for allergic rhinitis)"
     ],
 
     "social_history": {
       "smoking": "Non-smoker",
-      "alcohol": "Occasional alcohol use",
-      "exercise": "Limited due to symptoms",
-      "stress": "Normal daily stress"
+      "alcohol": "Occasional alcohol — 1–2 drinks per week",
+      "exercise": "Normally active but limiting exercise due to current symptoms",
+      "stress": "Moderate work-related stress"
     },
 
     "core_facts": {
@@ -90,152 +94,194 @@
       "wheezing": true,
       "chest_tightness": true,
       "cough": true,
-      "duration": "12 hours"
+      "symptom_duration": "12 hours",
+      "trigger": "dust exposure at work",
+      "inhaler_response": "partial — minimal improvement with repeated salbutamol use",
+      "fever": false,
+      "purulent_sputum": false
     },
 
     "negative_history": [
+      "No fever or chills",
+      "No purulent sputum",
+      "No haemoptysis",
       "No chest pain",
-      "No hemoptysis",
-      "No recent surgery"
+      "No leg swelling or calf pain",
+      "No recent foreign travel",
+      "No previous intubation or ICU admission for asthma"
     ]
   },
 
   "physical_exam": {
     "general_appearance": [
-      "Mild respiratory distress",
-      "Speaking in short sentences",
-      "Appears anxious"
+      "Mild to moderate respiratory distress",
+      "Speaking in short sentences — unable to complete full sentences comfortably",
+      "Appears anxious and sitting forward",
+      "Using accessory muscles of respiration"
     ],
 
     "cardiovascular": [
-      "Tachycardia",
-      "Regular rhythm"
+      "Tachycardia — heart rate elevated",
+      "Regular rhythm",
+      "No murmurs",
+      "Peripheral perfusion adequate"
     ],
 
     "respiratory": [
-      "Diffuse expiratory wheeze",
+      "Bilateral expiratory wheeze — diffuse throughout lung fields",
       "Prolonged expiratory phase",
-      "Reduced air entry bilaterally"
+      "Reduced air entry bilaterally",
+      "No crackles",
+      "No pleural rub",
+      "Accessory muscle use — sternocleidomastoid and intercostal recession"
     ]
   },
 
   "vitals_ranges": {
-    "systolic_bp": [105, 150],
+    "systolic_bp": [105, 145],
     "diastolic_bp": [65, 95],
-    "heart_rate": [95, 140],
-    "resp_rate": [20, 35],
-    "spo2": [88, 96],
-    "temperature": [36.4, 37.4]
+    "heart_rate": [100, 135],
+    "resp_rate": [22, 34],
+    "spo2": [88, 95],
+    "temperature": [36.4, 37.2]
   },
 
   "investigations": {
-    "ecg_variants": [
-      "Sinus tachycardia"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "Hyperinflation",
-      "No acute abnormality",
-      "Mild hyperexpanded lungs"
-    ],
-
-    "lab_findings": [
-      "Eosinophilia",
-      "Normal CBC",
-      "Mild respiratory alkalosis"
-    ]
+    "Peak Flow": "Peak expiratory flow rate 42% of predicted best — severe reduction. Confirms significant airways obstruction. Serial peak flows required to monitor response to treatment.",
+    "ABG (Arterial Blood Gas)": "pH 7.46, PaO2 72 mmHg (hypoxaemia), PaCO2 32 mmHg (hypocapnia — hyperventilation), HCO3 22 mmol/L, SpO2 91% on air. Pattern consistent with moderate to severe asthma. Rising PaCO2 toward normal range would indicate impending respiratory failure.",
+    "Chest X-Ray": "Bilateral hyperinflation. No pneumothorax. No consolidation or pleural effusion. No acute cardiopulmonary abnormality beyond hyperinflation. Imaging useful to exclude pneumothorax and pneumonia as precipitants.",
+    "FBC (Full Blood Count)": "WBC 10.8 × 10⁹/L, Eosinophils 0.9 × 10⁹/L (elevated — consistent with atopic/allergic asthma phenotype), Hb 13.6 g/dL, Platelets 274 × 10⁹/L.",
+    "CRP": "18 mg/L — mildly elevated, non-specific. No strong evidence of bacterial infection as precipitant.",
+    "Urea & Electrolytes": "Na 138 mmol/L, K 3.2 mmol/L (mildly low — monitor with repeated salbutamol nebulisations, which can cause hypokalaemia), Creatinine 82 µmol/L, Urea 5.1 mmol/L — otherwise normal.",
+    "ECG": "Sinus tachycardia at 118 bpm. No acute ST changes. No right heart strain pattern. Tachycardia consistent with hypoxia and salbutamol use."
   },
 
-  "hidden_diagnosis": "Acute Asthma Exacerbation",
+  "hidden_diagnosis": "Acute Asthma Exacerbation — Moderate to Severe",
 
   "patient_rules": {
     "never_reveal_diagnosis": true,
     "only_answer_if_asked": true,
-    "emotional_state": "anxious",
+    "emotional_state": "anxious and frightened — breathing difficulty is distressing",
     "allow_small_talk": false
   },
 
   "scoring_rubric": {
     "essential_questions": [
-      "shortness of breath",
-      "wheezing",
-      "inhaler use",
-      "trigger exposure",
-      "previous attacks",
-      "hospital admissions",
-      "cough"
+      "onset and duration of current symptoms",
+      "nature of breathlessness — at rest or exertional?",
+      "wheeze — when did it start?",
+      "chest tightness",
+      "cough — productive or dry?",
+      "trigger identification — allergen, dust, exercise, URTI, cold air",
+      "inhaler use — how many times used today? Any response?",
+      "known asthma diagnosis — when diagnosed, usual control",
+      "previous severe attacks requiring hospitalisation",
+      "previous ICU admission or intubation",
+      "current preventer inhaler — compliance",
+      "nocturnal symptoms — waking at night with wheeze or cough",
+      "recent upper respiratory tract infection",
+      "allergic history — rhinitis, eczema, food allergy",
+      "smoking history",
+      "occupational exposures"
     ],
 
     "essential_examinations": [
-      "respiratory examination",
-      "vital signs",
-      "oxygen saturation"
-    ],
-
-    "essential_investigations": [
-      "peak flow",
-      "chest xray",
-      "oxygen saturation"
+      "general assessment — can patient complete sentences? Using accessory muscles?",
+      "respiratory rate",
+      "oxygen saturation on air",
+      "auscultation — wheeze, air entry, prolonged expiratory phase",
+      "heart rate — tachycardia from hypoxia or salbutamol",
+      "peak expiratory flow rate — compare to personal best or predicted"
     ],
 
     "critical_actions": [
-      "recognize asthma exacerbation",
-      "assess severity",
-      "administer bronchodilator",
-      "provide oxygen if needed",
-      "consider steroids"
+      "assess severity — mild, moderate, severe, or life-threatening (BTS/SIGN criteria: PEF, SpO2, heart rate, respiratory rate, speech)",
+      "identify life-threatening features: silent chest, SpO2 <92%, PaCO2 normal or elevated, poor respiratory effort, altered consciousness",
+      "administer oxygen to maintain SpO2 94–98%",
+      "administer salbutamol 2.5–5mg via nebuliser — back-to-back if severe",
+      "administer ipratropium bromide 0.5mg nebuliser in moderate-severe cases",
+      "administer systemic corticosteroids: prednisolone 40–50mg oral or hydrocortisone 100mg IV if unable to swallow",
+      "obtain peak flow before and after treatment to assess response",
+      "obtain ABG if SpO2 <92% or signs of impending respiratory failure",
+      "consider IV magnesium sulphate 1.2–2g over 20 minutes in severe or life-threatening exacerbation not responding to initial treatment",
+      "monitor potassium — repeated salbutamol nebulisations can cause hypokalaemia",
+      "escalate to ICU/HDU if deteriorating or life-threatening features present",
+      "identify and treat precipitant — infection, allergen, NSAID/aspirin use"
     ],
 
     "red_flags": [
-      "Unable to complete sentences",
-      "Low oxygen saturation",
-      "Silent chest",
-      "Previous ICU admission",
-      "Severe respiratory distress"
+      "SpO2 <92% on air",
+      "PEF <33% of predicted — life-threatening",
+      "PEF 33–50% of predicted — severe",
+      "Silent chest — absence of wheeze with severe distress",
+      "Inability to complete sentences",
+      "Cyanosis",
+      "Poor respiratory effort or exhaustion",
+      "Altered consciousness or confusion",
+      "Rising PaCO2 on ABG — indicates impending respiratory failure",
+      "Previous near-fatal asthma or ICU admission",
+      "Failure to respond to initial bronchodilator therapy"
     ],
 
     "correct_diagnosis_keywords": [
       "asthma",
+      "acute asthma",
       "acute asthma exacerbation",
-      "bronchial asthma"
+      "bronchial asthma",
+      "asthma attack"
     ],
 
     "acceptable_differentials": [
-  "COPD exacerbation",
-  "Pneumonia",
-  "Pulmonary embolism",
-  "Anaphylaxis",
-  "Heart failure"
-],
+      "COPD exacerbation — but patient is young, non-smoker, known asthmatic",
+      "Anaphylaxis — consider if acute allergen exposure, urticaria, or angioedema present",
+      "Pulmonary embolism — no leg swelling, low clinical probability",
+      "Pneumonia — no fever, consolidation, or purulent sputum",
+      "Vocal cord dysfunction — can mimic wheeze, inspiratory stridor, no response to bronchodilators",
+      "Acute pulmonary oedema — cardiac wheeze, but no cardiac history, no crackles"
+    ],
 
-"management_actions": [
-  "Assess severity",
-  "Oxygen if hypoxic",
-  "Nebulised salbutamol",
-  "Nebulised ipratropium",
-  "Systemic corticosteroids",
-  "Peak flow monitoring",
-  "Escalate if deteriorating"
-],
+    "management_actions": [
+      "Oxygen: titrate to SpO2 94–98% via nasal cannulae or face mask",
+      "Salbutamol 5mg nebulised immediately — repeat every 15–20 minutes if severe",
+      "Ipratropium bromide 0.5mg nebulised — add in moderate-to-severe attacks",
+      "Prednisolone 40–50mg oral once daily for 5 days",
+      "Magnesium sulphate 1.2–2g IV over 20 minutes — if inadequate response to above",
+      "Serial peak flow measurements to track response",
+      "Monitor potassium — replace if <3.0 mmol/L",
+      "Chest X-Ray to exclude pneumothorax or pneumonia",
+      "ABG if SpO2 <92% or clinical deterioration",
+      "HDU/ICU referral if life-threatening features or failure to respond",
+      "Review and optimise preventer therapy before discharge",
+      "Written asthma action plan at discharge",
+      "Respiratory/allergy follow-up within 2 weeks",
+      "Educate on trigger avoidance — occupational dust exposure in this case"
+    ],
 
-"important_investigations": [
-  "Peak Expiratory Flow Rate",
-  "ABG",
-  "Chest X-Ray",
-  "Oxygen Saturation"
-],
+    "important_investigations": [
+      "Peak Flow",
+      "ABG (Arterial Blood Gas)",
+      "Chest X-Ray",
+      "FBC (Full Blood Count)",
+      "Urea & Electrolytes",
+      "CRP",
+      "ECG"
+    ],
 
-"critical_history_questions": [
-  "When did symptoms begin?",
-  "Any previous asthma attacks?",
-  "Any ICU admissions?",
-  "Any triggers?",
-  "Current inhaler use?",
-  "Night symptoms?",
-  "Recent respiratory infection?",
-  "Smoking history?"
-]
+    "critical_history_questions": [
+      "When exactly did the breathing difficulty start?",
+      "Did anything trigger this episode — dust, animals, exercise, cold air, recent cold?",
+      "How many times have you used your reliever inhaler today? Did it help?",
+      "Are you normally well controlled on your preventer inhaler?",
+      "Have you ever been admitted to hospital with your asthma before?",
+      "Have you ever been in ICU or needed a breathing tube for your asthma?",
+      "Do you wake at night with wheeze or cough?",
+      "Do you have allergies — hay fever, eczema, food allergy?",
+      "Any recent cold or chest infection before this started?",
+      "Do you smoke?",
+      "Any exposure to new chemicals, dust, or fumes at work or home?",
+      "Have you taken any aspirin, ibuprofen, or beta-blockers recently?",
+      "Do you have a personal best peak flow reading?",
+      "Any chest pain, leg swelling, or recent travel?"
+    ]
   }
 }

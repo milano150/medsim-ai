@@ -8,15 +8,17 @@
     "diagnosis": "Primary Lung Cancer",
     "tags": [
       "lung cancer",
-      "hemoptysis",
+      "haemoptysis",
       "weight loss",
       "smoking",
-      "pulmonology"
+      "pulmonology",
+      "malignancy",
+      "bronchogenic carcinoma"
     ]
   },
 
   "patient_generator": {
-    "age_range": [50, 85],
+    "age_range": [50, 80],
     "sexes": [
       "male",
       "female"
@@ -29,218 +31,277 @@
       "shop owner",
       "security guard",
       "warehouse worker",
+      "retired miner",
+      "retired shipyard worker",
       "business owner"
     ],
     "pain_score_range": [1, 6],
-    "risk_factor_count_range": [2, 5]
+    "risk_factor_count_range": [2, 4]
   },
 
   "presentation_variants": [
     {
-      "presenting_complaint": "I've had a cough for months"
+      "presenting_complaint": "I've had a cough for months that won't go away"
     },
     {
-      "presenting_complaint": "I'm coughing up blood"
+      "presenting_complaint": "I've been coughing up blood"
     },
     {
-      "presenting_complaint": "I've lost a lot of weight recently"
+      "presenting_complaint": "I've lost a lot of weight without trying"
     },
     {
-      "presenting_complaint": "Persistent cough and breathlessness"
+      "presenting_complaint": "Persistent cough and I'm getting more breathless"
     },
     {
-      "presenting_complaint": "My cough just won't go away"
+      "presenting_complaint": "I feel exhausted all the time and my cough is getting worse"
     }
   ],
 
   "history_data": {
-    "hpi": "Patient reports a chronic cough for the past 4 months. Over the last 6 weeks, there has been progressive weight loss, worsening fatigue, and occasional hemoptysis. Shortness of breath has gradually increased.",
+    "hpi": "Patient presents with a 4-month history of persistent dry cough that has recently become productive of blood-streaked sputum. Over the past 6 weeks the patient has noticed progressive unintentional weight loss of approximately 8kg, worsening fatigue, and gradually increasing dyspnoea on exertion. Appetite has been markedly reduced. No recent fever or purulent sputum to suggest acute infection. Patient is a heavy smoker with a 50 pack-year history and has background COPD. No history of previous malignancy.",
 
     "patient_quotes": [
-      "I've lost weight without trying.",
-      "The cough never really goes away.",
-      "I've noticed blood in my sputum.",
-      "I feel exhausted all the time.",
-      "Breathing has become harder recently."
+      "This cough has been going on for months — I just assumed it was my COPD.",
+      "I've noticed blood mixed in with the phlegm a few times.",
+      "I've lost nearly a stone in weight without even trying.",
+      "I'm exhausted all the time — I have no energy.",
+      "I'm getting more breathless than usual, even for me."
     ],
 
     "pmh_pool": [
-      "Smoking",
-      "COPD",
-      "Hypertension",
-      "Hyperlipidemia",
-      "Previous pneumonia"
+      "COPD — GOLD stage II, diagnosed 6 years ago",
+      "Heavy smoking history — 50 pack-years, current smoker",
+      "Hypertension — diagnosed 12 years ago",
+      "Hyperlipidaemia — on statin therapy",
+      "Previous pneumonia — 4 years ago, right lower lobe, fully resolved",
+      "Asbestos exposure — worked in shipbuilding for 20 years"
     ],
 
     "medications_pool": [
-      "Salbutamol inhaler",
-      "Tiotropium inhaler",
-      "Amlodipine",
-      "Atorvastatin"
+      "Salbutamol 100mcg inhaler — PRN",
+      "Tiotropium 18mcg inhaler — once daily",
+      "Amlodipine 5mg daily",
+      "Atorvastatin 40mg daily"
     ],
 
     "social_history": {
-      "smoking": "50 pack-year smoking history",
-      "alcohol": "Occasional alcohol use",
-      "exercise": "Minimal exercise",
-      "stress": "Moderate stress"
+      "smoking": "Current smoker — 50 pack-year history, approximately 25 cigarettes per day for 40 years",
+      "alcohol": "Occasional alcohol — 3–4 units per week",
+      "exercise": "Minimal — limited by dyspnoea at baseline",
+      "stress": "Moderate — recently widowed, lives alone"
     },
 
     "core_facts": {
       "chronic_cough": true,
+      "cough_duration": "4 months",
+      "haemoptysis": true,
+      "haemoptysis_character": "blood-streaked sputum — not frank haemoptysis",
       "weight_loss": true,
-      "hemoptysis": true,
+      "weight_loss_amount": "approximately 8kg over 6 weeks",
       "fatigue": true,
-      "duration": "4 months"
+      "anorexia": true,
+      "progressive_dyspnoea": true,
+      "fever": false,
+      "purulent_sputum": false,
+      "previous_malignancy": false
     },
 
     "negative_history": [
-      "No recent trauma",
-      "No recent surgery",
-      "No acute infection symptoms"
+      "No fever or night sweats",
+      "No purulent sputum",
+      "No recent foreign travel or TB contacts",
+      "No bone pain or headache suggesting metastatic disease",
+      "No confusion or focal neurology",
+      "No leg swelling",
+      "No previous malignancy",
+      "No recent chest trauma or surgery"
     ]
   },
 
   "physical_exam": {
     "general_appearance": [
-      "Appears thin",
-      "Looks fatigued",
-      "Mild respiratory distress"
+      "Visibly cachectic — marked muscle wasting",
+      "Appears older than stated age",
+      "Mild pallor",
+      "Tar-stained fingers bilaterally",
+      "No acute distress at rest but breathless on minimal exertion"
     ],
 
     "cardiovascular": [
+      "Heart rate mildly elevated",
       "Regular rhythm",
-      "Mild tachycardia"
+      "No murmurs",
+      "No peripheral oedema"
     ],
 
     "respiratory": [
-      "Reduced breath sounds over right upper lung",
-      "Localized wheeze",
-      "Mild crackles"
+      "Reduced breath sounds over right upper zone",
+      "Localised monophonic wheeze — right upper lobe",
+      "Dullness to percussion right upper zone",
+      "No crackles elsewhere",
+      "No pleural rub",
+      "Mild finger clubbing — early Grade 1"
+    ],
+
+    "lymph_nodes": [
+      "Right supraclavicular lymphadenopathy — single firm, non-tender node approximately 1.5cm",
+      "No cervical or axillary lymphadenopathy"
     ]
   },
 
   "vitals_ranges": {
-    "systolic_bp": [105, 160],
-    "diastolic_bp": [60, 95],
-    "heart_rate": [80, 120],
-    "resp_rate": [16, 28],
-    "spo2": [90, 97],
-    "temperature": [36.4, 38.0]
+    "systolic_bp": [110, 160],
+    "diastolic_bp": [65, 95],
+    "heart_rate": [82, 118],
+    "resp_rate": [16, 26],
+    "spo2": [90, 96],
+    "temperature": [36.5, 37.6]
   },
 
   "investigations": {
-    "ecg_variants": [
-      "Normal sinus rhythm",
-      "Sinus tachycardia"
-    ],
-
-    "troponin_range": [0.0, 0.05],
-
-    "chest_xray": [
-      "Right upper lobe mass",
-      "Left hilar mass",
-      "Suspicious pulmonary lesion",
-      "Lung mass with hilar enlargement"
-    ],
-
-    "lab_findings": [
-      "Mild anemia",
-      "Elevated ESR",
-      "Elevated calcium"
-    ]
+    "Chest X-Ray": "Irregular spiculated mass 4.5cm in the right upper lobe. Associated right hilar enlargement — consistent with hilar lymphadenopathy. No pleural effusion. No evidence of bony metastases on the visualised ribs. Appearances are highly suspicious for primary lung malignancy. Urgent CT chest required.",
+    "CT Chest": "4.8cm spiculated right upper lobe mass with irregular margins and pleural tethering. Ipsilateral right hilar and right paratracheal lymphadenopathy. No pleural effusion. No pericardial effusion. Highly suspicious for primary bronchogenic carcinoma. CT-guided biopsy and PET staging recommended.",
+    "FBC (Full Blood Count)": "WBC 10.2 × 10⁹/L, Hb 10.4 g/dL (normocytic anaemia — anaemia of chronic disease), MCV 84 fL, Platelets 448 × 10⁹/L (thrombocytosis — paraneoplastic or reactive). Anaemia warrants iron studies and B12/folate assessment.",
+    "CRP": "64 mg/L — elevated, consistent with malignancy-associated inflammation.",
+    "ESR": "88 mm/hr — significantly elevated, consistent with active malignancy.",
+    "Urea & Electrolytes": "Na 128 mmol/L (hyponatraemia — may indicate SIADH, a paraneoplastic syndrome particularly associated with small cell lung cancer), K 3.8 mmol/L, Creatinine 88 µmol/L, Urea 6.2 mmol/L. Hyponatraemia requires urgent investigation.",
+    "LFTs (Liver Function Tests)": "ALP 198 IU/L (elevated), ALT 44 IU/L (mildly elevated), Bilirubin 14 µmol/L, Albumin 28 g/L (hypoalbuminaemia — consistent with malnutrition and chronic disease). Elevated ALP raises concern for hepatic or bony metastases.",
+    "Blood Glucose": "5.8 mmol/L — normal.",
+    "Sputum Culture": "No significant bacterial growth. Sputum cytology sent separately — result pending. Sputum cytology has moderate sensitivity for central tumours."
   },
 
-  "hidden_diagnosis": "Primary Lung Cancer",
+  "hidden_diagnosis": "Primary Lung Cancer — Suspected Non-Small Cell Lung Cancer (NSCLC), Right Upper Lobe",
 
   "patient_rules": {
     "never_reveal_diagnosis": true,
     "only_answer_if_asked": true,
-    "emotional_state": "worried",
+    "emotional_state": "anxious and worried — aware symptoms are serious, concerned about what investigations may reveal",
     "allow_small_talk": false
   },
 
   "scoring_rubric": {
     "essential_questions": [
-      "cough duration",
-      "hemoptysis",
-      "weight loss",
-      "smoking history",
-      "fatigue",
-      "shortness of breath",
-      "appetite changes"
+      "duration of cough — weeks to months is a red flag",
+      "character of cough — dry, productive, blood-streaked",
+      "haemoptysis — volume, frequency, frank blood vs streaked",
+      "unintentional weight loss — amount and timeframe",
+      "fatigue and anorexia — systemic features of malignancy",
+      "progressive dyspnoea — change from baseline",
+      "smoking history — pack-years, current or ex-smoker",
+      "occupational exposures — asbestos, silica, radon",
+      "previous malignancy or family history of lung cancer",
+      "symptoms of metastatic disease — bone pain, headache, confusion, focal neurology",
+      "COPD background — change from usual symptoms",
+      "night sweats — consider TB or lymphoma as differential",
+      "hoarseness — suggests recurrent laryngeal nerve involvement",
+      "facial swelling or arm oedema — superior vena cava obstruction",
+      "shoulder or arm pain — Pancoast tumour involvement of brachial plexus"
     ],
 
     "essential_examinations": [
-      "respiratory examination",
-      "lymph node examination",
-      "vital signs"
-    ],
-
-    "essential_investigations": [
-      "chest xray",
-      "ct chest",
-      "bronchoscopy"
+      "general assessment — cachexia, pallor, tar staining, clubbing",
+      "lymph node examination — supraclavicular, cervical, axillary nodes",
+      "respiratory examination — focal signs: reduced air entry, localised wheeze, dullness",
+      "abdominal examination — hepatomegaly suggesting metastases",
+      "neurological assessment — focal deficits if cerebral metastases",
+      "vital signs including oxygen saturation",
+      "assessment for superior vena cava obstruction — facial plethora, neck vein distension"
     ],
 
     "critical_actions": [
-      "recognize possible lung cancer",
-      "identify red flag symptoms",
-      "obtain chest imaging",
-      "arrange tissue diagnosis",
-      "refer to oncology"
+      "recognise lung cancer red flag symptoms: haemoptysis + weight loss + chronic cough + heavy smoking = urgent 2-week-wait referral",
+      "obtain urgent chest X-ray — first-line imaging",
+      "if CXR suspicious, arrange urgent CT chest (with contrast) for full characterisation",
+      "refer urgently to respiratory/thoracic oncology team — 2-week-wait pathway",
+      "obtain tissue diagnosis — CT-guided biopsy, bronchoscopy, or endobronchial ultrasound (EBUS) depending on location",
+      "staging: CT chest/abdomen/pelvis and PET-CT to assess for metastatic disease",
+      "assess for paraneoplastic syndromes — hyponatraemia (SIADH in SCLC), hypercalcaemia (squamous cell), Cushing syndrome (SCLC)",
+      "assess performance status (ECOG/WHO) — guides treatment eligibility",
+      "smoking cessation — even at this stage, cessation improves treatment outcomes",
+      "bone profile and LFTs to screen for metastatic disease",
+      "multidisciplinary team (MDT) discussion before any treatment decision"
     ],
 
     "red_flags": [
-      "Hemoptysis",
-      "Unintentional weight loss",
-      "Chronic cough",
-      "Heavy smoking history",
-      "Lung mass on imaging",
-      "Progressive symptoms"
+      "Haemoptysis in a smoker over 40 — urgent investigation mandatory",
+      "Unintentional weight loss >5% body weight over 3–6 months",
+      "Persistent cough lasting more than 3 weeks in a smoker",
+      "Supraclavicular lymphadenopathy — suggests N3 disease or metastatic spread",
+      "Finger clubbing — associated with NSCLC",
+      "Hyponatraemia — may indicate SIADH (paraneoplastic, especially SCLC)",
+      "Elevated ALP or LFTs — may indicate hepatic or bony metastases",
+      "Localised monophonic wheeze — endobronchial lesion causing partial obstruction",
+      "Hoarseness — recurrent laryngeal nerve involvement by mediastinal disease",
+      "Facial swelling and arm oedema — superior vena cava obstruction (oncological emergency)"
     ],
 
     "correct_diagnosis_keywords": [
       "lung cancer",
+      "primary lung cancer",
       "bronchogenic carcinoma",
       "pulmonary malignancy",
-      "primary lung cancer"
+      "non-small cell lung cancer",
+      "nsclc",
+      "squamous cell carcinoma lung",
+      "adenocarcinoma lung"
     ],
+
     "acceptable_differentials": [
-  "Tuberculosis",
-  "Pneumonia",
-  "COPD",
-  "Pleural effusion",
-  "Metastatic cancer"
-],
+      "Pulmonary tuberculosis — chronic cough, haemoptysis, weight loss, night sweats; exclude with sputum AFB and Mantoux/IGRA",
+      "Metastatic cancer — secondary lung deposits from breast, colon, renal primary; usually multiple lesions",
+      "Lymphoma — mediastinal mass, B symptoms; biopsy required to differentiate",
+      "Lung abscess — cavitating lesion, fever, purulent sputum, unwell; CT will differentiate",
+      "COPD exacerbation — background COPD but does not explain mass or weight loss",
+      "Pneumonia with slow resolution — consolidation, but no acute infection features here and chronic course makes this unlikely"
+    ],
 
-"management_actions": [
-  "Smoking cessation advice",
-  "CT chest",
-  "Tissue diagnosis",
-  "Oncology referral",
-  "Respiratory referral",
-  "Staging investigations",
-  "Symptom management"
-],
+    "management_actions": [
+      "Urgent chest X-ray — if not already done",
+      "CT chest with contrast — characterise mass, assess mediastinum and lymph nodes",
+      "CT abdomen and pelvis — staging, assess for hepatic and adrenal metastases",
+      "PET-CT — full staging for surgical or radical treatment candidacy",
+      "Tissue biopsy — CT-guided biopsy (peripheral lesion) or bronchoscopy/EBUS (central or hilar lesion)",
+      "Sputum cytology — low sensitivity but non-invasive; useful for central tumours",
+      "FBC, LFTs, bone profile, U&E — baseline labs and screen for metastatic disease and paraneoplastic syndromes",
+      "Respiratory/thoracic oncology 2-week-wait urgent referral",
+      "MDT discussion before treatment planning",
+      "Performance status assessment (ECOG score) — determines treatment eligibility",
+      "Lung function tests (spirometry) — required before surgical resection consideration",
+      "Smoking cessation counselling and pharmacotherapy",
+      "Nutritional support and dietitian referral — significant weight loss and hypoalbuminaemia",
+      "Palliation of symptoms — cough suppression, analgesia, dyspnoea management as appropriate",
+      "Psychological support and patient education about diagnosis pathway"
+    ],
 
-"important_investigations": [
-  "Chest X-Ray",
-  "CT Chest",
-  "Bronchoscopy",
-  "Biopsy",
-  "PET Scan"
-],
+    "important_investigations": [
+      "Chest X-Ray",
+      "CT Chest",
+      "FBC (Full Blood Count)",
+      "LFTs (Liver Function Tests)",
+      "Urea & Electrolytes",
+      "CRP",
+      "ESR",
+      "Sputum Culture",
+      "Blood Glucose"
+    ],
 
-"critical_history_questions": [
-  "Smoking history?",
-  "Weight loss?",
-  "Haemoptysis?",
-  "Duration of cough?",
-  "Shortness of breath?",
-  "Occupational exposure?",
-  "Family history of cancer?",
-  "Previous malignancy?"
-]
+    "critical_history_questions": [
+      "How long have you had this cough — has it changed recently?",
+      "Have you coughed up any blood — how much and how often?",
+      "How much weight have you lost? Over what period of time?",
+      "Has your appetite changed?",
+      "Do you feel more tired than usual?",
+      "Has your breathing changed from your usual baseline?",
+      "Do you smoke or have you ever smoked? How many cigarettes and for how many years?",
+      "Have you ever been exposed to asbestos, dust, or chemicals at work?",
+      "Have you had any previous cancer diagnosis?",
+      "Is there any family history of lung cancer or other cancers?",
+      "Any bone pain, headaches, or confusion?",
+      "Any hoarseness or change in your voice?",
+      "Any swelling of your face or arms?",
+      "Any shoulder or arm pain?",
+      "Any night sweats?",
+      "Have you had a recent chest X-ray or any previous chest imaging?"
+    ]
   }
 }
