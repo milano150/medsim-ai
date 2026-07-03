@@ -201,26 +201,26 @@
     ],
 
     "acceptable_differentials": [
-  "STEMI",
-  "Pulmonary embolism",
-  "Aortic dissection",
-  "Myocarditis",
-  "Costochondritis"
-],
+      "STEMI",
+      "Pulmonary embolism",
+      "Aortic dissection",
+      "Myocarditis",
+      "Costochondritis"
+    ],
 
-"management_actions": [
-  "ECG",
-  "NSAID therapy",
-  "Monitor for tamponade",
-  "Echocardiography",
-  "Pain management"
-],
+    "management_actions": [
+      "ECG",
+      "NSAID therapy",
+      "Monitor for tamponade",
+      "Echocardiography",
+      "Pain management"
+    ],
 
-"important_investigations": [
-  "ECG",
-  "Troponin",
-  "Echocardiogram",
-  "Chest X-Ray"
-]
+    "important_investigations": [
+      "ECG",
+      "Troponin",
+      "Echocardiogram",
+      "Chest X-Ray"
+    ]
   }
 }
