@@ -1,11 +1,9 @@
 # MedSim AI
 
-MedSim AI is a full-stack medical simulation platform designed to help users practice clinical reasoning in a realistic, interactive environment. The application presents patients from multiple medical specialties, lets users interview the patient, order investigations, and submit diagnoses and management plans, then provides feedback and a structured debrief.
+MedSim AI is a full-stack medical simulation platform designed to help users practice clinical reasoning in a realistic, interactive environment. The application presents patients from multiple medical specialties, lets users interview the patient, order investigations, and submit diagnoses and management plans, then provides feedback and a structured debrief. 
 
-This project was developed as a collaborative effort by:
-- Milan Promod
-- Rithvik Chandra
-- Kushal Malempati
+This project was developed as a collaborative effort by Milan Promod, Rithvik Chandra and Kushal Malempati during our summer internship at Gallopix.
+
 
 ## Overview
 
