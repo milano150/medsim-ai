@@ -444,7 +444,7 @@ def generate_patient_sentence(case_id: str):
 @app.post("/chat")
 def chat_patient(body: ChatRequest):
     if not body.question.strip():
-        raise HTTPException(status_code=400, detail="Question must not be empty")
+        raise HTTPException(status_code=400, detail="Question must not be Empty")
     case = active_cases.get(body.session_id)
     if not case:
         raise HTTPException(status_code=404, detail="Session not found")
