@@ -23,12 +23,61 @@ const VITALS_CONFIG: { key: string; label: string; icon: string }[] = [
 
 const BASE = "http://127.0.0.1:8000";
 
+async function fetchApi<T>(url: string, init?: RequestInit): Promise<T> {
+  const response = await fetch(url, init);
+  let payload: unknown;
+
+  try {
+    payload = await response.json();
+  } catch {
+    payload = undefined;
+  }
+
+  if (!response.ok) {
+    const detail =
+      typeof payload === "object" && payload !== null && "detail" in payload
+        ? payload.detail
+        : undefined;
+    throw new Error(
+      typeof detail === "string" ? detail : `Request failed (${response.status})`,
+    );
+  }
+
+  if (payload === undefined) {
+    throw new Error("The server returned an invalid response.");
+  }
+
+  return payload as T;
+}
+
 
 // Debug info shape returned from /start
 type DebugInfo = {
   hidden_diagnosis: string;
   acceptable_differentials: string[];
   management_actions: string[];
+};
+
+type SpecialtyCase = {
+  case_id: string;
+  investigations?: Record<string, string>;
+  [key: string]: unknown;
+};
+
+type StartCaseResponse = {
+  session_id: string;
+  hidden_diagnosis?: string;
+  acceptable_differentials?: string[];
+  management_actions?: string[];
+};
+
+type PatientStartResponse = {
+  patient_start_sentence: string;
+};
+
+type ChatResponse = {
+  answer: string;
+  suggestions?: string[];
 };
 
 
@@ -46,6 +95,8 @@ function App() {
   const [chatInput, setChatInput]                   = useState("");
   const [suggestions, setSuggestions]               = useState<string[]>([]);
   const [loading, setLoading]                       = useState(false);
+  const [startError, setStartError]                 = useState<string | null>(null);
+  const [chatError, setChatError]                   = useState<string | null>(null);
   const [visibleVitals, setVisibleVitals]           = useState<string[]>([]);
   const [visibleInvestigations, setVisibleInvestigations] = useState<string[]>([]);
 
@@ -152,14 +203,14 @@ function App() {
   // ── Simulation start ─────────────────────────────────────────────────────────
   const startSimulation = async () => {
     setLoading(true);
+    setStartError(null);
+    setChatError(null);
     try {
-      const caseRes  = await fetch(`${BASE}/specialty/${selectedSpecialty.toLowerCase()}`);
-      const caseData = await caseRes.json();
+      const caseData = await fetchApi<SpecialtyCase>(`${BASE}/specialty/${selectedSpecialty.toLowerCase()}`);
       setCaseId(caseData.case_id);
       setPatient({ ...caseData, investigations: caseData.investigations || {} });
 
-      const startRes  = await fetch(`${BASE}/start/${caseData.case_id}`, { method: "POST" });
-      const startData = await startRes.json();
+      const startData = await fetchApi<StartCaseResponse>(`${BASE}/start/${caseData.case_id}`, { method: "POST" });
       setSessionId(startData.session_id);
       setDebugInfo({
         hidden_diagnosis: startData.hidden_diagnosis || "",
@@ -167,8 +218,7 @@ function App() {
         management_actions: startData.management_actions || [],
       });
 
-      const llmRes  = await fetch(`${BASE}/llm/${caseData.case_id}`);
-      const llmData = await llmRes.json();
+      const llmData = await fetchApi<PatientStartResponse>(`${BASE}/llm/${caseData.case_id}`);
 
       setMessages([{ role: "patient", text: llmData.patient_start_sentence }]);
       setSuggestions([]);
@@ -184,6 +234,7 @@ function App() {
       setTimeout(() => chatInputRef.current?.focus(), 100);
     } catch (err) {
       console.error("startSimulation error:", err);
+      setStartError(err instanceof Error ? err.message : "Could not start the simulation.");
     } finally {
       setLoading(false);
     }
@@ -194,20 +245,20 @@ function App() {
     const raw = chatInput.trim();
     if (!raw) return;
     setChatInput("");
+    setChatError(null);
     setMessages((prev) => [...prev, { role: "user", text: raw }]);
     setLoading(true);
     try {
-      const res  = await fetch(`${BASE}/chat`, {
+      const data = await fetchApi<ChatResponse>(`${BASE}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ session_id: sessionId, question: raw }),
       });
-      if (!res.ok) throw new Error("Chat request failed");
-      const data = await res.json();
       setMessages((prev) => [...prev, { role: "patient", text: data.answer }]);
       setSuggestions(data.suggestions || []);
     } catch (err) {
       console.error("Chat error:", err);
+      setChatError(err instanceof Error ? err.message : "The patient response failed.");
       setSuggestions([]);
     } finally {
       setLoading(false);
@@ -821,6 +872,9 @@ function App() {
             <button className={`btn-primary ${loading ? "loading" : ""}`} onClick={startSimulation} disabled={loading} style={{ width: "100%", padding: "14px 24px", fontSize: 16 }}>
               {loading ? <><span className="spinner" /> Generating case…</> : `Start ${selectedSpecialty} simulation →`}
             </button>
+            {startError && (
+              <p role="alert" style={{ color: "#ef4444", marginTop: 12 }}>{startError}</p>
+            )}
           </div>
         )}
       </div>
@@ -961,7 +1015,11 @@ function App() {
                   <div ref={chatEndRef} />
                 </div>
 
-                
+                {chatError && (
+                  <p role="alert" style={{ color: "#ef4444", padding: "0 16px" }}>
+                    Patient response failed: {chatError}
+                  </p>
+                )}
 
                 <div className="chat-input-row">
                   <input

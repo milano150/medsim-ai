@@ -10,7 +10,7 @@ This project was developed as a collaborative effort by Milan Promod, Rithvik Ch
 MedSim AI combines:
 - a React + TypeScript frontend for the simulation experience,
 - a FastAPI backend for case generation, chat responses, diagnosis scoring, and debriefing,
-- a PostgreSQL database for persisting session and debrief data,
+- an optional PostgreSQL database for persisting session and debrief data,
 - and Groq-powered LLM interactions for dynamic patient dialogue and feedback.
 
 The platform currently supports cases in:
@@ -51,7 +51,46 @@ The platform currently supports cases in:
 - Groq API
 - PostgreSQL
 
-## Getting Started
+## Run a Local MVP (No Docker or Database)
+
+### Prerequisites
+
+- Python 3.10+
+- Node.js 20.19+ or 22.12+
+- A Groq API key
+
+Create `backend/.env` with your Groq API key. Do not set `DATABASE_URL` for this no-database mode:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+GROQ_MODEL=qwen/qwen3.8-27b
+```
+
+If `backend/.env` already has a `DATABASE_URL` entry, remove it or comment it out to disable database storage.
+
+Start the backend in one Terminal window:
+
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+Start the frontend in a second Terminal window:
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
+Open http://localhost:5173. The backend API is at http://localhost:8000.
+
+Without `DATABASE_URL`, simulations and debriefs run without SQL storage. Session history is unavailable, and active sessions are kept only in memory and are lost when the backend stops.
+
+## Docker Setup (Persistent History)
 
 ### Prerequisites
 

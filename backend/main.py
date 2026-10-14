@@ -25,7 +25,8 @@ app = FastAPI(title="MedSim Backend")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -60,20 +61,22 @@ INVESTIGATION_ALIASES = {
 # --------------------------------------------------
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
-db = databases.Database(DATABASE_URL)
+db = databases.Database(DATABASE_URL) if DATABASE_URL else None
 
 @app.on_event("startup")
 async def startup():
-    await db.connect()
+    if db is not None:
+        await db.connect()
 
 @app.on_event("shutdown")
 async def shutdown():
-    await db.disconnect()
+    if db is not None:
+        await db.disconnect()
 
 BASE_CASES_PATH = Path(__file__).resolve().parent.parent / "cases"
 
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
-GROQ_MODEL = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
+GROQ_MODEL = os.environ.get("GROQ_MODEL", "qwen/qwen3.8-27b")
 
 if not GROQ_API_KEY:
     raise RuntimeError("GROQ_API_KEY must be set in .env")
@@ -106,10 +109,7 @@ Rules:
 - The name must feel like a real person, not a fictional character
 
 """
-    try:
-        name = call_llm(prompt).strip()
-    except Exception:
-        name = "Unknown Patient"
+    name = call_llm(prompt).strip()
 
     return {"name": name, "age": age, "sex": sex, "occupation": occupation}
 
@@ -385,21 +385,22 @@ async def start_case(case_id: str):
     session_id = str(uuid.uuid4())
     active_cases[session_id] = case
 
-    await db.execute(
-        """
-        INSERT INTO sessions (session_id, case_id, specialty, patient_name, patient_age, patient_sex, hidden_diagnosis)
-        VALUES (:session_id, :case_id, :specialty, :patient_name, :patient_age, :patient_sex, :hidden_diagnosis)
-        """,
-        {
-            "session_id":       session_id,
-            "case_id":          case_id,
-            "specialty":        case["metadata"]["specialty"],
-            "patient_name":     case["patient_persona"]["name"],
-            "patient_age":      case["patient_persona"]["age"],
-            "patient_sex":      case["patient_persona"]["sex"],
-            "hidden_diagnosis": case.get("hidden_diagnosis", ""),
-        }
-    )
+    if db is not None:
+        await db.execute(
+            """
+            INSERT INTO sessions (session_id, case_id, specialty, patient_name, patient_age, patient_sex, hidden_diagnosis)
+            VALUES (:session_id, :case_id, :specialty, :patient_name, :patient_age, :patient_sex, :hidden_diagnosis)
+            """,
+            {
+                "session_id":       session_id,
+                "case_id":          case_id,
+                "specialty":        case["metadata"]["specialty"],
+                "patient_name":     case["patient_persona"]["name"],
+                "patient_age":      case["patient_persona"]["age"],
+                "patient_sex":      case["patient_persona"]["sex"],
+                "hidden_diagnosis": case.get("hidden_diagnosis", ""),
+            }
+        )
 
     return {
         "session_id": session_id,
@@ -696,74 +697,78 @@ Respond ONLY with a valid JSON object, no markdown, no backticks:
         (investigation_score * 0.10)
     )
 
-    await db.execute(
-        """
-        INSERT INTO debrief_results (
-            session_id, primary_diagnosis, differential_1, differential_2,
-            management_plan, diagnosis_score, management_score, history_score,
-            investigation_score, reasoning_score, overall_score,
-            management_matched, management_missed, ordered_investigations,
-            transcript, full_debrief
-        ) VALUES (
-            :session_id, :primary_diagnosis, :differential_1, :differential_2,
-            :management_plan, :diagnosis_score, :management_score, :history_score,
-            :investigation_score, :reasoning_score, :overall_score,
-            :management_matched, :management_missed, :ordered_investigations,
-            :transcript, :full_debrief
+    if db is not None:
+        await db.execute(
+            """
+            INSERT INTO debrief_results (
+                session_id, primary_diagnosis, differential_1, differential_2,
+                management_plan, diagnosis_score, management_score, history_score,
+                investigation_score, reasoning_score, overall_score,
+                management_matched, management_missed, ordered_investigations,
+                transcript, full_debrief
+            ) VALUES (
+                :session_id, :primary_diagnosis, :differential_1, :differential_2,
+                :management_plan, :diagnosis_score, :management_score, :history_score,
+                :investigation_score, :reasoning_score, :overall_score,
+                :management_matched, :management_missed, :ordered_investigations,
+                :transcript, :full_debrief
+            )
+            """,
+            {
+                "session_id":             body.session_id,
+                "primary_diagnosis":      body.primary_diagnosis,
+                "differential_1":         body.differential_1,
+                "differential_2":         body.differential_2,
+                "management_plan":        body.management_plan,
+                "diagnosis_score":        body.diagnosis_score,
+                "management_score":       body.management_score,
+                "history_score":          parsed.get("history_score", 0),
+                "investigation_score":    investigation_score,
+                "reasoning_score":        parsed.get("reasoning_score", 0),
+                "overall_score":          overall_score,
+                "management_matched":     json.dumps(body.management_matched),
+                "management_missed":      json.dumps(body.management_missed),
+                "ordered_investigations": json.dumps(body.ordered_investigations),
+                "transcript":             json.dumps(body.transcript),
+                "full_debrief":           json.dumps({
+                    "history_score":             parsed.get("history_score", 0),
+                    "investigation_score":       investigation_score,
+                    "reasoning_score":           parsed.get("reasoning_score", 0),
+                    "management_score":          body.management_score,
+                    "overall_score":             overall_score,
+                    "diagnosis_score":           body.diagnosis_score,
+                    "history_feedback":          parsed.get("history_feedback", ""),
+                    "reasoning_feedback":        parsed.get("reasoning_feedback", ""),
+                    "management_feedback":       parsed.get("management_feedback", ""),
+                    "primary_diagnosis":         body.primary_diagnosis,
+                    "correct_diagnosis":         hidden_diagnosis,
+                    "differential_1":            body.differential_1,
+                    "differential_2":            body.differential_2,
+                    "management_plan":           body.management_plan,
+                    "management_matched":        body.management_matched,
+                    "management_missed":         body.management_missed,
+                    "ordered_investigations":    body.ordered_investigations,
+                    "important_ordered":         important_ordered,
+                    "important_missed":          important_missed,
+                    "good_questions":            parsed.get("good_questions", []),
+                    "missed_questions":          parsed.get("missed_questions", []),
+                    "key_findings_discovered":   parsed.get("key_findings_discovered", []),
+                    "key_findings_missed":       parsed.get("key_findings_missed", []),
+                    "acceptable_differentials":  differentials,
+                    "expected_management":       management_actions,
+                    "transcript":                body.transcript,
+                    "time_taken":                body.time_taken,
+                }),
+            }
         )
-        """,
-        {
-            "session_id":             body.session_id,
-            "primary_diagnosis":      body.primary_diagnosis,
-            "differential_1":         body.differential_1,
-            "differential_2":         body.differential_2,
-            "management_plan":        body.management_plan,
-            "diagnosis_score":        body.diagnosis_score,
-            "management_score":       body.management_score,
-            "history_score":          parsed.get("history_score", 0),
-            "investigation_score":    investigation_score,
-            "reasoning_score":        parsed.get("reasoning_score", 0),
-            "overall_score":          overall_score,
-            "management_matched":     json.dumps(body.management_matched),
-            "management_missed":      json.dumps(body.management_missed),
-            "ordered_investigations": json.dumps(body.ordered_investigations),
-            "transcript":             json.dumps(body.transcript),
-            "full_debrief":           json.dumps({
-                "history_score":            parsed.get("history_score", 0),
-                "investigation_score":      investigation_score,
-                "reasoning_score":          parsed.get("reasoning_score", 0),
-                "management_score":         body.management_score,
-                "overall_score":            overall_score,
-                "diagnosis_score":          body.diagnosis_score,
-                "history_feedback":         parsed.get("history_feedback", ""),
-                "reasoning_feedback":       parsed.get("reasoning_feedback", ""),
-                "management_feedback":      parsed.get("management_feedback", ""),
-                "primary_diagnosis":        body.primary_diagnosis,
-                "correct_diagnosis":        hidden_diagnosis,
-                "differential_1":          body.differential_1,
-                "differential_2":          body.differential_2,
-                "management_plan":         body.management_plan,
-                "management_matched":      body.management_matched,
-                "management_missed":       body.management_missed,
-                "ordered_investigations":  body.ordered_investigations,
-                "important_ordered":       important_ordered,
-                "important_missed":        important_missed,
-                "good_questions":          parsed.get("good_questions", []),
-                "missed_questions":        parsed.get("missed_questions", []),
-                "key_findings_discovered": parsed.get("key_findings_discovered", []),
-                "key_findings_missed":     parsed.get("key_findings_missed", []),
-                "acceptable_differentials":differentials,
-                "expected_management":     management_actions,
-                "transcript":              body.transcript,
-                "time_taken":              body.time_taken,
-            }),
-        }
-    )
 
-    await db.execute("""
-        UPDATE sessions SET completed_at = NOW(), time_taken = :time_taken
-        WHERE session_id = :session_id
-    """, {"time_taken": body.time_taken, "session_id": body.session_id})
+        await db.execute(
+            """
+            UPDATE sessions SET completed_at = NOW(), time_taken = :time_taken
+            WHERE session_id = :session_id
+            """,
+            {"time_taken": body.time_taken, "session_id": body.session_id},
+        )
 
     return {
         # Competency scores — diagnosis and management come from /diagnose, never re-computed
@@ -805,6 +810,9 @@ Respond ONLY with a valid JSON object, no markdown, no backticks:
 
 @app.get("/history")
 async def get_history(limit: int = 20, offset: int = 0):
+    if db is None:
+        return []
+
     rows = await db.fetch_all("""
         SELECT s.session_id, s.case_id, s.specialty, s.patient_name,
                s.patient_age, s.patient_sex, s.hidden_diagnosis,
@@ -821,6 +829,9 @@ async def get_history(limit: int = 20, offset: int = 0):
 
 @app.get("/history/{session_id}")
 async def get_session_detail(session_id: str):
+    if db is None:
+        raise HTTPException(status_code=404, detail="Session history is unavailable without a database")
+
     session = await db.fetch_one(
         "SELECT * FROM sessions WHERE session_id = :sid",
         {"sid": session_id}
